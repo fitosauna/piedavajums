@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fitosauna – jūsu privātā pirts mājās</title>
+<meta name="description" content="Kompakta tvaika pirts, kurai pietiek ar 1 m². Bez būvdarbiem un ūdens pieslēguma. Bezmaksas piegāde un tvaika ģenerators dāvanā. No 2600 €.">
+<!-- Latvian version: no tracking (GTM / Meta Pixel removed on purpose). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="assets/countries.js"></script>
+<script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://fast.wistia.com/embed/tkq2wsc8o0.js" async type="module"></script>
+<style>wistia-player[media-id='tkq2wsc8o0']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/tkq2wsc8o0/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
+<style>
+  :root {
+    --ink: #27221A;
+    --surface: #FCF6EC;
+    --card: #F3EDE2;
+    --accent: #05403A;
+    --accent-dark: #032E29;
+    --dark: #27221A;
+    --cream: #F3EDE2;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--surface); font-family: 'Archivo', sans-serif; color: var(--ink); overflow-x: hidden; }
+  h1, h2, h3 { font-family: 'Archivo', sans-serif; font-weight: 500; margin: 0; }
+  p { margin: 0; }
+  a { color: var(--accent); }
+  a:hover { color: var(--accent-dark); }
+  img { max-width: 100%; }
+  input::placeholder { color: rgba(39,34,26,0.45); }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px,4vw,56px); }
+  .section-pad { padding: clamp(56px,7vw,96px) clamp(20px,4vw,56px); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; background: var(--accent); color: var(--cream); font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 15.5px; border: none; border-radius: 10px; padding: 14px 28px; text-decoration: none; cursor: pointer; }
+  .stock-count { display: inline-flex; align-items: center; justify-content: center; min-width: 27px; height: 27px; padding: 0 8px; margin: 0 3px; border-radius: 999px; background: rgba(5,64,58,.16); border: 1px solid rgba(5,64,58,.32); color: var(--accent-dark); font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; vertical-align: middle; }
+  .btn:hover { background: var(--accent-dark); color: var(--cream); }
+  .eyebrow { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; font-weight: 700; color: var(--accent-dark); margin-bottom: 10px; }
+  .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .arrow-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--card); border: 1px solid rgba(39,34,26,0.15); color: var(--ink); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; }
+  .arrow-btn:hover { background: var(--accent); color: var(--cream); border-color: var(--accent); }
+  .lightbox-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(20,17,12,.9); align-items: center; justify-content: center; padding: 40px; cursor: zoom-out; }
+  .lightbox-overlay.open { display: flex; }
+  .lightbox-figure { display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 100%; max-height: 100%; }
+  .lightbox-overlay img { max-width: 100%; max-height: calc(100vh - 160px); border-radius: 10px; box-shadow: 0 24px 60px rgba(0,0,0,.4); }
+  .lightbox-label { color: #FCF6EC; font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; background: rgba(252,246,236,0.12); border: 1px solid rgba(252,246,236,0.3); padding: 8px 18px; border-radius: 20px; }
+  .lightbox-close { position: absolute; top: 20px; right: 24px; width: 40px; height: 40px; border-radius: 50%; background: rgba(252,246,236,0.12); border: 1px solid rgba(252,246,236,0.3); color: #FCF6EC; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; background: rgba(252,246,236,0.12); border: 1px solid rgba(252,246,236,0.3); color: #FCF6EC; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .lightbox-nav:hover { background: rgba(252,246,236,0.25); }
+  .lightbox-nav.prev { left: 20px; }
+  .lightbox-nav.next { right: 20px; }
+  .dot { width: 8px; height: 8px; border-radius: 5px; border: none; padding: 0; cursor: pointer; transition: width .2s; }
+
+  /* HEADER */
+  header.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 16px clamp(20px,4vw,56px); background: linear-gradient(180deg, rgba(20,17,12,.42), rgba(20,17,12,.12)); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .logo { color: #FCF6EC; height: 16px; }
+  .logo svg { height: 16px; width: auto; display: block; }
+  .desktop-only { }
+  .mobile-only { display: none !important; }
+  .mobile-copy { display: none !important; }
+  .hero-mobile-note { display: block; }
+  nav.main-nav { display: flex; align-items: center; gap: 26px; }
+  nav.main-nav a { white-space: nowrap; font-size: 12.5px; font-weight: 600; color: #FCF6EC; text-decoration: none; border-radius: 9px; padding: 10px 14px; margin: -10px -14px; }
+  nav.main-nav a:hover { background: rgba(252,246,236,0.16); }
+  .header-right { justify-self: end; display: flex; align-items: center; gap: 16px; }
+  .cta-pill { white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; background: var(--accent); color: var(--cream); font-weight: 600; font-size: 13.5px; letter-spacing: .2px; border-radius: 9px; padding: 10px 16px; text-decoration: none; }
+  .cta-pill:hover { background: var(--accent-dark); color: var(--cream); }
+  .menu-btn { flex: none; width: 38px; height: 38px; border-radius: 9px; border: 1px solid rgba(252,246,236,0.3); background: rgba(252,246,236,0.08); color: #FCF6EC; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; }
+  .menu-btn span { width: 16px; height: 1.5px; background: #FCF6EC; }
+  .mobile-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #27221A; padding: 16px clamp(20px,4vw,56px) 24px; flex-direction: column; gap: 4px; border-top: 1px solid rgba(252,246,236,0.15); }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { padding: 12px 4px; font-size: 15px; font-weight: 600; color: #FCF6EC; text-decoration: none; border-bottom: 1px solid rgba(252,246,236,0.1); }
+  .mobile-menu .btn { margin-top: 8px; }
+
+  /* HERO */
+  .hero { position: relative; overflow: hidden; }
+  .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(20,17,12,.7) 0%, rgba(20,17,12,.45) 45%, rgba(20,17,12,.15) 70%, rgba(20,17,12,.35) 100%); z-index: 1; }
+  .hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: clamp(96px,13vh,140px) clamp(20px,4vw,56px) clamp(48px,6vw,80px); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: clamp(32px,5vw,64px); align-items: center; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border: 1px solid rgba(252,246,236,0.3); border-radius: 10px; font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; font-weight: 600; color: #FCF6EC; margin-bottom: 22px; }
+  .hero h1 { font-size: clamp(38px,5vw,58px); line-height: 1.05; letter-spacing: -.5px; margin: 0 0 20px; max-width: 15ch; color: #FCF6EC; }
+  .hero-sub { font-size: clamp(17px,1.6vw,19px); line-height: 1.55; color: rgba(252,246,236,0.85); max-width: 46ch; margin: 0 0 28px; }
+  .hero-pills { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; max-width: 500px; margin-bottom: 36px; }
+  .hero-pills span { display: inline-flex; align-items: center; justify-content: center; text-align: center; gap: 7px; padding: 9px 14px; background: rgba(252,246,236,0.1); border: 1px solid rgba(252,246,236,0.25); border-radius: 10px; font-size: 13px; font-weight: 600; color: #FCF6EC; }
+  .hero-pills .wide { grid-column: 1 / -1; }
+  .hero-stats { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .hero-stats .num { font-weight: 600; font-size: 20px; color: #FCF6EC; }
+  .hero-stats .label { font-size: 12.5px; color: rgba(252,246,236,0.75); }
+  .hero-stats .divider { width: 1px; height: 34px; background: rgba(252,246,236,0.25); }
+
+  /* LEAD FORM */
+  .lead-form-card { background: var(--card); border: 1px solid rgba(39,34,26,0.12); border-radius: 22px; padding: clamp(26px,3vw,36px); box-shadow: 0 24px 60px rgba(39,34,26,0.08); scroll-margin-top: 78px; }
+  .lead-form-card .eyebrow { margin-bottom: 6px; }
+  .lead-form-card h2, .lead-form-card h3 { font-size: 26px; margin: 0 0 8px; }
+  .lead-form-card .sub { font-size: 14.5px; line-height: 1.5; color: rgba(39,34,26,0.85); margin: 0 0 22px; }
+  form.lead-form { display: flex; flex-direction: column; gap: 14px; }
+  form.lead-form label { display: block; font-size: 13px; font-weight: 600; color: rgba(39,34,26,0.6); margin-bottom: 6px; }
+  form.lead-form input { width: 100%; padding: 14px 15px; border: 1.5px solid rgba(39,34,26,0.12); border-radius: 10px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #27221A; background: var(--card); outline: none; box-sizing: border-box; }
+  form.lead-form input:focus { border-color: var(--accent); }
+  .phone-group { display: flex; gap: 8px; align-items: center; }
+  .phone-group .code-dd { position: relative; flex: none; width: 108px; }
+  .phone-group .code-dd .dd-toggle { width: 100%; display: flex; align-items: center; gap: 8px; padding: 14px 10px; border: 1.5px solid rgba(39,34,26,0.12); border-radius: 10px; background: var(--card); font-family: 'Archivo', sans-serif; font-size: 14px; color: #27221A; cursor: pointer; }
+  .phone-group .code-dd .dd-toggle:focus { border-color: var(--accent); outline: none; }
+  .phone-group .code-dd .dd-toggle img { width: 20px; height: 14px; border-radius: 2px; flex: none; }
+  .phone-group .code-dd .dd-toggle .dd-arrow { margin-left: auto; font-size: 10px; opacity: .5; }
+  .phone-group .code-dd .dd-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; width: 300px; max-height: 320px; overflow: hidden; background: var(--card); border: 1.5px solid rgba(39,34,26,0.15); border-radius: 12px; box-shadow: 0 14px 30px rgba(20,17,12,.18); z-index: 30; display: none; flex-direction: column; }
+  .phone-group .code-dd.open .dd-menu { display: flex; }
+  .phone-group .code-dd .dd-search-wrap { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid rgba(39,34,26,0.1); flex: none; }
+  .phone-group .code-dd .dd-search-wrap svg { flex: none; opacity: .45; }
+  .phone-group .code-dd .dd-search { border: none; background: none; font-family: 'Archivo', sans-serif; font-size: 14px; color: #27221A; width: 100%; outline: none; }
+  .phone-group .code-dd .dd-list { overflow-y: auto; padding: 6px; }
+  .phone-group .code-dd .dd-option { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 7px; cursor: pointer; font-size: 14px; color: #27221A; }
+  .phone-group .code-dd .dd-option img { width: 22px; height: 16px; border-radius: 2px; flex: none; object-fit: cover; }
+  .phone-group .code-dd .dd-option .dd-name { flex: 1; }
+  .phone-group .code-dd .dd-option .dd-dial { color: rgba(39,34,26,0.5); font-size: 13px; }
+  .phone-group .code-dd .dd-option:hover { background: rgba(5,64,58,0.1); }
+  .phone-group input { flex: 1; min-width: 0; }
+  form.lead-form .error { font-size: 13px; color: #a83c2e; font-weight: 600; display: none; }
+  form.lead-form .submit-btn { width: 100%; background: var(--accent); color: var(--cream); font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: .2px; border: none; border-radius: 11px; padding: 16px 24px; cursor: pointer; margin-top: 6px; }
+  form.lead-form .submit-btn:hover { background: var(--accent-dark); }
+  .lead-perk { margin-top: 20px; padding: 14px 16px; background: rgba(5,64,58,0.12); border-radius: 11px; font-size: 13.5px; font-weight: 600; color: var(--accent); }
+  .lead-success { display: none; text-align: center; padding: 20px 0; }
+  .lead-success .check { width: 60px; height: 60px; margin: 0 auto 20px; border-radius: 50%; background: #27221A; color: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 30px; }
+  .lead-success p { font-size: 15.5px; line-height: 1.55; color: rgba(39,34,26,0.6); max-width: 36ch; margin: 0 auto; }
+  .lead-form-card.submitted .lead-form-body { display: none; }
+  .lead-form-card.submitted .lead-success { display: block; }
+
+  /* TRUST STRIP */
+  .trust-strip {
+    background: var(--card);
+    border-top: 1px solid rgba(39,34,26,0.12);
+    border-bottom: 1px solid rgba(39,34,26,0.12);
+  }
+
+  .trust-strip .wrap {
+    max-width: 1080px;
+    padding: 34px clamp(20px,4vw,56px) 30px;
+  }
+
+  .trust-main-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 24px 42px;
+    max-width: 900px;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .trust-logo-item {
+    min-width: 0;
+    min-height: 108px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 12px;
+  }
+
+  .trust-logo-item img {
+    display: block;
+    width: 100%;
+    max-width: 350px;
+    max-height: 108px;
+    object-fit: contain;
+  }
+
+  .trust-institutional {
+    max-width: 720px;
+    margin: 26px auto 0;
+    padding-top: 22px;
+    border-top: 1px solid rgba(39,34,26,0.10);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 28px;
+    align-items: center;
+  }
+
+  .trust-institutional .trust-logo-item {
+    min-height: 72px;
+    padding: 0 18px;
+  }
+
+  .trust-institutional img {
+    max-width: 270px;
+    max-height: 72px;
+    opacity: .88;
+  }
+  @media (min-width: 781px) {
+  .trust-strip .wrap {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    max-width: 1300px;
+  }
+
+  .trust-main-grid,
+  .trust-institutional {
+    display: contents;
+  }
+
+    .trust-strip .trust-logo-item {
+    min-height: 100px;
+    padding: 0 2px;
+  }
+
+  .trust-strip .trust-logo-item img {
+    max-width: 230px;
+    max-height: 100px;
+    object-fit: contain;
+  }
+  }
+
+  /* VIDEO OVERVIEW */
+  .video-overview { max-width: 1320px; margin: 0 auto; padding: clamp(56px,7vw,96px) clamp(20px,4vw,56px); display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: clamp(20px,3vw,36px); align-items: center; }
+  .video-overview .copy { max-width: 52ch; }
+  .video-overview h2 { font-size: clamp(26px,3.4vw,38px); line-height: 1.18; margin: 0 0 16px; }
+  .video-overview p { font-size: 15.5px; line-height: 1.6; color: rgba(39,34,26,0.6); margin: 0 0 26px; }
+  .video-frame { position: relative; aspect-ratio: 16/9; min-width: 100%; transform: scale(1.12); transform-origin: center; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 60px rgba(39,34,26,.18); }
+  .video-frame iframe, .video-frame wistia-player { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+  /* IN-USE VIDEOS */
+  .usage-section { background: var(--card); border-top: 1px solid rgba(39,34,26,0.12); border-bottom: 1px solid rgba(39,34,26,0.12); }
+  .section-head { max-width: 640px; margin: 0 auto 36px; text-align: center; }
+  .section-head h2 { font-size: clamp(28px,4vw,42px); line-height: 1.15; margin: 0 0 10px; }
+  .section-head p { font-size: 15.5px; color: rgba(39,34,26,0.6); }
+  #usage-scroll { display: flex; gap: 16px; overflow-x: auto; padding: 4px 2px 18px; scroll-snap-type: x mandatory; scroll-behavior: smooth; }
+  .usage-card { flex: none; width: clamp(220px,70vw,260px); scroll-snap-align: center; scroll-snap-stop: always; }
+  .usage-card .frame { position: relative; aspect-ratio: 9/16; border-radius: 14px; overflow: hidden; background: #27221A; box-shadow: 0 14px 34px rgba(39,34,26,.18); }
+  .usage-card video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #27221A; cursor: pointer; }
+  .usage-card .play-badge { position: absolute; bottom: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; background: rgba(20,17,12,.55); color: #F3EDE2; display: flex; align-items: center; justify-content: center; font-size: 14px; pointer-events: none; }
+  .usage-card .caption { padding: 12px 4px 0; font-size: 13.5px; font-weight: 600; }
+  .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 4px; }
+  .carousel-controls .hint { font-size: 11.5px; letter-spacing: 1px; text-transform: uppercase; color: rgba(39,34,26,0.45); font-weight: 600; }
+  #usage-dots .dot { background: rgba(39,34,26,0.2); }
+  #usage-dots .dot.active { background: #05403A; width: 22px; }
+
+  /* RISK REVERSAL */
+  .risk-section { background: #27221A; padding: clamp(56px,7vw,96px) clamp(20px,4vw,56px); }
+  .risk-section .section-head h2 { color: #FCF6EC; }
+  .risk-section .section-head p { color: rgba(252,246,236,0.75); }
+  .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 20px; }
+  .trust-card { padding: 26px; background: rgba(252,246,236,0.05); border: 1px solid rgba(252,246,236,0.14); border-radius: 14px; }
+  .trust-card .check { width: 36px; height: 36px; border-radius: 50%; background: #FCF6EC; color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; margin-bottom: 16px; }
+  .trust-card .t-title { font-weight: 700; font-size: 16.5px; color: #FCF6EC; margin-bottom: 8px; line-height: 1.3; }
+  .trust-card .t-text { font-size: 13.5px; line-height: 1.55; color: rgba(252,246,236,0.65); }
+  .trust-scroll-wrap { display: none; }
+  .risk-section .cta-center { margin-top: 32px; text-align: center; }
+  .dots-row { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+  #trust-scroll .dot { background: rgba(252,246,236,0.3); }
+  #trust-scroll .dot.active { background: #FCF6EC; width: 22px; }
+
+  /* GALLERY */
+  #gallery-dots .dot { background: rgba(39,34,26,0.2); }
+  #gallery-dots .dot.active { background: #05403A; width: 22px; }
+  .carousel-wrap { position: relative; }
+  .carousel-wrap .car-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; background: rgba(252,246,236,0.92); border: 1px solid rgba(39,34,26,0.15); box-shadow: 0 6px 16px rgba(20,17,12,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; color: #27221A; font-size: 18px; }
+  .carousel-wrap .car-arrow:hover { background: #fff; }
+  .carousel-wrap .car-arrow.prev { left: -8px; }
+  .carousel-wrap .car-arrow.next { right: -8px; }
+  @media (max-width: 780px) { .carousel-wrap .car-arrow { display: none; } }
+  @media (min-width: 781px) {
+  #usage-scroll { justify-content: center; }
+  .usage-section .carousel-controls .hint,
+  .usage-section #usage-dots { display: none; }
+    .usage-section .car-arrow { display: none; }
+}
+  #gallery-scroll { display: flex; align-items: center; gap: 16px; overflow-x: auto; padding: 4px 2px 18px; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+  .gallery-card { flex: none; height: clamp(260px,42vw,420px); border-radius: 16px; overflow: hidden; scroll-snap-align: center; scroll-snap-stop: always; transform: translateZ(0); }
+  .gallery-card img { width: 100%; height: 100%; object-fit: cover; display: block; cursor: zoom-in; }
+
+  /* PRODUCTS */
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 26px; }
+  .products-note { display: flex; align-items: flex-start; justify-content: center; gap: 8px; max-width: 440px; margin: 28px auto 0; text-align: center; font-size: 14.5px; font-weight: 600; color: rgba(39,34,26,0.6); }
+    .products-note svg { width: 18px; height: 18px; flex: none; margin-top: 1px; color: var(--accent-dark); }
+  @media (max-width: 780px) {
+    .products-note { width: fit-content; max-width: 300px; margin-left: auto; margin-right: auto; }
+  }
+  .product-card { background: var(--card); border: 1px solid rgba(39,34,26,0.12); border-radius: 20px; overflow: hidden; }
+  .product-card .photo { aspect-ratio: 4/3; overflow: hidden; background: #e9e0cd; position: relative; }
+  .product-card .photo .photo-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border-radius: 50%; background: rgba(252,246,236,0.85); border: 1px solid rgba(39,34,26,0.12); color: var(--dark); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px; z-index: 2; }
+  .product-card .photo .photo-arrow:hover { background: #fff; }
+  .product-card .photo .photo-arrow.prev { left: 10px; }
+  .product-card .photo .photo-arrow.next { right: 10px; }
+  .product-card .photo img { width: 100%; height: 100%; object-fit: contain; display: block; cursor: zoom-in; }
+  .product-card .photo img.cover-fit { object-fit: cover; }
+  .product-card .photo .photo-dots { position: absolute; left: 0; right: 0; bottom: 12px; display: flex; justify-content: center; gap: 6px; }
+  .product-card .photo .photo-dots button { width: 8px; height: 8px; padding: 0; border: 1px solid rgba(20,17,12,.3); border-radius: 50%; background: rgba(252,246,236,0.9); cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+  .product-card .photo .photo-dots button.active { background: #05403A; border-color: #05403A; width: 20px; border-radius: 4px; }
+  .product-card .body { padding: 26px; }
+  .product-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+  .product-head .name { font-weight: 600; font-size: 22px; }
+  .product-head .price { font-weight: 600; font-size: 22px; color: var(--accent-dark); }
+  .product-desc { font-size: 14px; line-height: 1.5; color: rgba(39,34,26,0.6); margin: 0 0 18px; }
+  .bundle-label { font-size: 11px; letter-spacing: .6px; text-transform: uppercase; color: rgba(39,34,26,0.45); font-weight: 600; margin-bottom: 8px; }
+  .bundle-tabs { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; padding: 4px; background: var(--surface); border-radius: 10px; margin-bottom: 16px; }
+  .bundle-tabs button { border: none; cursor: pointer; padding: 9px 6px; border-radius: 7px; font-family: 'Archivo', sans-serif; font-size: 12.5px; font-weight: 700; background: transparent; color: #27221A; }
+  .bundle-tabs button.active { background: var(--accent); color: var(--cream); }
+    .bundle-items { margin-bottom: 20px; }
+  .bundle-box { border-radius: 12px; padding: 16px 18px; }
+  .bundle-box + .bundle-box { margin-top: 10px; }
+  .bundle-box .box-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .bundle-box .box-head svg { width: 20px; height: 20px; flex: none; color: var(--accent-dark); }
+  .bundle-box .box-head span { font-size: 11px; letter-spacing: .6px; text-transform: uppercase; font-weight: 700; color: var(--accent-dark); }
+  .bundle-box.free { background: rgba(5,64,58,0.08); }
+  .bundle-box.additional { background: rgba(39,34,26,0.055); }
+  .bundle-box .item-list { display: flex; flex-direction: column; gap: 10px; }
+  .bundle-box.additional .item-list { flex-direction: row; flex-wrap: wrap; gap: 10px 22px; }
+  .bundle-box .item-row { display: flex; align-items: center; gap: 9px; }
+  .bundle-box .item-row .tick { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 10px; flex: none; }
+  .bundle-box .item-row span.txt { font-size: 13.5px; }
+  .bundle-box.free .item-row span.txt { font-weight: 700; }
+  .bundle-box.additional .item-row span.txt { font-weight: 600; }
+  @media (max-width: 780px) {
+    .bundle-box.additional .item-list { gap: 8px 16px; }
+  }
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; margin-bottom: 20px; padding-top: 16px; border-top: 1px solid rgba(39,34,26,0.1); }
+  .specs-grid .k { font-size: 11px; letter-spacing: .6px; text-transform: uppercase; color: rgba(39,34,26,0.45); font-weight: 600; }
+  .specs-grid .v { font-size: 13.5px; font-weight: 600; }
+  .product-card .btn { display: block; text-align: center; width: 100%; padding: 14px 20px; }
+
+  /* TESTIMONIALS */
+  .testimonials-section { background: var(--card); border-top: 1px solid rgba(39,34,26,0.12); border-bottom: 1px solid rgba(39,34,26,0.12); }
+  .testimonials-masonry { column-count: 4; column-width: 260px; column-gap: 20px; }
+  .t-card { background: var(--surface); border: 1px solid rgba(39,34,26,0.1); border-radius: 16px; overflow: hidden; break-inside: avoid; margin-bottom: 20px; display: inline-block; width: 100%; }
+  .t-card img { width: 100%; height: auto; display: block; }
+  .t-card .t-photo-m { display: none; }
+  .t-card .body { padding: 22px; }
+  .t-card .stars { color: var(--accent); margin-bottom: 12px; }
+  .t-card .name-row { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+  .t-card .name-row .name { font-weight: 700; font-size: 16px; }
+  .t-card .name-row .verify { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); color: var(--cream); font-size: 10px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .t-card .quote { font-size: 14px; line-height: 1.6; color: #3a3327; margin: 0 0 16px; }
+  .t-card .meta { display: flex; justify-content: space-between; font-size: 11.5px; letter-spacing: .4px; text-transform: uppercase; color: rgba(39,34,26,0.45); }
+  .testimonials-scroll-wrap { display: none; }
+  #reviews-scroll .dot { background: rgba(39,34,26,0.2); }
+  #reviews-scroll .dot.active { background: var(--accent); width: 22px; }
+
+  /* FINAL CTA */
+  .final-cta { background: #27221A; padding: clamp(64px,8vw,110px) clamp(20px,4vw,56px); }
+  .final-cta .head { text-align: center; margin-bottom: 44px; }
+  .final-cta .head h2 { font-size: clamp(28px,4vw,42px); line-height: 1.1; color: #FCF6EC; margin: 0 0 14px; }
+  .final-cta .head p { font-size: 14.5px; color: rgba(252,246,236,.7); }
+  .final-cta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: clamp(32px,5vw,56px); align-items: stretch; }
+  .final-cta-photo { align-self: stretch; display: flex; align-items: stretch; justify-content: center; }
+  .final-cta-photo img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 22px; cursor: zoom-in; }
+  .final-cta .lead-form-card { box-shadow: 0 24px 60px rgba(0,0,0,.25); }
+
+  /* FAQ */
+  .faq-section { background: var(--card); border-top: 1px solid rgba(39,34,26,0.12); border-bottom: 1px solid rgba(39,34,26,0.12); }
+  .faq-wrap { max-width: 820px; margin: 0 auto; padding: clamp(56px,7vw,96px) clamp(20px,4vw,56px); }
+  .faq-wrap .head { text-align: center; margin-bottom: 40px; }
+  .faq-wrap .head h2 { font-size: clamp(28px,3.6vw,40px); line-height: 1.15; }
+  .faq-item { border-bottom: 1px solid rgba(39,34,26,0.12); padding: 18px 4px; }
+  .faq-item .faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: none; border: none; cursor: pointer; text-align: left; padding: 0; font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 16.5px; color: #27221A; }
+  .faq-item .faq-icon { flex: none; font-size: 18px; color: var(--accent-dark); }
+  .faq-item .faq-a { font-size: 14.5px; line-height: 1.6; color: rgba(39,34,26,0.6); margin: 12px 0 0; max-width: 64ch; display: none; }
+  .faq-item.open .faq-a { display: block; }
+
+  /* FOOTER */
+  footer.site-footer { background: #27221A; padding: 0 clamp(20px,4vw,56px) 48px; color: rgba(252,246,236,.75); }
+  footer.site-footer .cols { max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(252,246,236,.12); padding-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 24px; font-size: 13px; line-height: 1.7; }
+  footer.site-footer .col-title { font-weight: 600; color: #FCF6EC; margin-bottom: 10px; }
+  footer.site-footer a { color: rgba(252,246,236,.75); text-decoration: underline; }
+  footer.site-footer .foot-logo { color: #FCF6EC; margin-bottom: 12px; height: 15px; }
+  footer.site-footer .foot-logo svg { height: 15px; width: auto; display: block; }
+  footer.site-footer .copyright { max-width: 1200px; margin: 24px auto 0; font-size: 12px; color: rgba(39,34,26,0.45); }
+
+  @media (min-width: 600px) and (max-width: 1100px) {
+    .hero video { display: none; }
+    .hero-inner { grid-template-columns: 1fr; padding-bottom: 40px; }
+    .hero { background: #EFE9DD center 20% / cover no-repeat url('assets/hero-product-photo.jpg?v=2') !important; }
+  }
+
+  @media (max-width: 780px) {
+    .hero-inner > div:first-child {
+      width: 82%;
+      max-width: 82%;
+    }
+
+    .hero-badge {
+      width: max-content;
+      max-width: 100%;
+    }
+
+    .hero h1 {
+      width: 100%;
+      max-width: 10ch;
+      font-size: 40px;
+      line-height: 1.06;
+    }
+
+    .hero-sub {
+      width: 100%;
+      max-width: 27ch;
+    }
+
+    .hero-pills {
+      width: 100%;
+      max-width: 330px;
+      gap: 8px;
+    }
+
+    .hero-pills span {
+      padding: 9px 8px;
+      font-size: 12px;
+    }
+
+    .hero-stats {
+      width: 100%;
+      max-width: 340px;
+    }
+  }
+
+  @media (max-width: 780px) {
+    .hero { background: #EFE9DD center top / cover no-repeat url('assets/hero-product-photo.jpg?v=2'); }
+    .video-frame { transform: none; }
+    .lightbox-nav { width: 36px; height: 36px; font-size: 14px; background: rgba(20,17,12,0.4); border-color: rgba(252,246,236,0.2); }
+    .lightbox-nav.prev { left: 8px; }
+    .lightbox-nav.next { right: 8px; }
+    .lightbox-close { width: 34px; height: 34px; font-size: 15px; top: 12px; right: 12px; }
+        .usage-card .play-badge { top: 50%; left: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%); width: 48px; height: 48px; font-size: 18px; }
+    .desktop-only { display: none !important; }
+    .mobile-only { display: block !important; }
+    .mobile-only.header-right { display: flex !important; }
+    .desktop-copy { display: none !important; }
+    .mobile-copy { display: inline !important; }
+    .hero-pills .mobile-copy { display: inline-flex !important; }
+    .hero-mobile-note {
+      display: block;
+      margin-top: 14px;
+      text-align: center;
+      line-height: 1.35;
+    }
+
+    .hero-mobile-note strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-dark);
+      margin-bottom: 6px;
+    }
+
+    .stock-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 27px;
+      height: 27px;
+      padding: 0 8px;
+      margin: 0 3px;
+      border-radius: 999px;
+      background: rgba(5,64,58,.16);
+      border: 1px solid rgba(5,64,58,.32);
+      color: var(--accent-dark);
+      font-size: 14px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      vertical-align: middle;
+    }
+
+    .hero-mobile-note > span {
+      display: block;
+      font-size: 12px;
+      color: rgba(39,34,26,0.55);
+    }
+
+    #lead-form .eyebrow,
+    #lead-form .lead-perk {
+      display: none;
+    }
+
+    .hero-overlay {
+      background: linear-gradient(90deg,
+        rgba(20,17,12,.78) 0%,
+        rgba(20,17,12,.62) 42%,
+        rgba(20,17,12,.30) 68%,
+        rgba(20,17,12,.12) 100%);
+    }
+
+    .hero-inner {
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .hero h1,
+    .hero-sub {
+      max-width: 92%;
+    }
+
+    .hero h1 {
+      font-size: clamp(35px, 4.65vw, 54px);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: minmax(0,1fr);
+      gap: 10px;
+      align-items: start;
+      width: 100%;
+    }
+
+    .hero-stats .divider {
+      width: 1px;
+      height: 42px;
+      align-self: center;
+    }
+
+    .hero-stats .num {
+      font-size: 20px;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .hero-stats .label {
+      font-size: 11px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .hero h1,
+    .hero-sub,
+    .hero-badge,
+    .hero-pills,
+    .hero-stats {
+      text-shadow: 0 1px 3px rgba(0,0,0,.35);
+    }
+    .trust-strip .wrap {
+      padding: 26px 16px 24px;
+    }
+
+    .trust-main-grid {
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 18px 10px;
+    }
+
+    .trust-main-grid > .trust-logo-item:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
+
+    .trust-logo-item {
+      min-height: 82px;
+      padding: 0 3px;
+    }
+
+    .trust-logo-item img {
+      max-width: 100%;
+      max-height: 82px;
+    }
+
+    .trust-institutional {
+      margin-top: 20px;
+      padding-top: 18px;
+      gap: 10px;
+    }
+
+    .trust-institutional .trust-logo-item {
+      min-height: 58px;
+      padding: 0 5px;
+    }
+
+    .trust-institutional img {
+      max-width: 100%;
+      max-height: 58px;
+      opacity: .82;
+    }
+
+    .trust-grid { display: none; }
+    .trust-scroll-wrap { display: block; }
+    #trust-scroll { display: flex; overflow-x: auto; gap: 16px; scroll-snap-type: x mandatory; padding: 2px 2px 4px; scrollbar-width: none; -ms-overflow-style: none; }
+    #trust-scroll::-webkit-scrollbar { display: none; }
+    #trust-scroll .trust-card { scroll-snap-align: start; flex: none; width: min(82vw, 320px); }
+    .testimonials-masonry { display: none; }
+    .testimonials-scroll-wrap { display: block; }
+    #reviews-scroll { display: flex; align-items: flex-start; overflow-x: auto; gap: 16px; scroll-snap-type: x mandatory; padding: 2px 2px 4px; scrollbar-width: none; -ms-overflow-style: none; }
+    #reviews-scroll::-webkit-scrollbar { display: none; }
+    #reviews-scroll .t-card { scroll-snap-align: start; flex: none; width: min(85vw, 300px); }
+    #reviews-scroll .t-card img { aspect-ratio: 4/3; object-fit: cover; height: auto; }
+    #reviews-scroll .t-card .t-photo-d { display: none; }
+    #reviews-scroll .t-card .t-photo-m { display: block; }
+  }
+@media (min-width: 600px) and (max-width: 1100px) {
+  .video-overview { padding-left: clamp(24px,5vw,72px); padding-right: clamp(24px,5vw,72px); gap: clamp(40px,5vw,72px); align-items: start; }
+  .video-frame { transform: none; }
+  .video-overview h2 { margin: 0 0 14px; }
+  .video-overview p { margin: 0; }
+  .video-overview .video-btn { margin-top: 20px !important; padding: 10px 22px; font-size: 13.5px; }
+  .video-overview .btn.desktop-only { display: inline-flex !important; }
+  .video-overview .btn.mobile-only { display: none !important; }
+}
+@media (min-width: 781px) {
+  #lead-form .lead-perk { display: none; }
+  .hero-mobile-note { margin-top: 14px; text-align: center; line-height: 1.35; }
+  .hero-mobile-note strong { display: block; font-size: 13px; font-weight: 700; color: var(--accent-dark); margin-bottom: 6px; }
+    .hero-mobile-note > span { display: block; font-size: 12px; color: rgba(39,34,26,0.55); }
+}
+@media (max-width: 780px) {
+  .hero-mobile-note > span { display: inline; }
+}
+@media (max-width: 380px) {
+  .hero-pills span { padding: 9px 4px; font-size: 11px; white-space: nowrap; }
+}
+</style>
+</head>
+<body>
+<div id="top">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="mobile-only logo" style="justify-self:start"><svg style="height:16px;width:auto;display:block" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 357 47"> <g id="surface1"> <path style=" stroke:none;fill-rule:nonzero;fill:currentColor;" d="M 356.75 46.019531 L 349.058594 46.019531 L 334.800781 11.945312 L 320.710938 46.019531 L 318.335938 46.019531 L 337.265625 0.304688 Z M 308.675781 34.3125 L 308.675781 0.636719 L 310.875 0.636719 L 310.875 46.34375 L 279.230469 12.3125 L 279.230469 46.019531 L 277.03125 46.019531 L 277.03125 0.316406 Z M 240.121094 0.636719 L 240.121094 32.359375 C 240.121094 34.777344 240.957031 36.90625 242.550781 38.496094 C 244.519531 40.457031 247.484375 41.511719 250.816406 41.480469 C 253.4375 41.476562 256.101562 40.789062 258.117188 39.300781 C 260.152344 37.800781 261.511719 35.5 261.511719 32.359375 L 261.511719 0.636719 L 263.71875 0.636719 L 263.71875 32.84375 C 263.71875 37.0625 262.210938 40.5 259.5625 42.890625 C 256.90625 45.28125 253.066406 46.65625 248.347656 46.65625 C 243.792969 46.65625 239.996094 45.253906 237.324219 42.84375 C 234.742188 40.511719 233.183594 37.207031 233.023438 33.234375 L 233.011719 32.847656 L 233.011719 0.636719 Z M 225.796875 46.019531 L 218.105469 46.019531 L 203.847656 11.945312 L 189.757812 46.019531 L 187.382812 46.019531 L 206.308594 0.304688 Z M 145.761719 9.371094 C 146.675781 4.804688 151.929688 0 161.910156 0 C 167.664062 0 172.296875 1.25 176.960938 4.058594 L 177.152344 4.171875 L 176.078125 6.011719 L 175.882812 5.898438 L 175.601562 5.730469 C 172.621094 4.011719 167.960938 2.042969 162.226562 2.042969 C 161.285156 2.042969 159.234375 2.128906 157.210938 2.78125 C 155.191406 3.433594 153.113281 4.675781 152.261719 7.046875 C 151.671875 8.65625 151.941406 10.277344 152.910156 11.699219 C 153.867188 13.109375 155.507812 14.3125 157.660156 15.167969 L 157.664062 15.167969 L 169.425781 19.652344 C 176.148438 22.210938 178.863281 25.976562 179.964844 28.636719 C 181.140625 31.472656 181.09375 34.585938 179.835938 37.40625 L 179.835938 37.410156 L 179.832031 37.414062 C 177.976562 41.828125 172.535156 46.65625 162.753906 46.65625 C 155.777344 46.65625 148.976562 43.507812 145.417969 38.6875 L 145.289062 38.515625 L 146.933594 37.132812 L 147.078125 37.3125 L 147.253906 37.523438 C 150.972656 41.925781 156.609375 44.433594 162.753906 44.433594 C 169.125 44.433594 172.703125 41.320312 173.886719 38.292969 C 174.648438 36.355469 174.597656 34.21875 173.75 32.285156 C 172.605469 29.671875 170.1875 27.628906 166.828125 26.328125 L 166.824219 26.328125 L 154.789062 21.8125 C 150.816406 20.253906 148.378906 18.121094 147.023438 15.902344 C 145.667969 13.683594 145.382812 11.355469 145.761719 9.371094 Z M 98.679688 6.855469 C 107.710938 -2.199219 122.40625 -2.148438 131.507812 6.972656 C 140.605469 16.097656 140.652344 30.832031 131.625 39.886719 C 122.59375 48.941406 107.894531 48.894531 98.796875 39.769531 C 89.699219 30.648438 89.648438 15.910156 98.679688 6.855469 Z M 100.355469 8.539062 C 97.199219 11.707031 96.027344 16.226562 96.648438 20.9375 C 97.269531 25.648438 99.675781 30.574219 103.707031 34.617188 C 107.734375 38.65625 112.648438 41.070312 117.347656 41.691406 C 122.046875 42.3125 126.554688 41.140625 129.714844 37.972656 C 132.871094 34.808594 134.042969 30.285156 133.421875 25.574219 C 132.804688 20.863281 130.394531 15.9375 126.363281 11.894531 C 122.335938 7.855469 117.421875 5.441406 112.722656 4.820312 C 108.023438 4.199219 103.515625 5.371094 100.355469 8.539062 Z M 104.09375 12.285156 C 106.289062 10.082031 109.851562 10.082031 112.046875 12.285156 C 114.246094 14.488281 114.246094 18.058594 112.046875 20.261719 C 109.851562 22.464844 106.289062 22.460938 104.09375 20.261719 C 101.898438 18.058594 101.898438 14.488281 104.09375 12.285156 Z M 89.40625 0.636719 L 89.40625 2.808594 L 75.589844 2.808594 L 75.589844 46.019531 L 68.554688 46.019531 L 68.554688 2.808594 L 54.738281 2.808594 L 54.738281 0.636719 Z M 45.1875 0.636719 L 45.1875 46.019531 L 38.1875 46.019531 L 38.1875 0.636719 Z M 29.902344 0.636719 L 29.902344 2.808594 L 7.035156 2.808594 L 7.035156 19.472656 L 27.023438 19.472656 L 27.023438 21.679688 L 7.035156 21.679688 L 7.035156 46.019531 L 0 46.019531 L 0 0.636719 Z M 29.902344 0.636719 "></path> </g> </svg></div>
+    <div class="desktop-only" style="justify-self:start"></div>
+    <div class="desktop-only logo"><svg style="height:16px;width:auto;display:block" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 357 47"> <g id="surface1"> <path style=" stroke:none;fill-rule:nonzero;fill:currentColor;" d="M 356.75 46.019531 L 349.058594 46.019531 L 334.800781 11.945312 L 320.710938 46.019531 L 318.335938 46.019531 L 337.265625 0.304688 Z M 308.675781 34.3125 L 308.675781 0.636719 L 310.875 0.636719 L 310.875 46.34375 L 279.230469 12.3125 L 279.230469 46.019531 L 277.03125 46.019531 L 277.03125 0.316406 Z M 240.121094 0.636719 L 240.121094 32.359375 C 240.121094 34.777344 240.957031 36.90625 242.550781 38.496094 C 244.519531 40.457031 247.484375 41.511719 250.816406 41.480469 C 253.4375 41.476562 256.101562 40.789062 258.117188 39.300781 C 260.152344 37.800781 261.511719 35.5 261.511719 32.359375 L 261.511719 0.636719 L 263.71875 0.636719 L 263.71875 32.84375 C 263.71875 37.0625 262.210938 40.5 259.5625 42.890625 C 256.90625 45.28125 253.066406 46.65625 248.347656 46.65625 C 243.792969 46.65625 239.996094 45.253906 237.324219 42.84375 C 234.742188 40.511719 233.183594 37.207031 233.023438 33.234375 L 233.011719 32.847656 L 233.011719 0.636719 Z M 225.796875 46.019531 L 218.105469 46.019531 L 203.847656 11.945312 L 189.757812 46.019531 L 187.382812 46.019531 L 206.308594 0.304688 Z M 145.761719 9.371094 C 146.675781 4.804688 151.929688 0 161.910156 0 C 167.664062 0 172.296875 1.25 176.960938 4.058594 L 177.152344 4.171875 L 176.078125 6.011719 L 175.882812 5.898438 L 175.601562 5.730469 C 172.621094 4.011719 167.960938 2.042969 162.226562 2.042969 C 161.285156 2.042969 159.234375 2.128906 157.210938 2.78125 C 155.191406 3.433594 153.113281 4.675781 152.261719 7.046875 C 151.671875 8.65625 151.941406 10.277344 152.910156 11.699219 C 153.867188 13.109375 155.507812 14.3125 157.660156 15.167969 L 157.664062 15.167969 L 169.425781 19.652344 C 176.148438 22.210938 178.863281 25.976562 179.964844 28.636719 C 181.140625 31.472656 181.09375 34.585938 179.835938 37.40625 L 179.835938 37.410156 L 179.832031 37.414062 C 177.976562 41.828125 172.535156 46.65625 162.753906 46.65625 C 155.777344 46.65625 148.976562 43.507812 145.417969 38.6875 L 145.289062 38.515625 L 146.933594 37.132812 L 147.078125 37.3125 L 147.253906 37.523438 C 150.972656 41.925781 156.609375 44.433594 162.753906 44.433594 C 169.125 44.433594 172.703125 41.320312 173.886719 38.292969 C 174.648438 36.355469 174.597656 34.21875 173.75 32.285156 C 172.605469 29.671875 170.1875 27.628906 166.828125 26.328125 L 166.824219 26.328125 L 154.789062 21.8125 C 150.816406 20.253906 148.378906 18.121094 147.023438 15.902344 C 145.667969 13.683594 145.382812 11.355469 145.761719 9.371094 Z M 98.679688 6.855469 C 107.710938 -2.199219 122.40625 -2.148438 131.507812 6.972656 C 140.605469 16.097656 140.652344 30.832031 131.625 39.886719 C 122.59375 48.941406 107.894531 48.894531 98.796875 39.769531 C 89.699219 30.648438 89.648438 15.910156 98.679688 6.855469 Z M 100.355469 8.539062 C 97.199219 11.707031 96.027344 16.226562 96.648438 20.9375 C 97.269531 25.648438 99.675781 30.574219 103.707031 34.617188 C 107.734375 38.65625 112.648438 41.070312 117.347656 41.691406 C 122.046875 42.3125 126.554688 41.140625 129.714844 37.972656 C 132.871094 34.808594 134.042969 30.285156 133.421875 25.574219 C 132.804688 20.863281 130.394531 15.9375 126.363281 11.894531 C 122.335938 7.855469 117.421875 5.441406 112.722656 4.820312 C 108.023438 4.199219 103.515625 5.371094 100.355469 8.539062 Z M 104.09375 12.285156 C 106.289062 10.082031 109.851562 10.082031 112.046875 12.285156 C 114.246094 14.488281 114.246094 18.058594 112.046875 20.261719 C 109.851562 22.464844 106.289062 22.460938 104.09375 20.261719 C 101.898438 18.058594 101.898438 14.488281 104.09375 12.285156 Z M 89.40625 0.636719 L 89.40625 2.808594 L 75.589844 2.808594 L 75.589844 46.019531 L 68.554688 46.019531 L 68.554688 2.808594 L 54.738281 2.808594 L 54.738281 0.636719 Z M 45.1875 0.636719 L 45.1875 46.019531 L 38.1875 46.019531 L 38.1875 0.636719 Z M 29.902344 0.636719 L 29.902344 2.808594 L 7.035156 2.808594 L 7.035156 19.472656 L 27.023438 19.472656 L 27.023438 21.679688 L 7.035156 21.679688 L 7.035156 46.019531 L 0 46.019531 L 0 0.636719 Z M 29.902344 0.636719 "></path> </g> </svg></div>
+    <div class="mobile-only"></div>
+    <div class="desktop-only header-right">
+      <nav class="main-nav">
+        <a href="#reviews">Atsauksmes</a>
+        <a href="#sauna-options">Pirts modeļi</a>
+        <a href="#faq">BUJ</a>
+      </nav>
+      <a href="#lead-form" class="cta-pill" onclick="scrollToLead(event)">Saņemt piedāvājumu</a>
+    </div>
+    <div class="mobile-only header-right" style="justify-self:end">
+      <a href="#lead-form" class="cta-pill" onclick="scrollToLead(event)">Pieteikties</a>
+      <button class="menu-btn" onclick="toggleMenu()" aria-label="Izvēlne"><span></span><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#reviews" onclick="closeMenu()">Atsauksmes</a>
+      <a href="#sauna-options" onclick="closeMenu()">Pirts modeļi</a>
+      <a href="#faq" onclick="closeMenu()">Biežāk uzdotie jautājumi</a>
+      <a href="#lead-form" class="btn" onclick="scrollToLead(event)">Saņemt piedāvājumu</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <video autoplay muted loop playsinline preload="auto" class="desktop-only">
+      <source src="assets/hero-video.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge"><span class="desktop-copy">Roku darbs Eiropā &middot; Kopš 2020. gada</span><span class="mobile-copy">Roku darbs Eiropā</span></div>
+        <h1><span class="desktop-copy">Jūsu privātā pirts mājās – labsajūtai visa mūža garumā</span><span class="mobile-copy">Jūsu privātā pirts mājās</span></h1>
+        <p class="hero-sub"><span class="desktop-copy">Kompakta tvaika pirts, kurai pietiek ar 1 m&sup2; – SPA līmeņa atpūta mājās bez būvdarbiem, bez ūdens pieslēguma un bez piecciparu cenas.</span><span class="mobile-copy">SPA līmeņa tvaiks mājās tikai 1 m&sup2; platībā – bez santehnikas un būvdarbiem. No 2600&nbsp;&euro;.</span></p>
+        <div class="hero-pills">
+          <span class="desktop-copy">30 dienu naudas atgriešana</span>
+          <span class="mobile-copy">30 dienu atgriešana</span>
+          <span>5 gadu garantija</span>
+          <span>Bezmaksas piegāde</span>
+          <span>Apmaksa pēc piegādes</span>
+          <span class="wide desktop-copy">1000+ klientu vairāk nekā 30 valstīs</span>
+          <span class="wide mobile-copy">1000+ klientu, 30+ valstis</span>
+        </div>
+      </div>
+      <div>
+        <div class="lead-form-card" id="lead-form">
+  <div class="lead-form-body">
+    <h2>Saņemiet savu personīgo piedāvājumu</h2>
+<p class="sub"><span class="desktop-copy">Iegādājoties pirti, saņemiet <strong>bezmaksas piegādi</strong> un <strong>tvaika ģeneratoru dāvanā</strong> (150&nbsp;&euro; vērtībā).</span><span class="mobile-copy">Aizpildiet formu un saņemiet <strong>bezmaksas piegādi</strong> + <strong>tvaika ģeneratoru dāvanā</strong> (150&nbsp;&euro; vērtībā).</span></p>    <form class="lead-form" onsubmit="submitLead(event, this)">
+      <div>
+        <label for="name-1">Vārds</label>
+        <input type="text" id="name-1" name="name" placeholder="Jūsu vārds">
+      </div>
+      <div>
+        <label for="phone-1">Tālruņa numurs</label>
+        <div class="phone-group">
+          <div class="code-dd" id="dd-1">
+            <button type="button" class="dd-toggle" onclick="toggleCodeDropdown('dd-1')" aria-label="Valsts kods">
+              <img id="flag-1" src="https://flagcdn.com/24x18/lv.png" alt="">
+              <span class="dd-code">+371</span>
+              <span class="dd-arrow">&#9662;</span>
+            </button>
+            <div class="dd-menu">
+              <div class="dd-search-wrap">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" class="dd-search" placeholder="Meklēt valsti" oninput="filterCodeList('dd-1', this.value)">
+              </div>
+              <div class="dd-list" id="dd-1-list"></div>
+            </div>
+            <input type="hidden" id="code-1" name="phone-code" value="+371">
+          </div>
+          <input type="tel" id="phone-1" name="phone" placeholder="Jūsu tālruņa numurs" required>
+        </div>
+      </div>
+      <div>
+        <label for="email-1">E-pasts</label>
+        <input type="email" id="email-1" name="email" placeholder="jusu@epasts.lv">
+      </div>
+      <div class="error"></div>
+      <button type="submit" class="submit-btn">Saņemt piedāvājumu</button>
+                  <div class="hero-mobile-note">
+        <strong>Šajā piedāvājumā atlikušas tikai <span class="stock-count">7</span> pirtis</strong>
+                <span>Aizņem mazāk nekā minūti – nodrošiniet savu piedāvājumu, kamēr krājumi vēl ir.</span>
+         <span>Piesakoties piedāvājumam, es piekrītu, ka SIA Fitosauna vai tās pilnvarots izplatītājs var sazināties ar mani pa e-pastu, tālruni un WhatsApp. No saziņas varu atteikties jebkurā laikā.</span>
+      </div>
+    </form>
+  </div>
+  <div class="lead-success">
+    <div class="check">&#10003;</div>
+    <h3>Paldies, pieteikums saņemts!</h3>
+    <p>Mūsu komanda drīzumā sazināsies ar jums (<span class="lead-contact"></span>) un nosūtīs personīgo piedāvājumu ar bezmaksas piegādi un tvaika ģeneratoru dāvanā.</p>
+    <p style="margin-top:14px;font-size:13px">P.S. Mēs jums piezvanīsim vai rakstīsim no mūsu uzņēmuma e-pasta.</p>
+  </div>
+          <div class="lead-perk">No 2600&nbsp;&euro; &middot; Tvaika ģenerators dāvanā + bezmaksas piegāde</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="trust-strip">
+    <div class="wrap">
+      <div class="trust-main-grid">
+        <div class="trust-logo-item">
+          <img src="assets/trust-google-rating.png" alt="Google vērtējums – 5 zvaigznes">
+        </div>
+        <div class="trust-logo-item">
+          <img src="assets/trust-fsc-wood.png" alt="FSC sertificēta koksne – A klases termoapse">
+        </div>
+        <div class="trust-logo-item">
+          <img src="assets/trust-eu-shipping.png" alt="Piegāde visā ES – izsekojama un apdrošināta">
+        </div>
+      </div>
+
+      <div class="trust-institutional">
+        <div class="trust-logo-item">
+          <img src="assets/trust-eu-funding.png" alt="Eiropas Savienības finansējums – NextGenerationEU">
+        </div>
+        <div class="trust-logo-item">
+          <img src="assets/trust-national-plan.png" alt="Nacionālais attīstības plāns 2027">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO OVERVIEW -->
+  <section class="video-overview">
+   <div class="copy">
+  <h2>Ieskatieties savā nākamajā pirtī</h2>
+  <p>2 minūšu video – redziet, kā tā darbojas, un uzziniet, kāpēc to izvēlējušies jau vairāk nekā 1000 klientu.</p>
+  <a href="#lead-form" class="btn desktop-only video-btn" onclick="scrollToLead(event)">Saņemt piedāvājumu</a>
+</div>
+<div class="video-frame">
+  <wistia-player media-id="tkq2wsc8o0" aspect="1.7777777777777777" player-color="05403A"></wistia-player>
+</div>
+<a href="#lead-form" class="btn mobile-only video-btn" style="margin-top:0;text-align:center;justify-content:center" onclick="scrollToLead(event)">Saņemt piedāvājumu</a>
+  </section>
+
+  <!-- IN-USE VIDEOS -->
+  <section class="usage-section section-pad">
+    <div class="wrap" style="padding:0">
+      <div class="section-head">
+        <h2>Īsta dzīve. Īsta atpūta.</h2>
+        <p>Mūsu klienti savās mājās – katru nedēļu.</p>
+      </div>
+      <div class="carousel-wrap">
+      <button type="button" class="car-arrow prev" aria-label="Iepriekšējais video" onclick="scrollCarousel('usage-scroll',-1)">&#8249;</button>
+      <button type="button" class="car-arrow next" aria-label="Nākamais video" onclick="scrollCarousel('usage-scroll',1)">&#8250;</button>
+      <div id="usage-scroll" class="no-scrollbar">
+        <div class="usage-card"><div class="frame"><video poster="assets/usage-1-poster.jpg" src="assets/usage-1.mp4" playsinline preload="metadata" onclick="toggleVideo(this)"></video><div class="play-badge"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="2,1 13,7 2,13"/></svg></div></div><div class="caption">Miera brīdis pēc garas dienas</div></div>
+<div class="usage-card"><div class="frame"><video poster="assets/usage-4-poster.jpg" src="assets/usage-4.mp4" playsinline preload="metadata" onclick="toggleVideo(this)"></video><div class="play-badge"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="2,1 13,7 2,13"/></svg></div></div><div class="caption">Atpūta – lai kur jūs būtu</div></div>
+<div class="usage-card"><div class="frame"><video poster="assets/usage-3-poster.jpg" src="assets/usage-3.mp4" playsinline preload="metadata" onclick="toggleVideo(this)"></video><div class="play-badge"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="2,1 13,7 2,13"/></svg></div></div><div class="caption">Nedēļas nogales atslābšanas rituāls</div></div>
+<div class="usage-card"><div class="frame"><video poster="assets/usage-2-poster.jpg" src="assets/usage-2.mp4" playsinline preload="metadata" onclick="toggleVideo(this)"></video><div class="play-badge"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="2,1 13,7 2,13"/></svg></div></div><div class="caption">15 minūšu atjaunošanās pēc darba</div></div>
+      </div>
+      </div>
+      <div class="carousel-controls">
+        <span class="hint">Pavelciet, lai apskatītu</span>
+      </div>
+      <div class="dots-row" id="usage-dots"></div>
+    </div>
+  </section>
+
+  <!-- RISK REVERSAL -->
+  <section class="risk-section">
+    <div class="wrap" style="padding:0">
+      <div class="section-head" style="max-width:680px">
+        <h2>Izmēģiniet bez riska</h2>
+        <p>Visas garantijas jau ir iekļautas – jums atliek tikai izvēlēties sev piemērotāko pirti.</p>
+      </div>
+      <div class="trust-grid" id="trust-grid"></div>
+      <div class="trust-scroll-wrap">
+        <div id="trust-scroll" class="no-scrollbar"></div>
+        <div class="dots-row" id="trust-dots"></div>
+      </div>
+      <div class="cta-center">
+        <a href="#lead-form" class="btn" onclick="scrollToLead(event)">Saņemt piedāvājumu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="usage-section section-pad">
+    <div class="wrap" style="padding:0">
+      <div class="section-head">
+        <div class="eyebrow" style="color:#27221A">Pieredze</div>
+        <h2>Katra detaļa rūpīgi izstrādāta</h2>
+      </div>
+      <div class="carousel-wrap">
+        <button type="button" class="car-arrow prev" aria-label="Iepriekšējā fotogrāfija" onclick="scrollCarousel('gallery-scroll',-1)">&#8249;</button>
+        <div id="gallery-scroll" class="no-scrollbar"></div>
+        <button type="button" class="car-arrow next" aria-label="Nākamā fotogrāfija" onclick="scrollCarousel('gallery-scroll',1)">&#8250;</button>
+      </div>
+      <div class="carousel-controls">
+        <span class="hint">Pavelciet, lai apskatītu</span>
+      </div>
+      <div class="dots-row" id="gallery-dots"></div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="sauna-options" class="section-pad wrap">
+    <div class="section-head">
+      <div class="eyebrow">Izvēlieties modeli</div>
+      <h2>Roku darbs no termoapses koka</h2>
+    </div>
+    <div style="margin-bottom:28px;padding:14px 20px;background:rgba(5,64,58,0.1);border:1px solid rgba(5,64,58,0.25);border-radius:12px;text-align:center;font-size:14.5px;font-weight:600;color:var(--accent-dark);">
+            Pirmssezonas noliktavas izpārdošana &ndash; pēdējās <span class="stock-count">7</span> pirtis ar <span style="color:var(--accent-dark);font-weight:800;text-transform:uppercase;">bezmaksas piegādi</span> un <span style="color:var(--accent-dark);font-weight:800;text-transform:uppercase;">tvaika ģeneratoru dāvanā</span>.
+    </div>
+        <div class="products-grid" id="products-grid"></div>
+    <div class="products-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Piesakieties tagad un nodrošiniet šo piedāvājumu – maksājums nav nepieciešams</span></div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="reviews" class="testimonials-section section-pad">
+    <div class="wrap" style="padding:0">
+      <div class="section-head">
+        <div class="eyebrow">Neticiet mums uz vārda</div>
+        <h2>Mums uzticas vairāk nekā 1000 klientu visā pasaulē</h2>
+      </div>
+      <div class="testimonials-masonry" id="testimonials-masonry"></div>
+      <div class="testimonials-scroll-wrap">
+        <div id="reviews-scroll" class="no-scrollbar"></div>
+        <div class="dots-row" id="reviews-dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="wrap" style="padding:0">
+      <div class="head">
+        <h2>SPA labsajūta jūsu mājās</h2>
+        <p>Bezmaksas piegāde &middot; Tvaika ģenerators dāvanā &middot; 30 dienu naudas atgriešanas garantija</p>
+      </div>
+      <div class="final-cta-grid">
+        <div class="final-cta-photo"><img src="assets/final-cta-photo-sm.jpg" alt="Fitosauna klients" onclick="openLightbox(['assets/final-cta-photo-sm.jpg'],0)"></div>
+        <div class="lead-form-card" id="lead-form-2">
+  <div class="lead-form-body">
+        <h3>Saņemiet savu personīgo piedāvājumu</h3>
+    <p class="sub">Iegādājoties pirti, saņemiet <strong>bezmaksas piegādi</strong> un <strong>tvaika ģeneratoru dāvanā</strong> (150&nbsp;&euro; vērtībā).</p>
+    <form class="lead-form" onsubmit="submitLead(event, this)">
+      <div><label for="name-2">Vārds</label><input type="text" id="name-2" name="name" placeholder="Jūsu vārds"></div>
+      <div><label for="phone-2">Tālruņa numurs</label><div class="phone-group">
+        <div class="code-dd" id="dd-2">
+          <button type="button" class="dd-toggle" onclick="toggleCodeDropdown('dd-2')" aria-label="Valsts kods">
+            <img id="flag-2" src="https://flagcdn.com/24x18/lv.png" alt="">
+            <span class="dd-code">+371</span>
+            <span class="dd-arrow">&#9662;</span>
+          </button>
+          <div class="dd-menu">
+            <div class="dd-search-wrap">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" class="dd-search" placeholder="Meklēt valsti" oninput="filterCodeList('dd-2', this.value)">
+            </div>
+            <div class="dd-list" id="dd-2-list"></div>
+          </div>
+          <input type="hidden" id="code-2" name="phone-code" value="+371">
+        </div>
+        <input type="tel" id="phone-2" name="phone" placeholder="Jūsu tālruņa numurs" required>
+      </div></div>
+      <div><label for="email-2">E-pasts</label><input type="email" id="email-2" name="email" placeholder="jusu@epasts.lv"></div>
+      <div class="error"></div>
+                  <button type="submit" class="submit-btn">Saņemt piedāvājumu tagad</button>
+      <div class="hero-mobile-note">
+        <strong>Bez maksājuma. Bez saistībām. Iesniedziet formu tagad un nodrošiniet savu īpašo piedāvājumu.</strong>
+                <span>Ja pirms lēmuma pieņemšanas vēlaties padomu, labprāt atbildēsim uz visiem jūsu jautājumiem.</span>
+         <span>Piesakoties piedāvājumam, es piekrītu, ka SIA Fitosauna vai tās pilnvarots izplatītājs var sazināties ar mani pa e-pastu, tālruni un WhatsApp. No saziņas varu atteikties jebkurā laikā.</span>
+      </div>
+    </form>
+  </div>
+  <div class="lead-success">
+    <div class="check">&#10003;</div>
+    <h3>Paldies, pieteikums saņemts!</h3>
+    <p>Mūsu komanda drīzumā sazināsies ar jums (<span class="lead-contact"></span>) un nosūtīs personīgo piedāvājumu ar bezmaksas piegādi un tvaika ģeneratoru dāvanā.</p>
+    <p style="margin-top:14px;font-size:13px">P.S. Mēs jums piezvanīsim vai rakstīsim no mūsu uzņēmuma e-pasta.</p>
+  </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="faq-section">
+    <div class="faq-wrap">
+      <div class="head"><h2>Biežāk uzdotie jautājumi</h2></div>
+      <div id="faq-list"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="cols">
+      <div>
+        <div class="foot-logo"><svg style="height:16px;width:auto;display:block" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 357 47"> <g id="surface1"> <path style=" stroke:none;fill-rule:nonzero;fill:currentColor;" d="M 356.75 46.019531 L 349.058594 46.019531 L 334.800781 11.945312 L 320.710938 46.019531 L 318.335938 46.019531 L 337.265625 0.304688 Z M 308.675781 34.3125 L 308.675781 0.636719 L 310.875 0.636719 L 310.875 46.34375 L 279.230469 12.3125 L 279.230469 46.019531 L 277.03125 46.019531 L 277.03125 0.316406 Z M 240.121094 0.636719 L 240.121094 32.359375 C 240.121094 34.777344 240.957031 36.90625 242.550781 38.496094 C 244.519531 40.457031 247.484375 41.511719 250.816406 41.480469 C 253.4375 41.476562 256.101562 40.789062 258.117188 39.300781 C 260.152344 37.800781 261.511719 35.5 261.511719 32.359375 L 261.511719 0.636719 L 263.71875 0.636719 L 263.71875 32.84375 C 263.71875 37.0625 262.210938 40.5 259.5625 42.890625 C 256.90625 45.28125 253.066406 46.65625 248.347656 46.65625 C 243.792969 46.65625 239.996094 45.253906 237.324219 42.84375 C 234.742188 40.511719 233.183594 37.207031 233.023438 33.234375 L 233.011719 32.847656 L 233.011719 0.636719 Z M 225.796875 46.019531 L 218.105469 46.019531 L 203.847656 11.945312 L 189.757812 46.019531 L 187.382812 46.019531 L 206.308594 0.304688 Z M 145.761719 9.371094 C 146.675781 4.804688 151.929688 0 161.910156 0 C 167.664062 0 172.296875 1.25 176.960938 4.058594 L 177.152344 4.171875 L 176.078125 6.011719 L 175.882812 5.898438 L 175.601562 5.730469 C 172.621094 4.011719 167.960938 2.042969 162.226562 2.042969 C 161.285156 2.042969 159.234375 2.128906 157.210938 2.78125 C 155.191406 3.433594 153.113281 4.675781 152.261719 7.046875 C 151.671875 8.65625 151.941406 10.277344 152.910156 11.699219 C 153.867188 13.109375 155.507812 14.3125 157.660156 15.167969 L 157.664062 15.167969 L 169.425781 19.652344 C 176.148438 22.210938 178.863281 25.976562 179.964844 28.636719 C 181.140625 31.472656 181.09375 34.585938 179.835938 37.40625 L 179.835938 37.410156 L 179.832031 37.414062 C 177.976562 41.828125 172.535156 46.65625 162.753906 46.65625 C 155.777344 46.65625 148.976562 43.507812 145.417969 38.6875 L 145.289062 38.515625 L 146.933594 37.132812 L 147.078125 37.3125 L 147.253906 37.523438 C 150.972656 41.925781 156.609375 44.433594 162.753906 44.433594 C 169.125 44.433594 172.703125 41.320312 173.886719 38.292969 C 174.648438 36.355469 174.597656 34.21875 173.75 32.285156 C 172.605469 29.671875 170.1875 27.628906 166.828125 26.328125 L 166.824219 26.328125 L 154.789062 21.8125 C 150.816406 20.253906 148.378906 18.121094 147.023438 15.902344 C 145.667969 13.683594 145.382812 11.355469 145.761719 9.371094 Z M 98.679688 6.855469 C 107.710938 -2.199219 122.40625 -2.148438 131.507812 6.972656 C 140.605469 16.097656 140.652344 30.832031 131.625 39.886719 C 122.59375 48.941406 107.894531 48.894531 98.796875 39.769531 C 89.699219 30.648438 89.648438 15.910156 98.679688 6.855469 Z M 100.355469 8.539062 C 97.199219 11.707031 96.027344 16.226562 96.648438 20.9375 C 97.269531 25.648438 99.675781 30.574219 103.707031 34.617188 C 107.734375 38.65625 112.648438 41.070312 117.347656 41.691406 C 122.046875 42.3125 126.554688 41.140625 129.714844 37.972656 C 132.871094 34.808594 134.042969 30.285156 133.421875 25.574219 C 132.804688 20.863281 130.394531 15.9375 126.363281 11.894531 C 122.335938 7.855469 117.421875 5.441406 112.722656 4.820312 C 108.023438 4.199219 103.515625 5.371094 100.355469 8.539062 Z M 104.09375 12.285156 C 106.289062 10.082031 109.851562 10.082031 112.046875 12.285156 C 114.246094 14.488281 114.246094 18.058594 112.046875 20.261719 C 109.851562 22.464844 106.289062 22.460938 104.09375 20.261719 C 101.898438 18.058594 101.898438 14.488281 104.09375 12.285156 Z M 89.40625 0.636719 L 89.40625 2.808594 L 75.589844 2.808594 L 75.589844 46.019531 L 68.554688 46.019531 L 68.554688 2.808594 L 54.738281 2.808594 L 54.738281 0.636719 Z M 45.1875 0.636719 L 45.1875 46.019531 L 38.1875 46.019531 L 38.1875 0.636719 Z M 29.902344 0.636719 L 29.902344 2.808594 L 7.035156 2.808594 L 7.035156 19.472656 L 27.023438 19.472656 L 27.023438 21.679688 L 7.035156 21.679688 L 7.035156 46.019531 L 0 46.019531 L 0 0.636719 Z M 29.902344 0.636719 "></path> </g> </svg></div>
+        <div>SIA FITOSAUNA</div>
+        <div>Reģ. Nr. 41203071420</div>
+        <div>PVN Nr. LV41203071420</div>
+      </div>
+      <div>
+        <div class="col-title">Adrese</div>
+        <div>Pulkve&zcaron;a Brie&zcaron;a 35-43,<br>R&#299;ga, LV-1045, Latvija</div>
+      </div>
+      <div>
+        <div class="col-title">Uzņēmuma rekvizīti</div>
+        <a href="https://company.lursoft.lv/lv/fitosauna/41203071420" target="_blank">Pārbaudiet mūsu reģistrāciju Lursoft</a>
+        <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+          <a href="https://fitosauna.com/privacy-policy/" target="_blank">Privātuma politika</a>
+          <a href="https://fitosauna.com/terms-and-conditions/" target="_blank">Lietošanas noteikumi</a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">&copy; 2026 SIA Fitosauna. Visas tiesības aizsargātas.</div>
+  </footer>
+</div>
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="Aizvērt">&#10005;</button>
+  <button class="lightbox-nav prev" id="lightbox-prev" onclick="lightboxNav(event,-1)" aria-label="Iepriekšējā fotogrāfija">&#8592;</button>
+  <div class="lightbox-figure">
+    <img id="lightbox-img" alt="">
+    <div class="lightbox-label" id="lightbox-label"></div>
+  </div>
+  <button class="lightbox-nav next" id="lightbox-next" onclick="lightboxNav(event,1)" aria-label="Nākamā fotogrāfija">&#8594;</button>
+</div>
+
+<script>
+// ---- Settings (fill these in before going live) ----
+// Where form submissions are sent, e.g. a GoHighLevel / Make / Zapier inbound webhook URL.
+// Leave empty and leads are NOT saved anywhere.
+var LEAD_ENDPOINT = '';
+// Optional: URL of the WhatsApp consent script on this site's server, e.g. '/api/whatsapp-consent.php'
+var WHATSAPP_CONSENT_URL = '';
+
+// ---- Data ----
+var GALLERY = [
+  { img: 'assets/gallery-01-opt.jpg', ratio: '3/2' }, { img: 'assets/gallery-02-opt.jpg', ratio: '3/2' },
+  { img: 'assets/gallery-03-opt.jpg', ratio: '2/3' }, { img: 'assets/gallery-04-opt.jpg', ratio: '3/2' },
+  { img: 'assets/gallery-05-opt.jpg', ratio: '2/3' }, { img: 'assets/gallery-06-opt.jpg', ratio: '3/2' },
+  { img: 'assets/gallery-07-opt.jpg', ratio: '2/3' }, { img: 'assets/gallery-08-opt.jpg', ratio: '2/3' },
+  { img: 'assets/gallery-09-opt.jpg', ratio: '2/3' }, { img: 'assets/gallery-10-opt.jpg', ratio: '2/3' },
+  { img: 'assets/gallery-11-opt.jpg', ratio: '2/3' }, { img: 'assets/gallery-12-opt.jpg', ratio: '2/3' }
+];
+
+var TRUST_POINTS = [
+  { title: '30 dienu naudas atgriešanas garantija', text: 'Izmēģiniet pirti mājās. Ja tā jums neder, atgrieziet to 30 dienu laikā un saņemiet pilnu naudas atmaksu – piegādi abos virzienos apmaksājam mēs.' },
+  { title: 'Apmaksa pēc piegādes', text: 'Maksājiet tikai tad, kad pirts ir piegādāta. Nekāda priekšapmaksa.' },
+  { title: '5 gadu garantija', text: 'Krietni ilgāka par standarta divu gadu garantiju – jūsu pirkums ir aizsargāts vēl ilgi pēc izmēģinājuma perioda beigām.' },
+  { title: 'Atbilst ES standartiem', text: 'FSC sertificēta A klases termoapse un nerūsējošais tērauds, atbilstoši ES veselības, drošības, RoHS un vides prasībām – pārbaudīts, nevis tikai apgalvots.' }
+];
+
+var ICON_GIFT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>';
+var ICON_PACKAGE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>';
+
+var BUNDLE_TIERS = [
+  { name: 'Essential', delta: 0, items: ['Tvaika ģenerators 4 L, 2 kW – dāvanā', 'Bezmaksas piegāde'] },
+  { name: 'Signature', delta: 120, items: ['Tvaika ģenerators 4 L, 2 kW – dāvanā', 'Bezmaksas piegāde', '2 ēteriskās eļļas', 'Tīrīšanas komplekts', 'Apkopes komplekts'] },
+  { name: 'Ultimate', delta: 220, items: ['Tvaika ģenerators 4 L, 2 kW – dāvanā', 'Bezmaksas piegāde', '4 ēteriskās eļļas', 'Tīrīšanas komplekts', 'Apkopes komplekts', 'Tvaika ģeneratora futrālis', '„30 dienu labsajūtas programma” (PDF)'] }
+];
+
+var PRODUCTS = [
+  { name: 'Round', basePrice: 2600,
+    images: [['assets/round-essential-closed-sm.jpg?v=5', 'assets/round-essential-open-sm.jpg?v=5'], ['assets/round-signature-bundle-sm.jpg?v=3'], ['assets/round-ultimate-bundle-sm.jpg?v=3']],
+    coverFit: [true, false, false],
+    desc: 'Kompakts risinājums mazākām telpām un ikdienas lietošanai mājās.',
+    specs: [ { k: 'Izmērs', v: '130×78×78 cm' }, { k: 'Piemērota', v: 'Augumam līdz 182 cm' }, { k: 'Koksne', v: 'Termoapse' }, { k: 'Detaļas', v: 'Nerūsējošais tērauds' } ] },
+  { name: 'Oval', basePrice: 3100,
+    images: [['assets/oval-essential-closed-sm.jpg?v=5', 'assets/oval-essential-bundle-sm.jpg?v=5'], ['assets/oval-signature-bundle-sm.jpg?v=3'], ['assets/oval-ultimate-bundle-sm.jpg?v=3']],
+    coverFit: [true, false, false],
+    desc: 'Vairāk vietas iekšpusē un papildu komforts – atzveltne iekļauta komplektā.',
+    specs: [ { k: 'Izmērs', v: '130×100×78 cm' }, { k: 'Piemērota', v: 'Augumam līdz 215 cm' }, { k: 'Koksne', v: 'Termoapse' }, { k: 'Detaļas', v: 'Nerūsējošais tērauds' } ] }
+];
+
+var TESTIMONIALS = [
+  { quote: 'Fitosauna ir kompakta tvaika pirts. Tvaika ģenerators ātri uzsilst, dod patīkamu siltumu, un pēc vēlēšanās var izmantot arī aromterapiju.', name: 'Daan de Vries', country: 'Nīderlande', date: '28.08.2026.', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/image.png' },
+  { quote: 'Tā ir daudz pieejamāka nekā tradicionāla pirts, un to ir viegli uzstādīt, jo nav vajadzīgs ne ūdens pieslēgums, ne kanalizācija. Pat labāk, nekā biju iedomājies!', name: 'Liam Murphy', country: 'Īrija', date: '13.07.2026.', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/Daniel.jpg', photoMobile: 'assets/testimonial-liam-murphy-mobile.jpg' },
+  { quote: 'Pirms pasūtīšanas man bija daži jautājumi – komanda visu skaidri izskaidroja un pat piedāvāja videozvanu. Tas man deva 100% pārliecību.', name: 'Emma van Dijk', country: 'Nīderlande', date: '09.03.2026.', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/image-1.png' },
+  { quote: 'Man patīk, cik ātri tā uzsilst. Tvaiks ir spēcīgs, un ar aromterapiju visa pieredze šķiet vēl izsmalcinātāka.', name: 'Luuk Visser', country: 'Nīderlande', date: '09.10.2025.', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-18-at-00.40.32.jpeg' },
+  { quote: 'Ideāls risinājums, ja gribat pirti mājās bez būvdarbiem un milzīga budžeta. Izmantoju to 3 reizes nedēļā un esmu sajūsmā.', name: 'Niamh Walsh', country: 'Īrija', date: '08.09.2025.', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/image-4.png', photoMobile: 'assets/testimonial-niamh-walsh-mobile.jpg' },
+  { quote: 'Pirms pirkuma novērtēju, ka viņi bija gatavi parādīt pirti videozvanā. Piegāde noritēja raiti, un pirts ātri uzsilst.', name: 'Ciara Ryan', country: 'Īrija', date: '17.08.2025.', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/image-3.png', photoMobile: 'assets/testimonial-ciara-ryan-mobile.jpg' },
+  { quote: 'Biju skeptisks, bet 30 dienu naudas atgriešanas garantija, kurā viņi apmaksā pat piegādi abos virzienos, bija pietiekams iemesls pamēģināt. Tā ir lieliska – iesaku no sirds, bez jebkāda riska.', name: 'Noud Hendriks', country: 'Nīderlande', date: '23.05.2025.' },
+  { quote: 'Ļoti profesionāls uzņēmums. Saziņa bija ātra un skaidra, piegāde – ātrāka, nekā gaidīts. Bet pats galvenais – pirts pārspēja visas manas cerības.', name: 'Fionn O’Sullivan', country: 'Īrija', date: '25.04.2025.' },
+  { quote: 'Ar uzņēmumu bija viegli sadarboties jau no paša sākuma. Izpalīdzīga komunikācija un nekāda spiediena.', name: 'Finn Mulder', country: 'Nīderlande', date: '15.04.2025.' },
+  { quote: 'Viņi ir lieliski – no pirmās saziņas, 3D un papildinātās realitātes demonstrācijas līdz videozvanam. Man ļoti patīk dizains ar galvu ārpusē – daudz labāk nekā tradicionālajās pirtīs.', name: 'Patrick Nolan', country: 'Īrija', date: '31.03.2025.' },
+  { quote: 'Labākais šī gada pirkums.', name: 'Marta Ozola', country: 'Latvija', date: '02.02.2025.' },
+  { quote: 'Ātri uzsilst, viegli lietot.', name: 'Tom Bakker', country: 'Nīderlande', date: '26.01.2025.' },
+  { quote: 'Tieši tas, kas bija vajadzīgs mūsu dzīvoklim.', name: 'Sarah Kelly', country: 'Īrija', date: '26.06.2026.' }
+];
+
+var FAQS = [
+  { q: 'Kā pirti uzstādīt, kopt un izjaukt?', a: 'Uzstādīšana ir vienkārša – pirts tiek piegādāta pilnībā salikta un gatava lietošanai. Vienkārši novietojiet to izvēlētajā vietā un pievienojiet elektrībai. Kopšana ir minimāla: pēc katras reizes noslaukiet pirti un laiku pa laikam to iztīriet. Pārvācoties pirti var izjaukt paneļos, lai to būtu ērti pārvest.' },
+  { q: 'Vai pirti var novietot ārā?', a: 'Jā, Fitosauna var izmantot arī ārā – nojumē vai citā aizsargātā vietā. Tomēr iesakām to pasargāt no tieša lietus un liela sala, lai pagarinātu tās kalpošanas laiku.' },
+  { q: 'Vai pirti var pārvietot?', a: 'Jā. Pirts ir veidota tā, lai to varētu pārvietot. To var izjaukt paneļos un bez lielas piepūles salikt jaunajā vietā. Ja ceļā uz paredzēto telpu ir šķēršļi vai durvju ailes, kas šaurākas par 79 cm, pirts būs jāizjauc.' },
+  { q: 'Vai tvaiks nesabojās telpas griestus vai sienas?', a: 'Nē. Tvaiks paliek slēgtajā kabīnē un neizplūst telpā. Pateicoties dizainam ar galvu ārpusē, mitrums paliek pirts iekšpusē.' },
+  { q: 'Vai pirtij vajadzīgs ūdens vai kanalizācijas pieslēgums?', a: 'Nē, Fitosauna nav nepieciešams nekāds santehnikas pieslēgums. Tā darbojas ar iebūvētu tvaika ģeneratoru – vajadzīga tikai parasta elektrības kontaktligzda.' },
+  { q: 'Vai pēc apmaksas varu mainīt savu pasūtījumu?', a: 'Pasūtījumi parasti tiek apstrādāti 1–3 darba dienu laikā. Šajā laikā varat ar mums sazināties, lai lūgtu izmaiņas vai atceltu pasūtījumu. Kad pasūtījums ir apstrādāts un nosūtīts, to vairs nav iespējams mainīt vai atcelt.' },
+  { q: 'Kur atrodas jūsu noliktava, un vai piegādājat arī ārpus Latvijas?', a: 'Mūsu noliktava atrodas Rīgā. Piegādājam visā Latvijā, citās ES valstīs un arī ārpus Eiropas Savienības. Piegādei ārpus ES izmaksas ir atkarīgas no preču daudzuma un galamērķa, tāpēc katru šādu pasūtījumu izvērtējam individuāli un piegādes cenu paziņojam pēc pasūtījuma iesniegšanas, pirms apmaksas.' },
+  { q: 'Vai pēc pirkuma varu preci apmainīt?', a: 'Pirtīm (arī pasūtījumā iekļautajiem piederumiem) apmaiņu var noorganizēt 30 dienu laikā pēc piegādes, ja prece ir maz lietota un labā stāvoklī, bez bojājumiem vai defektiem. Visām pārējām precēm apmaiņas termiņš ir 14 dienas.' }
+];
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ---- Custom phone country-code dropdown ----
+function renderCodeOption(c) {
+  return '<div class="dd-option" onclick="selectCountryCode(this)" data-iso="' + c.iso + '" data-code="' + c.code + '"><img loading="lazy" src="https://flagcdn.com/24x18/' + c.iso + '.png" alt=""><span class="dd-name">' + esc(c.name) + '</span><span class="dd-dial">' + c.code + '</span></div>';
+}
+function filterCodeList(ddId, q) {
+  q = q.trim().toLowerCase();
+  var list = COUNTRIES.filter(function(c) { return c.name.toLowerCase().indexOf(q) !== -1 || c.code.indexOf(q) !== -1; });
+  document.getElementById(ddId + '-list').innerHTML = list.map(renderCodeOption).join('');
+}
+function toggleCodeDropdown(id) {
+  document.querySelectorAll('.code-dd.open').forEach(function(d) { if (d.id !== id) d.classList.remove('open'); });
+  var dd = document.getElementById(id);
+  dd.classList.toggle('open');
+  if (dd.classList.contains('open')) { var s = dd.querySelector('.dd-search'); if (s) { s.value = ''; filterCodeList(id, ''); setTimeout(function() { s.focus(); }, 0); } }
+}
+function selectCountryCode(el) {
+  var dd = el.closest('.code-dd');
+  var iso = el.dataset.iso, code = el.dataset.code;
+  dd.querySelector('.dd-toggle img').src = 'https://flagcdn.com/24x18/' + iso + '.png';
+  dd.querySelector('.dd-toggle .dd-code').textContent = code;
+  dd.querySelector('input[type=hidden]').value = code;
+  dd.classList.remove('open');
+}
+document.addEventListener('click', function(e) {
+  document.querySelectorAll('.code-dd.open').forEach(function(dd) { if (!dd.contains(e.target)) dd.classList.remove('open'); });
+});
+
+// ---- Detect visitor's country to preselect phone code ----
+(function detectCountryCode() {
+  fetch('https://ipapi.co/json/').then(function(r) { return r.json(); }).then(function(data) {
+    var iso = (data && data.country_code || '').toLowerCase();
+    var match = COUNTRIES.filter(function(c) { return c.iso === iso; })[0];
+    if (!match) return;
+    ['dd-1', 'dd-2'].forEach(function(id) {
+      var dd = document.getElementById(id);
+      if (!dd) return;
+      dd.querySelector('.dd-toggle img').src = 'https://flagcdn.com/24x18/' + match.iso + '.png';
+      dd.querySelector('.dd-toggle .dd-code').textContent = match.code;
+      dd.querySelector('input[type=hidden]').value = match.code;
+    });
+  }).catch(function() {});
+})();
+
+// ---- Header / mobile menu ----
+function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+function closeMenu() { document.getElementById('mobile-menu').classList.remove('open'); }
+
+// ---- Scroll to lead form, centered on screen ----
+function scrollToLead(e) {
+  if (e) e.preventDefault();
+  closeMenu();
+  var el = document.getElementById('lead-form');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ---- Lead forms (shared validation, used by both forms on the page) ----
+// Phone -> E.164 (+, country code, digits only, no leading 0 after the country code)
+function toE164(countryDial, rawInput) {
+  var raw = (rawInput || '').trim();
+  if (raw.indexOf('00') === 0) raw = '+' + raw.slice(2);
+  if (raw.charAt(0) === '+') {
+    var d = raw.replace(/\D/g, '');
+    return /^\d{8,15}$/.test(d) ? '+' + d : null;
+  }
+  var cc = (countryDial || '').replace(/\D/g, '');
+  var local = raw.replace(/\D/g, '').replace(/^0+/, '');
+  var full = cc + local;
+  return /^\d{8,15}$/.test(full) && local.length >= 6 ? '+' + full : null;
+}
+
+function submitLead(e, form) {
+  e.preventDefault();
+  var card = form.closest('.lead-form-card');
+  var errorEl = form.querySelector('.error');
+  var name = form.querySelector('[name=name]').value.trim();
+  var phone = form.querySelector('[name=phone]').value.trim();
+  var phoneCode = form.querySelector('[name=phone-code]').value;
+  var email = form.querySelector('[name=email]').value.trim();
+  function showError(msg) { errorEl.textContent = msg; errorEl.style.display = 'block'; }
+  if (!name) return showError('Lūdzu, ievadiet savu vārdu.');
+  if (!phone.replace(/\D/g, '')) return showError('Lūdzu, ievadiet tālruņa numuru.');
+    var e164 = toE164(phoneCode, phone);
+  if (!e164) return showError('Lūdzu, pārbaudiet tālruņa numuru.');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('Lūdzu, ievadiet derīgu e-pasta adresi.');
+  errorEl.style.display = 'none';
+  var fullPhone = phoneCode + ' ' + phone;
+  console.log('[Fitosauna lead]', { name: name, phone: fullPhone, email: email, timestamp: new Date().toISOString() });
+  var contactEl = card.querySelector('.lead-contact');
+  if (contactEl) contactEl.textContent = email + ' vai ' + fullPhone;
+    card.classList.add('submitted');
+  // Send the lead (this page has no GTM, so this is the ONLY place leads go).
+  var lead = { name: name, email: email, phone: e164, language: 'lv', source: 'lv-landing-page', page: window.location.href, submitted_at: new Date().toISOString() };
+  if (LEAD_ENDPOINT) {
+    fetch(LEAD_ENDPOINT, {
+      method: 'POST',
+      keepalive: true,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(lead)
+    }).catch(function (err) { console.error(err); });
+  } else {
+    console.warn('[Fitosauna LV] LEAD_ENDPOINT is not set - this lead was NOT saved anywhere.', lead);
+  }
+  // WhatsApp consent endpoint (optional, server-side script)
+  if (WHATSAPP_CONSENT_URL) {
+    fetch(WHATSAPP_CONSENT_URL, {
+      method: 'POST',
+      keepalive: true,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, phone: e164 })
+    }).catch(function (err) { console.error(err); });
+  }
+}
+
+// ---- Tap-to-play videos (no native controls) ----
+function toggleVideo(v) { if (v.paused) v.play(); else v.pause(); }
+
+// ---- Lightbox for product/gallery photos, with prev/next navigation ----
+var lightboxImages = [];
+var lightboxLabels = [];
+var lightboxIndex = 0;
+function updateLightboxNav() {
+  var multi = lightboxImages.length > 1;
+  document.getElementById('lightbox-prev').style.display = multi ? 'flex' : 'none';
+  document.getElementById('lightbox-next').style.display = multi ? 'flex' : 'none';
+}
+function showLightboxImage() {
+  document.getElementById('lightbox-img').src = lightboxImages[lightboxIndex];
+  var labelEl = document.getElementById('lightbox-label');
+  var label = lightboxLabels[lightboxIndex];
+  labelEl.textContent = label || '';
+  labelEl.style.display = label ? 'block' : 'none';
+  updateLightboxNav();
+}
+function openLightbox(images, index, labels) {
+  lightboxImages = images;
+  lightboxIndex = index || 0;
+  lightboxLabels = labels || [];
+  showLightboxImage();
+  document.getElementById('lightbox').classList.add('open');
+}
+function openProductLightbox(pIndex) {
+  var p = PRODUCTS[pIndex];
+  var flatImages = [];
+  var flatLabels = [];
+  p.images.forEach(function (tierImages, tIndex) {
+    tierImages.forEach(function (img) {
+      flatImages.push(img);
+      flatLabels.push(BUNDLE_TIERS[tIndex].name + ' komplekts');
+    });
+  });
+  var startIndex = 0;
+  for (var i = 0; i < currentTierIndexes[pIndex]; i++) { startIndex += p.images[i].length; }
+  startIndex += currentSubIndexes[pIndex];
+  openLightbox(flatImages, startIndex, flatLabels);
+}
+function lightboxNav(e, dir) {
+  e.stopPropagation();
+  lightboxIndex = (lightboxIndex + dir + lightboxImages.length) % lightboxImages.length;
+  showLightboxImage();
+}
+function closeLightbox(e) { if (e) e.stopPropagation(); document.getElementById('lightbox').classList.remove('open'); }
+
+// ---- Generic horizontal-scroll arrow buttons: step to the next/prev snap child, looping at the ends ----
+var carouselIndexes = {};
+function scrollCarousel(id, dir) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var children = Array.prototype.slice.call(el.children);
+  var n = children.length;
+  if (!n) return;
+  var currentIndex = carouselIndexes[id];
+  if (currentIndex === undefined) {
+    var center = el.scrollLeft + el.clientWidth / 2, best = Infinity;
+    children.forEach(function (c, i) {
+      var d = Math.abs((c.offsetLeft + c.offsetWidth / 2) - center);
+      if (d < best) { best = d; currentIndex = i; }
+    });
+  }
+  var targetIndex = (currentIndex + dir + n) % n;
+  carouselIndexes[id] = targetIndex;
+  var target = children[targetIndex];
+  var maxScroll = el.scrollWidth - el.clientWidth;
+  var left = targetIndex === 0 ? 0 : targetIndex === n - 1 ? maxScroll : target.offsetLeft - (el.clientWidth - target.offsetWidth) / 2;
+  el.scrollTo({ left: Math.max(0, Math.min(maxScroll, left)), behavior: 'smooth' });
+}
+
+// ---- Click-and-drag (mouse) scrolling for horizontal carousels, in addition to native touch swipe ----
+function makeDraggable(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var isDown = false, startX = 0, startScroll = 0, moved = false;
+  el.style.cursor = 'grab';
+  el.addEventListener('mousedown', function (e) {
+    isDown = true; moved = false; startX = e.pageX; startScroll = el.scrollLeft;
+    el.style.cursor = 'grabbing'; el.style.scrollSnapType = 'none'; el.style.scrollBehavior = 'auto';
+    e.preventDefault();
+  });
+  window.addEventListener('mouseup', function () {
+    if (!isDown) return;
+    isDown = false; el.style.cursor = 'grab'; el.style.scrollSnapType = 'x mandatory'; el.style.scrollBehavior = 'smooth';
+    if (moved) delete carouselIndexes[id];
+  });
+  window.addEventListener('mousemove', function (e) {
+    if (!isDown) return;
+    var dx = e.pageX - startX;
+    if (Math.abs(dx) > 4) moved = true;
+    el.scrollLeft = startScroll - dx;
+  });
+  el.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  el.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+}
+
+// ---- Gallery ----
+var galleryScroll = document.getElementById('gallery-scroll');
+galleryScroll.innerHTML = GALLERY.map(function (g, i) {
+  return '<div class="gallery-card" style="aspect-ratio:' + g.ratio + '"><img src="' + g.img + '" alt="Fitosauna detaļa" decoding="async" onclick="openLightbox(GALLERY.map(function(x){return x.img;}),' + i + ')"></div>';
+}).join('');
+// (gallery uses dot pagination, set up below)
+initDotCarousel('gallery-scroll', 'gallery-dots', GALLERY.length);
+initDotCarousel('usage-scroll', 'usage-dots', document.getElementById('usage-scroll').children.length);
+makeDraggable('gallery-scroll');
+makeDraggable('usage-scroll');
+
+
+// ---- Trust points (desktop grid + mobile carousel with dots) ----
+var trustCardHtml = function (tp) {
+  return '<div class="trust-card"><div class="check">&#10003;</div><div class="t-title">' + esc(tp.title) + '</div><div class="t-text">' + esc(tp.text) + '</div></div>';
+};
+document.getElementById('trust-grid').innerHTML = TRUST_POINTS.map(trustCardHtml).join('');
+document.getElementById('trust-scroll').innerHTML = TRUST_POINTS.map(trustCardHtml).join('');
+function initDotCarousel(scrollId, dotsId, count, activeClassOnly) {
+  var scrollEl = document.getElementById(scrollId);
+  var dotsEl = document.getElementById(dotsId);
+  var dots = [];
+  var pageCount = 1;
+  function build() {
+    var child = scrollEl.children[0];
+    var step = child ? child.offsetWidth + 16 : scrollEl.clientWidth;
+    pageCount = Math.max(1, Math.round(scrollEl.scrollWidth / Math.max(1, scrollEl.clientWidth)));
+    if (scrollEl.scrollWidth > scrollEl.clientWidth + 4) pageCount = Math.max(pageCount, 2);
+    pageCount = Math.min(pageCount, count);
+    dotsEl.innerHTML = '';
+    dots = [];
+    for (var i = 0; i < pageCount; i++) {
+      var d = document.createElement('button');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Pāriet uz slaidu');
+      d.onclick = function (idx) { return function () {
+        var maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
+        scrollEl.scrollTo({ left: (maxScroll * idx) / Math.max(1, pageCount - 1), behavior: 'smooth' });
+        delete carouselIndexes[scrollId];
+      }; }(i);
+      dotsEl.appendChild(d);
+      dots.push(d);
+    }
+  }
+  build();
+  window.addEventListener('resize', build);
+  scrollEl.addEventListener('scroll', function () {
+    var maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
+    var ratio = maxScroll > 0 ? scrollEl.scrollLeft / maxScroll : 0;
+    var active = Math.round(ratio * (pageCount - 1));
+    dots.forEach(function (d, i) { d.classList.toggle('active', i === active); });
+  });
+}
+initDotCarousel('trust-scroll', 'trust-dots', TRUST_POINTS.length);
+
+// ---- Products with bundle picker ----
+var productsGrid = document.getElementById('products-grid');
+var currentTierIndexes = [];
+var currentSubIndexes = [];
+PRODUCTS.forEach(function (p, pIndex) {
+  var card = document.createElement('div');
+  card.className = 'product-card';
+  card.innerHTML =
+    '<div class="photo"><img alt="Fitosauna ' + esc(p.name) + '" onclick="openProductLightbox(' + pIndex + ')">' +
+      '<button type="button" class="photo-arrow prev" aria-label="Iepriekšējais komplekts" onclick="event.stopPropagation(); cycleTier(' + pIndex + ', -1)">&#8249;</button>' +
+      '<button type="button" class="photo-arrow next" aria-label="Nākamais komplekts" onclick="event.stopPropagation(); cycleTier(' + pIndex + ', 1)">&#8250;</button>' +
+      '<div class="photo-dots"></div>' +
+    '</div>' +
+    '<div class="body">' +
+      '<div class="product-head"><div class="name">Fitosauna ' + esc(p.name) + '</div><div class="price"></div></div>' +
+      '<p class="product-desc">' + esc(p.desc) + '</p>' +
+      '<div class="bundle-label">Izvēlieties komplektu</div>' +
+      '<div class="bundle-tabs"></div>' +
+      '<div class="bundle-items"></div>' +
+      '<div class="specs-grid">' + p.specs.map(function (s) { return '<div><div class="k">' + esc(s.k) + '</div><div class="v">' + esc(s.v) + '</div></div>'; }).join('') + '</div>' +
+      '<a href="#lead-form" class="btn" onclick="scrollToLead(event)">Saņemt piedāvājumu</a>' +
+    '</div>';
+  productsGrid.appendChild(card);
+
+  var img = card.querySelector('.photo img');
+  var dotsEl = card.querySelector('.photo-dots');
+  var priceEl = card.querySelector('.price');
+  var tabsEl = card.querySelector('.bundle-tabs');
+  var itemsEl = card.querySelector('.bundle-items');
+  var photoEl = card.querySelector('.photo');
+  var touchStartX = 0;
+  photoEl.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+  photoEl.addEventListener('touchend', function (e) {
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) { cycleTier(pIndex, dx < 0 ? 1 : -1); }
+  }, { passive: true });
+
+  function renderPhoto(tierIndex, subIndex, dir) {
+    var photos = p.images[tierIndex];
+    var newSrc = photos[subIndex];
+    var finish = function () {
+      currentSubIndexes[pIndex] = subIndex;
+      dotsEl.innerHTML = photos.length > 1 ? photos.map(function (_, i) {
+        return '<button type="button" class="' + (i === subIndex ? 'active' : '') + '" aria-label="Foto ' + (i + 1) + '" onclick="event.stopPropagation(); setProductPhoto(' + pIndex + ', ' + i + ')"></button>';
+      }).join('') : '';
+    };
+    if (dir) {
+      img.style.transition = 'transform 0.22s ease-in, opacity 0.22s ease-in';
+      img.style.transform = 'translateX(' + (dir > 0 ? '-25%' : '25%') + ')';
+      img.style.opacity = '0';
+      setTimeout(function () {
+        img.src = newSrc;
+        img.classList.toggle('cover-fit', !!p.coverFit[tierIndex]);
+        img.style.transition = 'none';
+        img.style.transform = 'translateX(' + (dir > 0 ? '25%' : '-25%') + ')';
+        void img.offsetWidth;
+        img.style.transition = 'transform 0.22s ease-out, opacity 0.22s ease-out';
+        img.style.transform = 'translateX(0)';
+        img.style.opacity = '1';
+        finish();
+      }, 220);
+    } else {
+      img.src = newSrc;
+      img.classList.toggle('cover-fit', !!p.coverFit[tierIndex]);
+      finish();
+    }
+  }
+  function render(tierIndex, dir) {
+    renderPhoto(tierIndex, 0, dir);
+    var price = p.basePrice + BUNDLE_TIERS[tierIndex].delta;
+    priceEl.textContent = price + '\u00a0€';
+        tabsEl.querySelectorAll('button').forEach(function (b, i) { b.classList.toggle('active', i === tierIndex); });
+    var tier = BUNDLE_TIERS[tierIndex];
+    var freeItems = tier.items.slice(0, 2);
+    var additionalItems = tier.items.slice(2);
+    function itemRow(it) { return '<div class="item-row"><span class="tick">&#10003;</span><span class="txt">' + esc(it) + '</span></div>'; }
+    var boxesHtml = '<div class="bundle-box free"><div class="box-head">' + ICON_GIFT + '<span>Bez maksas katrai pirtij</span></div><div class="item-list">' + freeItems.map(itemRow).join('') + '</div></div>';
+    if (additionalItems.length) {
+      boxesHtml += '<div class="bundle-box additional"><div class="box-head">' + ICON_PACKAGE + '<span>Papildus ' + esc(tier.name) + ' komplektā</span></div><div class="item-list">' + additionalItems.map(itemRow).join('') + '</div></div>';
+    }
+    itemsEl.innerHTML = boxesHtml;
+    currentTierIndexes[pIndex] = tierIndex;
+  }
+  card.setAttribute('data-pindex', pIndex);
+  card._renderPhoto = renderPhoto;
+  BUNDLE_TIERS.forEach(function (b, bIndex) {
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.textContent = b.name;
+    btn.onclick = function () { render(bIndex); };
+    tabsEl.appendChild(btn);
+  });
+  card.render = render;
+  render(0);
+  p.images.forEach(function (photos) { photos.forEach(function (src) { var pre = new Image(); pre.src = src; }); });
+});
+function setProductPhoto(pIndex, subIndex) {
+  var card = productsGrid.children[pIndex];
+  card._renderPhoto(currentTierIndexes[pIndex], subIndex);
+}
+function cycleTier(pIndex, dir) {
+  var n = BUNDLE_TIERS.length;
+  var p = PRODUCTS[pIndex];
+  var tierIndex = currentTierIndexes[pIndex];
+  var photos = p.images[tierIndex];
+  var subIndex = currentSubIndexes[pIndex];
+  var nextSub = subIndex + dir;
+   if (nextSub >= 0 && nextSub < photos.length) {
+    productsGrid.children[pIndex]._renderPhoto(tierIndex, nextSub, dir);
+    return;
+  }
+  var next = (tierIndex + dir + n) % n;
+  productsGrid.children[pIndex].render(next, dir);
+}
+
+// ---- Testimonials ----
+function tCardHtml(t) {
+  var photoHtml = t.photo ? (t.photoMobile ?
+    '<img class="t-photo-d" src="' + t.photo + '" alt="' + esc(t.name) + '" loading="lazy"><img class="t-photo-m" src="' + t.photoMobile + '" alt="' + esc(t.name) + '" loading="lazy">' :
+    '<img src="' + t.photo + '" alt="' + esc(t.name) + '" loading="lazy">') : '';
+  return '<div class="t-card">' + photoHtml +
+    '<div class="body"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>' +
+    '<div class="name-row"><span class="name">' + esc(t.name) + '</span><span class="verify">&#10003;</span></div>' +
+    '<p class="quote">&ldquo;' + esc(t.quote) + '&rdquo;</p>' +
+    '<div class="meta"><span>' + esc(t.country) + '</span><span>' + esc(t.date) + '</span></div></div></div>';
+}
+var withPhoto = TESTIMONIALS.filter(function (t) { return t.photo; });
+var withoutPhoto = TESTIMONIALS.filter(function (t) { return !t.photo; });
+document.getElementById('testimonials-masonry').innerHTML = withPhoto.concat(withoutPhoto).map(tCardHtml).join('');
+document.getElementById('reviews-scroll').innerHTML = withPhoto.map(tCardHtml).join('');
+initDotCarousel('reviews-scroll', 'reviews-dots', withPhoto.length);
+
+// ---- FAQ ----
+var faqList = document.getElementById('faq-list');
+FAQS.forEach(function (f, i) {
+  var item = document.createElement('div');
+  item.className = 'faq-item' + (i === 0 ? ' open' : '');
+  item.innerHTML = '<button class="faq-q"><span>' + esc(f.q) + '</span><span class="faq-icon">' + (i === 0 ? '−' : '+') + '</span></button>' +
+    '<p class="faq-a">' + esc(f.a) + '</p>';
+  var btn = item.querySelector('.faq-q');
+  btn.onclick = function () {
+    var open = item.classList.toggle('open');
+    item.querySelector('.faq-icon').textContent = open ? '−' : '+';
+  };
+  faqList.appendChild(item);
+});
+</script>
+</body>
+</html>
