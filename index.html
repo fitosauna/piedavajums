@@ -323,7 +323,9 @@
 
   /* TESTIMONIALS */
   .testimonials-section { background: var(--card); border-top: 1px solid rgba(39,34,26,0.12); border-bottom: 1px solid rgba(39,34,26,0.12); }
-  .testimonials-masonry { column-count: 3; column-width: 260px; column-gap: 20px; max-width: 900px; margin: 0 auto; }
+  .testimonials-masonry { display: flex; align-items: flex-start; gap: 20px; }
+  .testimonials-masonry .t-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+  .testimonials-masonry .t-card { margin-bottom: 0; }
   .t-card { background: var(--surface); border: 1px solid rgba(39,34,26,0.1); border-radius: 16px; overflow: hidden; break-inside: avoid; margin-bottom: 20px; display: inline-block; width: 100%; }
   .t-card img { width: 100%; height: auto; display: block; aspect-ratio: 4/3; object-fit: cover; object-position: 50% 30%; }
   .t-card .t-photo-m { display: none; }
@@ -1399,7 +1401,33 @@ function tCardHtml(t) {
 }
 var withPhoto = TESTIMONIALS.filter(function (t) { return t.photo; });
 var withoutPhoto = TESTIMONIALS.filter(function (t) { return !t.photo; });
-document.getElementById('testimonials-masonry').innerHTML = withPhoto.concat(withoutPhoto).map(tCardHtml).join('');
+// Desktop: spread the cards over 4 columns (2 on narrower screens), always adding the next card to the shortest column
+var masonryEl = document.getElementById('testimonials-masonry');
+var masonryCards = withPhoto.concat(withoutPhoto).map(function (t) { var d = document.createElement('div'); d.innerHTML = tCardHtml(t); return d.firstChild; });
+var masonryCols = 0;
+function layoutReviews() {
+  var n = window.innerWidth > 1100 ? 4 : 2;
+  if (n === masonryCols && masonryEl.children.length) { return balanceReviews(); }
+  masonryCols = n;
+  masonryEl.innerHTML = '';
+  for (var i = 0; i < n; i++) { var c = document.createElement('div'); c.className = 't-col'; masonryEl.appendChild(c); }
+  balanceReviews();
+}
+function balanceReviews() {
+  var cols = Array.prototype.slice.call(masonryEl.children);
+  if (!cols.length || masonryEl.offsetParent === null) return;
+  masonryCards.forEach(function (c) { cols[0].appendChild(c); });
+  var heights = masonryCards.map(function (c) { return c.offsetHeight; });
+  cols.forEach(function (col) { while (col.firstChild) col.removeChild(col.firstChild); });
+  var colH = cols.map(function () { return 0; });
+  masonryCards.forEach(function (c, i) {
+    var k = colH.indexOf(Math.min.apply(null, colH));
+    cols[k].appendChild(c); colH[k] += heights[i] + 20;
+  });
+}
+layoutReviews();
+window.addEventListener('resize', layoutReviews);
+masonryCards.forEach(function (c) { c.querySelectorAll('img').forEach(function (im) { im.addEventListener('load', balanceReviews); }); });
 document.getElementById('reviews-scroll').innerHTML = withPhoto.map(tCardHtml).join('');
 initDotCarousel('reviews-scroll', 'reviews-dots', withPhoto.length);
 
