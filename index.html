@@ -323,12 +323,8 @@
 
   /* TESTIMONIALS */
   .testimonials-section { background: var(--card); border-top: 1px solid rgba(39,34,26,0.12); border-bottom: 1px solid rgba(39,34,26,0.12); }
-  .testimonials-masonry { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-  .t-card { background: var(--surface); border: 1px solid rgba(39,34,26,0.1); border-radius: 16px; overflow: hidden; break-inside: avoid; display: flex; flex-direction: column; width: 100%; }
-  .testimonials-masonry .t-card { width: calc((100% - 60px) / 4); }
-  @media (max-width: 1100px) { .testimonials-masonry .t-card { width: calc((100% - 20px) / 2); } }
-  .t-card .body { flex: 1; display: flex; flex-direction: column; }
-  .t-card .meta { margin-top: auto; }
+  .testimonials-masonry { column-count: 3; column-width: 260px; column-gap: 20px; max-width: 900px; margin: 0 auto; }
+  .t-card { background: var(--surface); border: 1px solid rgba(39,34,26,0.1); border-radius: 16px; overflow: hidden; break-inside: avoid; margin-bottom: 20px; display: inline-block; width: 100%; }
   .t-card img { width: 100%; height: auto; display: block; aspect-ratio: 4/3; object-fit: cover; object-position: 50% 30%; }
   .t-card .t-photo-m { display: none; }
   .t-card .body { padding: 22px; }
@@ -988,11 +984,11 @@ var PRODUCTS = [
 var TESTIMONIALS = [
   // Latvian reviews: verbatim from fitosauna.com/lv/ (Google reviews). One international review kept.
   { quote: 'Es nopirku sev kā dāvanu dzimšanas dienā, bet mans vīrs bija ļoti skeptisks elektrības cenu dēļ, taču rezultātā arī viņš ir sajūsmā, jo Fitosaunas tvaika sauna patērē mazāk elektrības nekā veļas mašīna! Un mans vīrs saka, ka arī viņš ir pamanījis, ka veselība manāmi uzlabojas, regulāri lietojot saunu.', name: 'Olga Belmane', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/02/1.jpg' },
-  { quote: 'Labākais pirkums, ko esmu veicis pēdējā laikā! Man patīk iet uz saunu, bet pēc darba agrāk bija nepieciešamas stundas, lai to sakurinātu. Šis ir ideāls risinājums, un tā skaisti iekļaujas mūsu viesistabā – viesi ir sajūsmā. Tā ir ātra, ērta un ļoti vienkārši lietojama. Uzsilst tikai 15 minūtēs. Ideāli vakarā pēc darba.', name: 'Vitālijs Sprūga', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/02/6.jpg' },
-  { quote: 'Es lietoju Fitosaunas tvaika saunu jau kādu laiku, un jūtu ievērojamas izmaiņas savā ķermenī un veselībā. Esmu pamanījusi, ka mani mērījumi ir samazinājušies, un ļoti svarīga lieta, kas mainījusies, ir mans miegs – agrāk man bija problēmas ar to, bet tagad es aizmiegu laikā un pamostos bez problēmām. Noteikti iesaku.', name: 'Leina Markevica', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/02/3.jpg' },
-  { quote: 'Es jau sen gribēju saunu mājās, bet man nav laika plānot un būvēt projektu. Fitosaunas tvaika sauna ir ideāls risinājums, un tā ir arī daudz lētāka nekā iegādāties vai būvēt lielu saunu. To ir viegli uzstādīt istabā, jo nav nepieciešams ūdens pieslēgums un kanalizācija. Sauna ir pat labāka, nekā sākumā šķita!', name: 'Viesturs Ridins', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/02/2.jpg' },
-  { quote: 'Mani traucē parastās saunas sausums, bet kopš nopirku Fitosaunas tvaika saunu, es vairs neapmeklēju parastās saunas, jo šī sauna nodrošina mitru tvaiku. Man arī patīk, ka galva ir ārpus saunas, jo parasti nākamajā dienā biju noguris. Ar Fitosaunu tā nav.', name: 'Ilgvars Ribushs', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/02/4.jpg' },
-  { quote: 'Pēc smagas darba nedēļas iekāpt saunā ir vienkārši lieliski. Man nav jābrauc nekur un jāīrē, kā agrāk. Es varu baudīt saunas siltumu savā dzīvoklī un mierīgi atpūsties. Ideāls risinājums pilsētniekam, un arī elektrības patēriņš ir smieklīgs.', name: 'Jānis Pinkens', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/02/5.jpg' },
+  { quote: 'Labākais pirkums, ko esmu veicis pēdējā laikā! Man patīk iet uz saunu, bet pēc darba agrāk bija nepieciešamas stundas, lai to sakurinātu. Šis ir ideāls risinājums, un tā skaisti iekļaujas mūsu viesistabā – viesi ir sajūsmā. Tā ir ātra, ērta un ļoti vienkārši lietojama. Uzsilst tikai 15 minūtēs. Ideāli vakarā pēc darba.', name: 'Vitālijs Sprūga', country: 'Latvija' },
+  { quote: 'Es lietoju Fitosaunas tvaika saunu jau kādu laiku, un jūtu ievērojamas izmaiņas savā ķermenī un veselībā. Esmu pamanījusi, ka mani mērījumi ir samazinājušies, un ļoti svarīga lieta, kas mainījusies, ir mans miegs – agrāk man bija problēmas ar to, bet tagad es aizmiegu laikā un pamostos bez problēmām. Noteikti iesaku.', name: 'Leina Markēviča', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/image-1.png' },
+  { quote: 'Es jau sen gribēju saunu mājās, bet man nav laika plānot un būvēt projektu. Fitosaunas tvaika sauna ir ideāls risinājums, un tā ir arī daudz lētāka nekā iegādāties vai būvēt lielu saunu. To ir viegli uzstādīt istabā, jo nav nepieciešams ūdens pieslēgums un kanalizācija. Sauna ir pat labāka, nekā sākumā šķita!', name: 'Viesturs Rīdiņš', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/02/2.jpg' },
+  { quote: 'Mani traucē parastās saunas sausums, bet kopš nopirku Fitosaunas tvaika saunu, es vairs neapmeklēju parastās saunas, jo šī sauna nodrošina mitru tvaiku. Man arī patīk, ka galva ir ārpus saunas, jo parasti nākamajā dienā biju noguris. Ar Fitosaunu tā nav.', name: 'Ilgvars Ribušs', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/image.png' },
+  { quote: 'Pēc smagas darba nedēļas iekāpt saunā ir vienkārši lieliski. Man nav jābrauc nekur un jāīrē, kā agrāk. Es varu baudīt saunas siltumu savā dzīvoklī un mierīgi atpūsties. Ideāls risinājums pilsētniekam, un arī elektrības patēriņš ir smieklīgs.', name: 'Jānis Pinkens', country: 'Latvija' },
   { quote: 'Pirms pirkuma novērtēju, ka viņi bija gatavi parādīt saunu videozvanā. Piegāde noritēja raiti, un sauna ātri uzsilst.', name: 'Ciara Ryan', country: 'Īrija', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/image-3.png', photoMobile: 'assets/testimonial-ciara-ryan-mobile.jpg' }
 ];
 
