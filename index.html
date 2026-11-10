@@ -67,6 +67,7 @@
   .header-right { justify-self: end; display: flex; align-items: center; gap: 16px; }
   .cta-pill { white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; background: var(--accent); color: var(--cream); font-weight: 600; font-size: 13.5px; letter-spacing: .2px; border-radius: 9px; padding: 10px 16px; text-decoration: none; }
   .cta-pill:hover { background: var(--accent-dark); color: var(--cream); }
+  @media (max-width: 400px) { .mobile-only.header-right { gap: 8px; } .mobile-only.header-right .cta-pill { font-size: 12.5px; padding: 9px 11px; } }
   .menu-btn { flex: none; width: 38px; height: 38px; border-radius: 9px; border: 1px solid rgba(252,246,236,0.3); background: rgba(252,246,236,0.08); color: #FCF6EC; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; }
   .menu-btn span { width: 16px; height: 1.5px; background: #FCF6EC; }
   .mobile-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #27221A; padding: 16px clamp(20px,4vw,56px) 24px; flex-direction: column; gap: 4px; border-top: 1px solid rgba(252,246,236,0.15); }
@@ -628,17 +629,17 @@
         <a href="#sauna-options">Saunu modeļi</a>
         <a href="#faq">BUJ</a>
       </nav>
-      <a href="#lead-form" class="cta-pill" onclick="scrollToLead(event)">Saņemt piedāvājumu</a>
+      <a href="#lead-form" class="cta-pill" onclick="scrollToLead(event)">Iegūt 40% atlaidi</a>
     </div>
     <div class="mobile-only header-right" style="justify-self:end">
-      <a href="#lead-form" class="cta-pill" onclick="scrollToLead(event)">Pieteikties</a>
+      <a href="#lead-form" class="cta-pill" onclick="scrollToLead(event)">Iegūt 40% atlaidi</a>
       <button class="menu-btn" onclick="toggleMenu()" aria-label="Izvēlne"><span></span><span></span></button>
     </div>
     <div class="mobile-menu" id="mobile-menu">
       <a href="#reviews" onclick="closeMenu()">Atsauksmes</a>
       <a href="#sauna-options" onclick="closeMenu()">Saunu modeļi</a>
       <a href="#faq" onclick="closeMenu()">Biežāk uzdotie jautājumi</a>
-      <a href="#lead-form" class="btn" onclick="scrollToLead(event)">Saņemt piedāvājumu</a>
+      <a href="#lead-form" class="btn" onclick="scrollToLead(event)">Iegūt 40% atlaidi</a>
     </div>
   </header>
 
@@ -695,12 +696,12 @@
       </div>
       <div>
         <label for="email-1">E-pasts</label>
-        <input type="email" id="email-1" name="email" placeholder="jusu@epasts.lv">
+        <input type="email" id="email-1" name="email" placeholder="jūsu@epasts.lv">
       </div>
       <div class="error"></div>
-      <button type="submit" class="submit-btn">Saņemt piedāvājumu</button>
+      <button type="submit" class="submit-btn">Iegūt 40% atlaidi</button>
                   <div class="hero-mobile-note">
-        <strong>Šajā piedāvājumā atlikušas tikai <span class="stock-count">7</span> saunas</strong>
+        <strong>Šajā piedāvājumā atlikušas tikai <span class="stock-count">5</span> saunas</strong>
                 <span>Aizņem mazāk nekā minūti - piesakies piedāvājumam, kamēr tas ir pieejams.</span>
          <span>Piesakoties es piekrītu, ka SIA Fitosauna var sazināties ar mani pa e-pastu, tālruni un WhatsApp. Varu atteikties jebkurā laikā.</span>
       </div>
@@ -749,12 +750,12 @@
    <div class="copy">
   <h2>Ielūkojies savā nākotnes saunā</h2>
   <p>2 minūšu video - apskati, kā strādā sauna un uzzini, kāpēc to ir izvēlējušies jau vairāk kā 1000 klientu.</p>
-  <a href="#lead-form" class="btn desktop-only video-btn" onclick="scrollToLead(event)">Saņemt piedāvājumu</a>
+  <a href="#lead-form" class="btn desktop-only video-btn" onclick="scrollToLead(event)">Iegūt 40% atlaidi</a>
 </div>
 <div class="video-frame">
   <wistia-player media-id="tkq2wsc8o0" aspect="1.7777777777777777" player-color="05403A"></wistia-player>
 </div>
-<a href="#lead-form" class="btn mobile-only video-btn" style="margin-top:0;text-align:center;justify-content:center" onclick="scrollToLead(event)">Saņemt piedāvājumu</a>
+<a href="#lead-form" class="btn mobile-only video-btn" style="margin-top:0;text-align:center;justify-content:center" onclick="scrollToLead(event)">Iegūt 40% atlaidi</a>
   </section>
 
   <!-- IN-USE VIDEOS -->
@@ -770,7 +771,7 @@
       <div id="usage-scroll" class="no-scrollbar">
         <div class="usage-card"><div class="frame"><video poster="assets/usage-1-poster.jpg" src="assets/usage-1.mp4" playsinline preload="metadata" onclick="toggleVideo(this)"></video><div class="play-badge"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="2,1 13,7 2,13"/></svg></div></div><div class="caption">Miera brīdis pēc garas dienas</div></div>
 <div class="usage-card"><div class="frame"><video poster="assets/usage-4-poster.jpg" src="assets/usage-4.mp4" playsinline preload="metadata" onclick="toggleVideo(this)"></video><div class="play-badge"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="2,1 13,7 2,13"/></svg></div></div><div class="caption">Atpūta - lai kur jūs būtu</div></div>
-<div class="usage-card"><div class="frame"><video poster="assets/usage-3-poster.jpg" src="assets/usage-3.mp4" playsinline preload="metadata" onclick="toggleVideo(this)"></video><div class="play-badge"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="2,1 13,7 2,13"/></svg></div></div><div class="caption">Nedēļas nogales atslābšanas rituāls</div></div>
+<div class="usage-card"><div class="frame"><video poster="assets/usage-3-poster.jpg" src="assets/usage-3.mp4" playsinline preload="metadata" onclick="toggleVideo(this)"></video><div class="play-badge"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="2,1 13,7 2,13"/></svg></div></div><div class="caption">Nedēļas nogales atslābināšanās rituāls</div></div>
 <div class="usage-card"><div class="frame"><video poster="assets/usage-2-poster.jpg" src="assets/usage-2.mp4" playsinline preload="metadata" onclick="toggleVideo(this)"></video><div class="play-badge"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="2,1 13,7 2,13"/></svg></div></div><div class="caption">15 minūšu atjaunošanās pēc darba</div></div>
       </div>
       </div>
@@ -786,7 +787,7 @@
     <div class="wrap" style="padding:0">
       <div class="section-head" style="max-width:680px">
         <h2>Izmēģiniet bez riska</h2>
-        <p>Visas garantijas ir iekļautas - jums atliek tikai izvēlēties sev piemērotāko saunu.</p>
+        <p>Par visu pārējo esam parūpējušies - jums atliek tikai izvēlēties piemērotāko saunu.</p>
       </div>
       <div class="trust-grid" id="trust-grid"></div>
       <div class="trust-scroll-wrap">
@@ -794,7 +795,7 @@
         <div class="dots-row" id="trust-dots"></div>
       </div>
       <div class="cta-center">
-        <a href="#lead-form" class="btn" onclick="scrollToLead(event)">Saņemt piedāvājumu</a>
+        <a href="#lead-form" class="btn" onclick="scrollToLead(event)">Iegūt 40% atlaidi</a>
       </div>
     </div>
   </section>
@@ -803,7 +804,7 @@
   <section class="usage-section section-pad">
     <div class="wrap" style="padding:0">
       <div class="section-head">
-        <div class="eyebrow" style="color:#27221A">Pieredze</div>
+        <div class="eyebrow" style="color:#27221A">Pārdomāts dizains</div>
         <h2>Katra detaļa rūpīgi izstrādāta</h2>
       </div>
       <div class="carousel-wrap">
@@ -825,10 +826,10 @@
       <h2>Roku darbs no termoapses koka</h2>
     </div>
     <div style="margin-bottom:28px;padding:14px 20px;background:rgba(5,64,58,0.1);border:1px solid rgba(5,64,58,0.25);border-radius:12px;text-align:center;font-size:14.5px;font-weight:600;color:var(--accent-dark);">
-            Pirmssezonas noliktavas izpārdošana - pēdējās <span class="stock-count">7</span> saunas ar <span style="color:var(--accent-dark);font-weight:800;text-transform:uppercase;">atlaidi no &euro;1040</span> un <span style="color:var(--accent-dark);font-weight:800;text-transform:uppercase;">tvaika ģeneratoru par &euro;120</span>.
+            Pirmssezonas noliktavas izpārdošana - pēdējās <span class="stock-count">5</span> saunas ar <span style="color:var(--accent-dark);font-weight:800;text-transform:uppercase;">atlaidi no &euro;1040</span>.
     </div>
         <div class="products-grid" id="products-grid"></div>
-    <div class="products-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Rezervē savu piedāvājumu jau tagad - bez jebkāda maksājuma!</span></div>
+    <div class="products-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Saņem savu piedāvājumu jau tagad - bez jebkāda maksājuma!</span></div>
   </section>
 
   <!-- TESTIMONIALS -->
@@ -851,14 +852,14 @@
     <div class="wrap" style="padding:0">
       <div class="head">
         <h2>SPA labsajūta jūsu mājās</h2>
-        <p>Atlaide no &euro;1040 &middot; Tvaika ģenerators &euro;120 &middot; 30 dienu naudas atgriešanas garantija</p>
+        <p>Atlaide no &euro;1040 &middot; 30 dienu naudas atgriešanas garantija</p>
       </div>
       <div class="final-cta-grid">
         <div class="final-cta-photo"><img src="assets/final-cta-photo-sm.jpg" alt="Fitosauna klients" onclick="openLightbox(['assets/final-cta-photo-sm.jpg'],0)"></div>
         <div class="lead-form-card" id="lead-form-2">
   <div class="lead-form-body">
         <h3>Saņemiet piedāvājumu</h3>
-    <p class="sub">Iegādājoties saunu, iegūsti <strong>atlaidi no &euro;1040</strong> un <strong>tvaika ģeneratoru par &euro;120</strong> (parasti &euro;150).</p>
+    <p class="sub">Iegādājoties saunu, iegūsti <strong>atlaidi no &euro;1040</strong>.</p>
     <form class="lead-form" onsubmit="submitLead(event, this)">
       <div><label for="name-2">Vārds</label><input type="text" id="name-2" name="name" placeholder="Jūsu vārds"></div>
       <div><label for="phone-2">Tālruņa numurs</label><div class="phone-group">
@@ -879,12 +880,11 @@
         </div>
         <input type="tel" id="phone-2" name="phone" placeholder="Jūsu tālruņa numurs" required>
       </div></div>
-      <div><label for="email-2">E-pasts</label><input type="email" id="email-2" name="email" placeholder="jusu@epasts.lv"></div>
+      <div><label for="email-2">E-pasts</label><input type="email" id="email-2" name="email" placeholder="jūsu@epasts.lv"></div>
       <div class="error"></div>
-                  <button type="submit" class="submit-btn">Saņemt piedāvājumu tagad</button>
+                  <button type="submit" class="submit-btn">Iegūt 40% atlaidi</button>
       <div class="hero-mobile-note">
-        <strong>Bez maksājuma. Bez saistībām. Iesniedziet formu tagad un nodrošiniet savu īpašo piedāvājumu.</strong>
-                <span>Ja pirms lēmuma pieņemšanas vēlaties padomu, labprāt atbildēsim uz visiem jūsu jautājumiem.</span>
+        <strong>Bez maksājuma un saistībām. Aizpildi pieteikuma formu jau tagad un izmanto īpašo piedāvājumu!</strong>
          <span>Piesakoties es piekrītu, ka SIA Fitosauna var sazināties ar mani pa e-pastu, tālruni un WhatsApp. Varu atteikties jebkurā laikā.</span>
       </div>
     </form>
@@ -962,7 +962,7 @@ var GALLERY = [
 
 var TRUST_POINTS = [
   { title: '30 dienu naudas atgriešanas garantija', text: 'Izmēģiniet saunu mājās. Ja tā jums neder, atgrieziet to 30 dienu laikā un saņemiet pilnu naudas atmaksu - atpakaļsūtīšanu apmaksājam mēs.' },
-  { title: 'Apmaksa pēc piegādes', text: 'Maksājiet tikai tad, kad sauna ir piegādāta. Bez priekšapmaksas.' },
+  { title: 'Maksā pa daļām', text: 'Maksā pa daļām vai izmanto izdevīgo līzingu ar atmaksas termiņu līdz pat 36 mēnešiem.' },
   { title: '5 gadu garantija', text: 'Krietni ilgāka par standarta divu gadu garantiju - jūsu pirkums ir aizsargāts vēl ilgi pēc izmēģinājuma perioda beigām.' },
   { title: 'Atbilst ES standartiem', text: 'FSC sertificēta A klases termoapse un nerūsējošais tērauds, atbilstoši ES veselības, drošības, RoHS un vides prasībām - pārbaudīts, nevis tikai apgalvots.' }
 ];
@@ -986,7 +986,7 @@ var PRODUCTS = [
   { name: 'Ovālā', basePrice: 3100, discount: 1240,
     images: [['assets/oval-essential-closed-sm.jpg?v=5', 'assets/oval-essential-bundle-sm.jpg?v=5'], ['assets/oval-signature-bundle-sm.jpg?v=3'], ['assets/oval-ultimate-bundle-sm.jpg?v=3']],
     coverFit: [true, false, false],
-    desc: 'Vairāk vietas iekšpusē un papildu komforts - atzveltne iekļauta komplektā.',
+    desc: 'Vairāk vietas iekšpusē un papildu komforts - muguras balsts iekļauts komplektā.',
     specs: [ { k: 'Izmērs', v: '130×100×78 cm' }, { k: 'Piemērota', v: 'Augumam līdz 215 cm' }, { k: 'Koksne', v: 'Termoapse' }, { k: 'Detaļas', v: 'Nerūsējošais tērauds' } ] }
 ];
 
@@ -994,22 +994,24 @@ var TESTIMONIALS = [
   // Latvian reviews: verbatim from fitosauna.com/lv/ (Google reviews). One international review kept.
   { quote: 'Es nopirku sev kā dāvanu dzimšanas dienā, bet mans vīrs bija ļoti skeptisks elektrības cenu dēļ, taču rezultātā arī viņš ir sajūsmā, jo Fitosaunas tvaika sauna patērē mazāk elektrības nekā veļas mašīna! Un mans vīrs saka, ka arī viņš ir pamanījis, ka veselība manāmi uzlabojas, regulāri lietojot saunu.', name: 'Olga Belmane', country: 'Latvija', photo: 'assets/testimonial-olga-belmane.jpg' },
   { quote: 'Labākais pirkums, ko esmu veicis pēdējā laikā! Man patīk iet uz saunu, bet pēc darba agrāk bija nepieciešamas stundas, lai to sakurinātu. Šis ir ideāls risinājums, un tā skaisti iekļaujas mūsu viesistabā - viesi ir sajūsmā. Tā ir ātra, ērta un ļoti vienkārši lietojama. Uzsilst tikai 15 minūtēs. Ideāli vakarā pēc darba.', name: 'Vitālijs Sprūga', country: 'Latvija' },
-  { quote: 'Es lietoju Fitosaunas tvaika saunu jau kādu laiku, un jūtu ievērojamas izmaiņas savā ķermenī un veselībā. Esmu pamanījusi, ka mani mērījumi ir samazinājušies, un ļoti svarīga lieta, kas mainījusies, ir mans miegs - agrāk man bija problēmas ar to, bet tagad es aizmiegu laikā un pamostos bez problēmām. Noteikti iesaku.', name: 'Leina Markēviča', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/image-1.png' },
-  { quote: 'Es jau sen gribēju saunu mājās, bet man nav laika plānot un būvēt projektu. Fitosaunas tvaika sauna ir ideāls risinājums, un tā ir arī daudz lētāka nekā iegādāties vai būvēt lielu saunu. To ir viegli uzstādīt istabā, jo nav nepieciešams ūdens pieslēgums un kanalizācija. Sauna ir pat labāka, nekā sākumā šķita!', name: 'Viesturs Rīdiņš', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/02/2.jpg' },
+  { quote: 'Es lietoju Fitosaunas tvaika saunu jau kādu laiku, un jūtu ievērojamas izmaiņas savā ķermenī un veselībā. Esmu pamanījusi, ka mani mērījumi ir samazinājušies, un ļoti svarīga lieta, kas mainījusies, ir mans miegs - agrāk man bija problēmas ar to, bet tagad es aizmiegu laikā un pamostos bez problēmām. Noteikti iesaku.', name: 'Māra Kupča', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/image-1.png' },
+  { quote: 'Es jau sen gribēju saunu mājās, bet man nav laika plānot un būvēt projektu. Fitosaunas tvaika sauna ir ideāls risinājums, un tā ir arī daudz lētāka nekā iegādāties vai būvēt lielu saunu. To ir viegli uzstādīt istabā, jo nav nepieciešams ūdens pieslēgums un kanalizācija. Sauna ir pat labāka, nekā sākumā šķita!', name: 'Niks Doinats', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/02/2.jpg' },
   { quote: 'Mani traucē parastās saunas sausums, bet kopš nopirku Fitosaunas tvaika saunu, es vairs neapmeklēju parastās saunas, jo šī sauna nodrošina mitru tvaiku. Man arī patīk, ka galva ir ārpus saunas, jo parasti nākamajā dienā biju noguris. Ar Fitosaunu tā nav.', name: 'Ilgvars Ribušs', country: 'Latvija', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/image.png' },
   { quote: 'Pēc smagas darba nedēļas iekāpt saunā ir vienkārši lieliski. Man nav jābrauc nekur un jāīrē, kā agrāk. Es varu baudīt saunas siltumu savā dzīvoklī un mierīgi atpūsties. Ideāls risinājums pilsētniekam, un arī elektrības patēriņš ir smieklīgs.', name: 'Jānis Pinkens', country: 'Latvija' },
   { quote: 'Biju skeptisks, bet 30 dienu naudas atgriešanas garantija, kurā viņi apmaksā pat piegādi abos virzienos, bija pietiekams iemesls pamēģināt. Tā ir lieliska - iesaku no sirds.', name: 'Noud Hendriks', country: 'Nīderlande' },
-  { quote: 'Pirms pirkuma novērtēju, ka viņi bija gatavi parādīt saunu videozvanā. Piegāde noritēja raiti, un sauna ātri uzsilst.', name: 'Ciara Ryan', country: 'Īrija', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/image-3.png', photoMobile: 'assets/testimonial-ciara-ryan-mobile.jpg' }
+  { quote: 'Pirms pirkuma novērtēju, ka viņi bija gatavi parādīt saunu videozvanā. Piegāde noritēja raiti, un sauna ātri uzsilst.', name: 'Amani Kiivikas', country: 'Igaunija', photo: 'https://fitosauna.com/wp-content/uploads/2026/06/image-3.png', photoMobile: 'assets/testimonial-ciara-ryan-mobile.jpg' }
 ];
 
 var FAQS = [
-  { q: 'Kā saunu uzstādīt, kopt un izjaukt?', a: 'Uzstādīšana ir vienkārša - sauna tiek piegādāta pilnībā salikta un gatava lietošanai. Vienkārši novietojiet to izvēlētajā vietā un pieslēdziet ģeneratoru elektrībai. Kopšana ir minimāla: pēc katras reizes izslaukiet saunu un laiku pa laikam to iztīriet. Pārvācoties saunu var izjaukt paneļos, lai to būtu ērti pārvest.' },
+  { q: 'Kā saunu uzstādīt, kopt un izjaukt?', a: 'Uzstādīšana ir vienkārša - sauna tiek piegādāta pilnībā salikta un gatava lietošanai. Vienkārši novietojiet to izvēlētajā vietā un pieslēdziet ģeneratoru jebkurā standarta rozetē. Kopšana ir minimāla: pēc katras reizes izslaukiet saunu un laiku pa laikam dezinficējiet to.' },
   { q: 'Vai saunu var novietot ārā?', a: 'Jā, saunu var izmantot arī ārā - nojumē vai citā aizsargātā vietā. Tomēr iesakām to pasargāt no tieša lietus un liela sala, lai pagarinātu tās kalpošanas laiku.' },
-  { q: 'Vai saunu var pārvietot?', a: 'Jā. Sauna ir veidota tā, lai to varētu pārvietot. To var izjaukt paneļos un bez lielas piepūles salikt jaunajā vietā. Ja ceļā uz paredzēto telpu ir šķēršļi vai durvju ailes, kas šaurākas par 79 cm, sauna būs jāizjauc.' },
-  { q: 'Vai tvaiks nesabojās telpas griestus vai sienas?', a: 'Nē. Tvaiks paliek slēgtajā kabīnē un neizplūst telpā. Pateicoties dizainam ar galvu ārpusē, mitrums paliek saunas iekšpusē.' },
-  { q: 'Vai saunai vajadzīgs ūdens vai kanalizācijas pieslēgums?', a: 'Nē, saunai nav nepieciešams nekāds santehnikas pieslēgums. Tā darbojas ar tvaika ģeneratoru - vajadzīga tikai parasta elektrības kontaktligzda.' },
-  { q: 'Vai pēc apmaksas varu mainīt savu pasūtījumu?', a: 'Pasūtījumi parasti tiek apstrādāti 1-3 darba dienu laikā. Šajā laikā varat ar mums sazināties, lai lūgtu izmaiņas vai atceltu pasūtījumu. Kad pasūtījums ir apstrādāts un nosūtīts, to vairs nav iespējams mainīt vai atcelt.' },
-  { q: 'Kur atrodas jūsu noliktava, un vai piegādājat arī ārpus Latvijas?', a: 'Mūsu noliktava atrodas Rīgā. Piegādājam visā Latvijā, citās ES valstīs un arī ārpus Eiropas Savienības. Piegādei ārpus ES izmaksas ir atkarīgas no preču daudzuma un galamērķa, tāpēc katru šādu pasūtījumu izvērtējam individuāli un piegādes cenu paziņojam pēc pasūtījuma iesniegšanas, pirms apmaksas.' },
+  { q: 'Vai saunu var pārvietot?', a: 'Jā. Sauna ir veidota tā, lai to varētu pārvietot. To var izjaukt un salikt vadoties pēc mūsu video instrukcijām. Ja ceļā uz paredzēto telpu ir šķēršļi vai durvju ailes, kas šaurākas par 79 cm, sauna būs jāizjauc.', link: { text: 'Skatīt video instrukcijas', url: 'https://fitosauna.com/lv/celvedis/' } },
+  { q: 'Vai tvaiks nesabojās telpas griestus vai sienas?', a: 'Nē. Tvaiks paliek saunas iekšpusē un neizplūst telpā.' },
+  { q: 'Vai saunai vajadzīgs ūdens vai kanalizācijas pieslēgums?', a: 'Nē, saunai nav nepieciešams nekāds santehnikas pieslēgums. Procedūrai ir nepieciešami 2L ūdens, kas tiek ielieti tvaika ģeneratorā. Viss liekais ūdens notek speciālā traukā zem saunas.' },
+  { q: 'Kur atrodas jūsu noliktava, un vai piegādājat arī ārpus Latvijas?', a: 'Mūsu noliktava atrodas Vietalvas ielā 1, Rīgā. Piegādājam visā Latvijā, citās ES valstīs un arī ārpus Eiropas Savienības.' },
+  { q: 'Cik ilgi aizņem piegāde?', a: 'Pasūtījuma apstrāde var aizņemt līdz 2 darba dienām. Piegāde ar DPD Latvijā var aizņemt līdz 3 darba dienām. Piegāde Eiropā atkarīga no valsts un var aizņemt 3-10 darba dienas.' },
+  { q: 'Vai ir iespējams preci apskatīt?', a: 'Jā, preces atrodas mūsu noliktavā Rīgā. Tās var apskatīt, iepriekš sazinoties ar mums. Piedāvājam arī bezmaksas video zvanu no mūsu salona, kur varēsi apskatīt produkta kvalitāti. Tāpat vari apskatīt saunas 3D modeli un izmēģināt AR funkciju, lai redzētu, kā tā izskatīsies tavā mājoklī:', link: { text: 'Apskati saunu 3D un AR', url: 'https://fitosauna.com/3d/' } },
+  { q: 'Kā notiek apmaksa par pirkumu?', a: 'Apmaksu var veikt skaidrā naudā vai ar bankas pārskaitījumu.' },
   { q: 'Vai pēc pirkuma varu preci apmainīt?', a: 'Saunām (arī pasūtījumā iekļautajiem piederumiem) apmaiņu var noorganizēt 30 dienu laikā pēc piegādes, ja prece ir maz lietota un labā stāvoklī, bez bojājumiem vai defektiem. Visām pārējām precēm apmaiņas termiņš ir 14 dienas.' }
 ];
 
@@ -1302,7 +1304,7 @@ PRODUCTS.forEach(function (p, pIndex) {
       '<div class="bundle-tabs"></div>' +
       '<div class="bundle-items"></div>' +
       '<div class="specs-grid">' + p.specs.map(function (s) { return '<div><div class="k">' + esc(s.k) + '</div><div class="v">' + esc(s.v) + '</div></div>'; }).join('') + '</div>' +
-      '<a href="#lead-form" class="btn" onclick="scrollToLead(event)">Saņemt piedāvājumu</a>' +
+      '<a href="#lead-form" class="btn" onclick="scrollToLead(event)">Iegūt 40% atlaidi</a>' +
     '</div>';
   productsGrid.appendChild(card);
 
@@ -1445,7 +1447,7 @@ FAQS.forEach(function (f, i) {
   var item = document.createElement('div');
   item.className = 'faq-item' + (i === 0 ? ' open' : '');
   item.innerHTML = '<button class="faq-q"><span>' + esc(f.q) + '</span><span class="faq-icon">' + (i === 0 ? '−' : '+') + '</span></button>' +
-    '<p class="faq-a">' + esc(f.a) + '</p>';
+    '<p class="faq-a">' + esc(f.a) + (f.link ? ' <a href="' + esc(f.link.url) + '" target="_blank" rel="noopener" style="color:var(--accent-dark);font-weight:600;text-decoration:underline">' + esc(f.link.text) + '</a>' : '') + '</p>';
   var btn = item.querySelector('.faq-q');
   btn.onclick = function () {
     var open = item.classList.toggle('open');
