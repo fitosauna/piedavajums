@@ -434,6 +434,7 @@
     .desktop-copy { display: none !important; }
     .mobile-copy { display: inline !important; }
     .hero-pills .mobile-copy { display: inline-flex !important; }
+    .hero-pills { width: calc(100vw - 36px); max-width: none; } /* full width, even though the hero text column is 82% */
     .hero-mobile-note {
       display: block;
       margin-top: 14px;
@@ -543,10 +544,11 @@
       gap: 18px 10px;
     }
 
-    .trust-main-grid > .trust-logo-item:last-child:nth-child(odd) {
+    /* odd number of badges: Google rating gets its own row on top, the rest pair up below */
+    .trust-main-grid > .trust-logo-item:first-child:nth-last-child(odd) {
       grid-column: 1 / -1;
     }
-    .trust-main-grid > .trust-logo-item:last-child:nth-child(odd) img {
+    .trust-main-grid > .trust-logo-item:first-child:nth-last-child(odd) img {
       max-width: calc(50% - 5px);
     }
 
