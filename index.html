@@ -671,6 +671,7 @@
   <div class="lead-form-body">
     <h2>Saņemiet piedāvājumu</h2>
 <p class="sub"><span class="desktop-copy">Iegādājoties saunu, iegūsti <strong>atlaidi no &euro;1040</strong>.</span><span class="mobile-copy">Aizpildi formu un iegūsti <strong>atlaidi no &euro;1040</strong>.</span></p>    <form class="lead-form" onsubmit="submitLead(event, this)">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div>
         <label for="name-1">Vārds</label>
         <input type="text" id="name-1" name="name" placeholder="Jūsu vārds">
@@ -863,6 +864,7 @@
         <h3>Saņemiet piedāvājumu</h3>
     <p class="sub">Iegādājoties saunu, iegūsti <strong>atlaidi no &euro;1040</strong>.</p>
     <form class="lead-form" onsubmit="submitLead(event, this)">
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div><label for="name-2">Vārds</label><input type="text" id="name-2" name="name" placeholder="Jūsu vārds"></div>
       <div><label for="phone-2">Tālruņa numurs</label><div class="phone-group">
         <div class="code-dd" id="dd-2">
@@ -948,7 +950,7 @@
 // ---- Settings (fill these in before going live) ----
 // Where form submissions are sent, e.g. a GoHighLevel / Make / Zapier inbound webhook URL.
 // Leave empty and leads are NOT saved anywhere.
-var LEAD_ENDPOINT = '';
+var LEAD_ENDPOINT = 'send-lead.php';
 // Optional: URL of the WhatsApp consent script on this site's server, e.g. '/api/whatsapp-consent.php'
 var WHATSAPP_CONSENT_URL = '';
 
@@ -1106,22 +1108,25 @@ function submitLead(e, form) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('Lūdzu, ievadiet derīgu e-pasta adresi.');
   errorEl.style.display = 'none';
   var fullPhone = phoneCode + ' ' + phone;
-  console.log('[Fitosauna lead]', { name: name, phone: fullPhone, email: email, timestamp: new Date().toISOString() });
-  var contactEl = card.querySelector('.lead-contact');
-  if (contactEl) contactEl.textContent = email + ' vai ' + fullPhone;
-    card.classList.add('submitted');
-  // Send the lead (this page has no GTM, so this is the ONLY place leads go).
-  var lead = { name: name, email: email, phone: e164, language: 'lv', source: 'lv-landing-page', page: window.location.href, submitted_at: new Date().toISOString() };
-  if (LEAD_ENDPOINT) {
-    fetch(LEAD_ENDPOINT, {
-      method: 'POST',
-      keepalive: true,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(lead)
-    }).catch(function (err) { console.error(err); });
-  } else {
-    console.warn('[Fitosauna LV] LEAD_ENDPOINT is not set - this lead was NOT saved anywhere.', lead);
-  }
+  var btn = form.querySelector('[type=submit]');
+  if (btn.disabled) return;
+  var btnText = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Sūta...';
+  // Send the lead to send-lead.php, which emails it to info@fitosauna.com.
+  // The thank-you message only shows once the server confirms.
+  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, company: (form.querySelector('[name=company]') || {}).value || '' });
+  fetch(LEAD_ENDPOINT, { method: 'POST', body: data })
+    .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || !j.ok) throw new Error('HTTP ' + r.status); }); })
+    .then(function () {
+      var contactEl = card.querySelector('.lead-contact');
+      if (contactEl) contactEl.textContent = email + ' vai ' + fullPhone;
+      card.classList.add('submitted');
+    })
+    .catch(function (err) {
+      console.error('[Fitosauna LV] lead not sent', err);
+      btn.disabled = false; btn.textContent = btnText;
+      showError('Neizdevās nosūtīt pieteikumu. Lūdzu, mēģiniet vēlreiz vai zvaniet mums: +371 29624479.');
+    });
   // WhatsApp consent endpoint (optional, server-side script)
   if (WHATSAPP_CONSENT_URL) {
     fetch(WHATSAPP_CONSENT_URL, {
