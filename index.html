@@ -682,7 +682,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="lead-form-body">
     <h2>Saņemiet piedāvājumu</h2>
 <p class="sub"><span class="desktop-copy">Iegādājoties saunu, iegūsti <strong>atlaidi no &euro;1040</strong>.</span><span class="mobile-copy">Aizpildi formu un iegūsti <strong>atlaidi no &euro;1040</strong>.</span></p>    <form class="lead-form" onsubmit="submitLead(event, this)">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="text" name="fs_hp_check" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div>
         <label for="name-1">Vārds</label>
         <input type="text" id="name-1" name="name" placeholder="Jūsu vārds">
@@ -875,7 +875,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h3>Saņemiet piedāvājumu</h3>
     <p class="sub">Iegādājoties saunu, iegūsti <strong>atlaidi no &euro;1040</strong>.</p>
     <form class="lead-form" onsubmit="submitLead(event, this)">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="text" name="fs_hp_check" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div><label for="name-2">Vārds</label><input type="text" id="name-2" name="name" placeholder="Jūsu vārds"></div>
       <div><label for="phone-2">Tālruņa numurs</label><div class="phone-group">
         <div class="code-dd" id="dd-2">
@@ -1150,9 +1150,11 @@ function submitLead(e, form) {
   btn.disabled = true; btn.textContent = 'Sūta...';
   // Send the lead to send-lead.php, which emails it to info@fitosauna.com.
   // The thank-you message only shows once the server confirms.
-  var honeypot = (form.querySelector('[name=company]') || {}).value || '';
+  // Hidden spam-trap field. Its name must not look like anything browser autofill fills in
+  // (it used to be called "company", which Chrome autofilled with the visitor's company name).
+  var honeypot = (form.querySelector('[name=fs_hp_check]') || {}).value || '';
   var leadId = newLeadId();
-  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, lead_id: leadId, company: honeypot });
+  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, lead_id: leadId, fs_hp_check: honeypot });
   fetch(LEAD_ENDPOINT, { method: 'POST', body: data })
     .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || !j.ok) throw new Error('HTTP ' + r.status); }); })
     .then(function () {
