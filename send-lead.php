@@ -43,6 +43,10 @@ $leadId = preg_replace('/[^A-Za-z0-9-]/', '', clean($_POST['lead_id'] ?? '', 64)
 $postedPrize = clean($_POST['prize'] ?? '', 10);
 $prize = lv_prize_for_email($email) ?? (isset(LV_PRIZES[$postedPrize]) ? $postedPrize : 'nospin');
 $prizeLabel = LV_PRIZES[$prize] ?? 'Nav griezis ratu';
+// Where on the page the lead came from (shown in the email subject + body).
+$sourceLabels = ['top' => 'augšējā forma', 'bottom' => 'apakšējā forma', 'wheel' => 'laimes rats'];
+$source = clean($_POST['source'] ?? '', 10);
+$sourceLabel = $sourceLabels[$source] ?? 'nav zināms';
 // Same email already sent a lead before (e.g. claimed in the wheel pop-up, then filled the page form too).
 $repeat = lv_lead_exists($email);
 
@@ -65,16 +69,17 @@ $when = (new DateTime('now', $tz))->format('d.m.Y H:i');
 $csv = dirname(__DIR__) . '/lv-leads.csv';
 $saved = false;
 if ($fh = @fopen($csv, 'a')) {
-    $saved = fputcsv($fh, [$when, $name, $phone, $email, $page, $ip, $leadId, $prize]) !== false;
+    $saved = fputcsv($fh, [$when, $name, $phone, $email, $page, $ip, $leadId, $prize, $source]) !== false;
     fclose($fh);
 }
 
-$subject = ($suspect ? '[IESPĒJAMS SPAMS] ' : '') . ($repeat ? 'Atkārtots pieteikums' : 'Jauns pieteikums') . ' (LV piedāvājums): ' . $name;
+$subject = ($suspect ? '[IESPĒJAMS SPAMS] ' : '') . ($repeat ? 'Atkārtots pieteikums' : 'Jauns pieteikums') . ' (LV piedāvājums, ' . $sourceLabel . '): ' . $name;
 $body = "Jauns pieteikums no Latvijas piedāvājuma lapas\n"
       . "==============================================\n\n"
       . "Vārds:    $name\n"
       . "Tālrunis: $phone\n"
       . "E-pasts:  $email\n"
+      . "Avots:    " . mb_strtoupper(mb_substr($sourceLabel, 0, 1)) . mb_substr($sourceLabel, 1) . "\n"
       . "Dāvana:   $prizeLabel\n"
       . ($repeat ? "PIEZĪME:  šis e-pasts jau iepriekš atstāja pieteikumu.\n" : "")
       . "\n"
