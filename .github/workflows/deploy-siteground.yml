@@ -1,5 +1,6 @@
 # Deploys the Latvian landing page (piedavajums.fitosauna.com) to SiteGround.
-# Runs ONLY when started by hand: GitHub -> Actions -> "Deploy to SiteGround" -> Run workflow.
+# Runs automatically on every push/merge to main, and can also be started by hand
+# (GitHub -> Actions -> "Deploy to SiteGround" -> Run workflow), optionally as a dry run.
 #
 # One-time setup (repo Settings -> Secrets and variables -> Actions -> New repository secret):
 #   SG_HOST      SSH hostname from SiteGround Site Tools -> Devs -> SSH Keys Manager (e.g. ssh.fitosauna.com or the server IP)
@@ -14,6 +15,8 @@
 name: Deploy to SiteGround
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       dry_run:
@@ -62,7 +65,7 @@ jobs:
           SG_PORT: ${{ secrets.SG_PORT }}
           SG_USER: ${{ secrets.SG_USER }}
           SG_PATH: ${{ secrets.SG_PATH }}
-          DRY_RUN: ${{ inputs.dry_run }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
         run: |
           flags="-rlvz --checksum"
           [ "$DRY_RUN" = "true" ] && flags="$flags --dry-run"
