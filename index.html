@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fitosauna - jūsu privātā sauna mājās</title>
 <meta name="description" content="Kompakta tvaika sauna, kurai pietiek ar 1 m². Bez būvdarbiem un ūdens pieslēguma. Atlaide no €1040, tvaika ģenerators tikai €120. Tagad no €1560.">
-<!-- Latvian version: no tracking (GTM / Meta Pixel removed on purpose). -->
+<!-- Google Tag Manager (fitosauna.com - web, GTM-P8QW4LPF). Meta Pixel, GA4 and the server-side (Stape) Conversions API are configured inside GTM. -->
+<script>window.dataLayer = window.dataLayer || [];</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P8QW4LPF');</script>
+<!-- End Google Tag Manager -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@500;600;700&display=swap" rel="stylesheet">
@@ -617,6 +624,10 @@
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P8QW4LPF"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div id="top">
 
   <!-- HEADER -->
@@ -1092,6 +1103,31 @@ function toE164(countryDial, rawInput) {
   return /^\d{8,15}$/.test(full) && local.length >= 6 ? '+' + full : null;
 }
 
+// ---- Tracking (Google Tag Manager) ----
+// Unique id per lead: sent to send-lead.php (email + CSV) and to GTM, so a lead in the inbox/CRM
+// can later be matched to the Meta / GA4 conversion (external_id).
+function newLeadId() {
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'lv-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+}
+
+// Fired once per successful lead. GTM listens for event 'lv_lead_form_submit' and sends
+// "Lead form LV" to Meta (browser pixel + server-side Conversions API, same event ID) and generate_lead to GA4.
+// email / phone / names are used by GTM for Meta advanced matching (hashed before they reach Meta).
+function pushLeadEvent(leadId, fullName, email, phoneE164) {
+  var parts = fullName.split(/\s+/);
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'lv_lead_form_submit',
+    market: 'LV',
+    lead_id: leadId,
+    email: email.toLowerCase(),
+    phone_number: phoneE164,
+    first_name: parts[0] || '',
+    last_name: parts.slice(1).join(' ')
+  });
+}
+
 function submitLead(e, form) {
   e.preventDefault();
   var card = form.closest('.lead-form-card');
@@ -1114,13 +1150,17 @@ function submitLead(e, form) {
   btn.disabled = true; btn.textContent = 'Sūta...';
   // Send the lead to send-lead.php, which emails it to info@fitosauna.com.
   // The thank-you message only shows once the server confirms.
-  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, company: (form.querySelector('[name=company]') || {}).value || '' });
+  var honeypot = (form.querySelector('[name=company]') || {}).value || '';
+  var leadId = newLeadId();
+  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, lead_id: leadId, company: honeypot });
   fetch(LEAD_ENDPOINT, { method: 'POST', body: data })
     .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || !j.ok) throw new Error('HTTP ' + r.status); }); })
     .then(function () {
       var contactEl = card.querySelector('.lead-contact');
       if (contactEl) contactEl.textContent = email + ' vai ' + fullPhone;
       card.classList.add('submitted');
+      // Tracking: only after the server confirmed the lead, and never for spam-trap submissions.
+      if (!honeypot) pushLeadEvent(leadId, name, email, e164);
     })
     .catch(function (err) {
       console.error('[Fitosauna LV] lead not sent', err);
