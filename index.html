@@ -1177,9 +1177,10 @@ function pushLeadEvent(leadId, fullName, email, phoneE164) {
 // Sends one lead to send-lead.php (emails info@fitosauna.com, adds to Klaviyo with the wheel prize).
 // Used by the page lead forms and by the phone step of the spin-the-wheel pop-up.
 // Resolves only once the server confirmed; then fires the GTM lead event (never for spam-trap hits).
-function sendLead(name, email, e164, honeypot) {
+// source = where on the page the lead came from: 'top' (hero form), 'bottom' (final form) or 'wheel'.
+function sendLead(name, email, e164, honeypot, source) {
   var leadId = newLeadId();
-  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, lead_id: leadId, fs_hp_check: honeypot, prize: wheelPrize() });
+  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, lead_id: leadId, fs_hp_check: honeypot, prize: wheelPrize(), source: source || '' });
   return fetch(LEAD_ENDPOINT, { method: 'POST', body: data })
     .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || !j.ok) throw new Error('HTTP ' + r.status); }); })
     .then(function () {
@@ -1232,7 +1233,7 @@ function submitLead(e, form) {
   var btnText = btn.textContent;
   btn.disabled = true; btn.textContent = 'Sūta...';
   var honeypot = (form.querySelector('[name=fs_hp_check]') || {}).value || '';
-  sendLead(name, email, e164, honeypot)
+  sendLead(name, email, e164, honeypot, form.closest('.final-cta') ? 'bottom' : 'top')
     .then(function () { markLeadSent(email, phoneCode + ' ' + phone); })
     .catch(function (err) {
       console.error('[Fitosauna LV] lead not sent', err);
@@ -1693,7 +1694,7 @@ function claimWheelPrize(e, form) {
   errorEl.style.display = 'none';
   btn.disabled = true; btn.textContent = 'Sūta...';
   var honeypot = (form.querySelector('[name=fs_hp_check]') || {}).value || '';
-  sendLead(name, w.email, e164, honeypot)
+  sendLead(name, w.email, e164, honeypot, 'wheel')
     .then(function () {
       markLeadSent(w.email, phoneCode + ' ' + phone);
       document.getElementById('spin-done-contact').textContent = w.email + ' vai ' + phoneCode + ' ' + phone;
