@@ -621,6 +621,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 @media (max-width: 380px) {
   .hero-pills span { padding: 9px 4px; font-size: 11px; white-space: nowrap; }
 }
+
+  /* SPIN THE WHEEL (Latvian, landing page only) */
+  .spin-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(20,17,12,.62); display: none; align-items: center; justify-content: center; padding: 16px; }
+  .spin-overlay.open { display: flex; }
+  .spin-modal { position: relative; width: 100%; max-width: 860px; max-height: calc(100vh - 32px); overflow-y: auto; background: var(--surface); border-radius: 22px; box-shadow: 0 30px 80px rgba(0,0,0,.35); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 8px; padding: clamp(22px,4vw,44px); }
+  .spin-close { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(39,34,26,.18); background: var(--card); color: var(--ink); font-size: 18px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .spin-wheel-wrap { position: relative; width: min(340px, 72vw); aspect-ratio: 1; margin: 0 auto; }
+  .spin-wheel-wrap svg.spin-wheel { width: 100%; height: 100%; display: block; transition: transform 5s cubic-bezier(.12,.68,.18,1); filter: drop-shadow(0 14px 26px rgba(39,34,26,.22)); }
+  .spin-pointer { position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid #D2942D; filter: drop-shadow(0 3px 3px rgba(0,0,0,.25)); z-index: 2; }
+  .spin-copy { text-align: center; padding: 0 clamp(0px,2vw,16px); }
+  .spin-copy h2 { font-size: clamp(26px,3.4vw,36px); font-weight: 600; line-height: 1.12; margin: 0 0 10px; }
+  .spin-copy .spin-sub { font-size: 16px; font-weight: 600; color: var(--accent-dark); margin: 0 0 18px; }
+  .spin-copy form { display: flex; flex-direction: column; gap: 10px; }
+  .spin-copy input[type=email] { width: 100%; padding: 14px 15px; border: 1.5px solid rgba(39,34,26,0.18); border-radius: 10px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #27221A; background: #fff; outline: none; }
+  .spin-copy input[type=email]:focus { border-color: var(--accent); }
+  .spin-btn { width: 100%; background: var(--accent); color: var(--cream); font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 17px; border: none; border-radius: 11px; padding: 15px 22px; cursor: pointer; }
+  .spin-btn:hover { background: var(--accent-dark); }
+  .spin-btn[disabled] { opacity: .65; cursor: default; }
+  .spin-no { background: none; border: none; color: rgba(39,34,26,.55); font-family: 'Archivo', sans-serif; font-size: 14px; cursor: pointer; padding: 6px; text-decoration: underline; }
+  .spin-legal { font-size: 11.5px; line-height: 1.45; color: rgba(39,34,26,.55); margin-top: 4px; }
+  .spin-error { font-size: 13px; color: #a83c2e; font-weight: 600; display: none; }
+  .spin-result { display: none; }
+  .spin-modal.won .spin-form-step { display: none; }
+  .spin-modal.won .spin-result { display: block; }
+  .spin-result .spin-won { font-size: clamp(30px,4vw,42px); font-weight: 700; line-height: 1.1; color: var(--accent-dark); margin: 6px 0 12px; }
+  .spin-result p { font-size: 15.5px; line-height: 1.5; color: rgba(39,34,26,.75); margin: 0 0 18px; }
+  .spin-teaser { position: fixed; left: 16px; bottom: 16px; z-index: 250; display: none; align-items: center; gap: 8px; background: var(--ink); color: var(--surface); border: none; border-radius: 999px; padding: 12px 18px; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 14.5px; cursor: pointer; box-shadow: 0 12px 30px rgba(0,0,0,.25); }
+  .spin-teaser.show { display: inline-flex; }
+  .wheel-prize-note { display: none; padding: 11px 14px; border-radius: 10px; background: rgba(210,148,45,.16); border: 1px solid rgba(210,148,45,.45); color: #6b4a12; font-size: 14px; font-weight: 700; line-height: 1.4; }
+  .has-wheel-prize .wheel-prize-note { display: block; }
+  @media (max-width: 720px) {
+    .spin-modal { grid-template-columns: 1fr; gap: 14px; padding: 46px 18px 20px; }
+    .spin-wheel-wrap { width: min(250px, 66vw); }
+    .spin-copy h2 { font-size: 25px; }
+    .spin-copy .spin-sub { margin-bottom: 12px; }
+  }
 </style>
 </head>
 <body>
@@ -1152,13 +1188,23 @@ function submitLead(e, form) {
   // The thank-you message only shows once the server confirms.
   var honeypot = (form.querySelector('[name=company]') || {}).value || '';
   var leadId = newLeadId();
-  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, lead_id: leadId, company: honeypot });
+  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, lead_id: leadId, company: honeypot, prize: wheelPrize() });
   fetch(LEAD_ENDPOINT, { method: 'POST', body: data })
     .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || !j.ok) throw new Error('HTTP ' + r.status); }); })
     .then(function () {
       var contactEl = card.querySelector('.lead-contact');
       if (contactEl) contactEl.textContent = email + ' vai ' + fullPhone;
       card.classList.add('submitted');
+      wheelSave(WHEEL_LEAD_KEY, Date.now());
+      document.getElementById('spin-teaser').classList.remove('show');
+      var prize = wheelPrize(), okEl = card.querySelector('.lead-success');
+      if (prize && okEl && !okEl.querySelector('.wheel-success-line')) {
+        var line = document.createElement('p');
+        line.className = 'wheel-success-line';
+        line.style.cssText = 'margin-top:14px;font-weight:700;color:#6b4a12';
+        line.textContent = '\uD83C\uDF81 Jūsu laimests (' + WHEEL_WON[prize][0].replace('!', '') + ') ir pievienots pieteikumam.';
+        okEl.insertBefore(line, okEl.querySelector('p + p') || null);
+      }
       // Tracking: only after the server confirmed the lead, and never for spam-trap submissions.
       if (!honeypot) pushLeadEvent(leadId, name, email, e164);
     })
@@ -1503,6 +1549,198 @@ FAQS.forEach(function (f, i) {
   };
   faqList.appendChild(item);
 });
+
+// ---- Spin the wheel (Latvian, this landing page only) ----
+// spin.php draws the prize on the server, saves it and stores it on the Klaviyo profile.
+// The browser only animates the wheel to the prize it got back, remembers it, and sends it
+// with the lead form so send-lead.php / the LV Email 1 flow know which prize to honour.
+var WHEEL_ENDPOINT = 'spin.php';
+var WHEEL_KEY = 'fitosauna_lv_wheel';             // { prize, email }
+var WHEEL_CLOSED_KEY = 'fitosauna_lv_wheel_closed'; // time the pop-up was dismissed
+var WHEEL_LEAD_KEY = 'fitosauna_lv_lead_done';      // lead form already sent from this browser
+var WHEEL_DELAY_MS = 15000, WHEEL_SCROLL = 0.5, WHEEL_SNOOZE_DAYS = 5;
+var WHEEL_SLICES = ['150', '100', '50', 'gift', '150', '100', '50', 'gift'];
+var WHEEL_LABELS = { '150': '€150 atlaide', '100': '€100 atlaide', '50': '€50 atlaide', 'gift': 'Slepenā dāvana' };
+var WHEEL_WON = {
+  '150': ['€150 papildu atlaide', 'Atlaide tiks pievienota Jūsu personīgajam piedāvājumam - papildus 40% atlaidei. Aizpildiet pieteikumu, un mēs ar Jums sazināsimies.'],
+  '100': ['€100 papildu atlaide', 'Atlaide tiks pievienota Jūsu personīgajam piedāvājumam - papildus 40% atlaidei. Aizpildiet pieteikumu, un mēs ar Jums sazināsimies.'],
+  '50':  ['€50 papildu atlaide', 'Atlaide tiks pievienota Jūsu personīgajam piedāvājumam - papildus 40% atlaidei. Aizpildiet pieteikumu, un mēs ar Jums sazināsimies.'],
+  'gift': ['Slepenā dāvana!', 'Pasūtot jebkuru saunu, saņemsiet bezmaksas tvaika ģeneratora kasti - papildus 40% atlaidei. Aizpildiet pieteikumu, un mēs ar Jums sazināsimies.']
+};
+var wheelRotation = 0, wheelAutoShown = false;
+
+function wheelLoad(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
+function wheelSave(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+function wheelPrize() { var w = wheelLoad(WHEEL_KEY); return w && WHEEL_LABELS[w.prize] ? w.prize : ''; }
+
+function drawWheel() {
+  var svg = document.getElementById('spin-wheel');
+  if (!svg) return;
+  var r = 150, n = WHEEL_SLICES.length, step = 360 / n, out = '';
+  out += '<circle r="157" fill="#27221A"></circle>';
+  WHEEL_SLICES.forEach(function (p, i) {
+    var a0 = (i * step - 90) * Math.PI / 180, a1 = ((i + 1) * step - 90) * Math.PI / 180;
+    var fill = p === 'gift' ? '#D2942D' : (i % 2 ? '#05403A' : '#F3EDE2');
+    var color = p === 'gift' || i % 2 ? '#FCF6EC' : '#27221A';
+    out += '<path d="M0 0 L' + (r * Math.cos(a0)).toFixed(2) + ' ' + (r * Math.sin(a0)).toFixed(2) +
+      ' A' + r + ' ' + r + ' 0 0 1 ' + (r * Math.cos(a1)).toFixed(2) + ' ' + (r * Math.sin(a1)).toFixed(2) + ' Z" fill="' + fill + '"></path>';
+    out += '<g transform="rotate(' + (i * step + step / 2 - 90) + ')"><text x="90" y="5" text-anchor="middle" fill="' + color +
+      '" font-family="Archivo, sans-serif" font-weight="700" font-size="' + (p === 'gift' ? 13.5 : 15) + '">' + WHEEL_LABELS[p] + '</text></g>';
+  });
+  out += '<circle r="24" fill="#FCF6EC" stroke="#27221A" stroke-width="4"></circle>';
+  svg.innerHTML = out;
+}
+
+function openWheel() {
+  var overlay = document.getElementById('spin-overlay');
+  if (!overlay) return;
+  var won = wheelLoad(WHEEL_KEY);
+  if (won && WHEEL_WON[won.prize]) showWheelResult(won.prize);
+  overlay.classList.add('open');
+  document.getElementById('spin-teaser').classList.remove('show');
+  var input = overlay.querySelector('input[type=email]');
+  if (input && !won) setTimeout(function () { input.focus(); }, 50);
+}
+
+function closeWheel() {
+  document.getElementById('spin-overlay').classList.remove('open');
+  if (!wheelPrize()) {
+    wheelSave(WHEEL_CLOSED_KEY, Date.now());
+    if (!wheelLoad(WHEEL_LEAD_KEY)) document.getElementById('spin-teaser').classList.add('show');
+  }
+}
+
+function showWheelResult(prize) {
+  document.getElementById('spin-won').textContent = WHEEL_WON[prize][0];
+  document.getElementById('spin-won-text').textContent = WHEEL_WON[prize][1];
+  document.getElementById('spin-modal').classList.add('won');
+}
+
+function spinWheel(e, form) {
+  e.preventDefault();
+  var email = form.querySelector('[name=email]').value.trim();
+  var errorEl = form.querySelector('.spin-error');
+  var btn = form.querySelector('.spin-btn');
+  function showError(msg) { errorEl.textContent = msg; errorEl.style.display = 'block'; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('Lūdzu, ievadiet derīgu e-pasta adresi.');
+  if (btn.disabled) return;
+  errorEl.style.display = 'none';
+  btn.disabled = true; btn.textContent = 'Griežam...';
+  var honeypot = (form.querySelector('[name=company]') || {}).value || '';
+  fetch(WHEEL_ENDPOINT, { method: 'POST', body: new URLSearchParams({ email: email, company: honeypot }) })
+    .then(function (r) { return r.json().then(function (j) { if (!r.ok || !j.ok || !WHEEL_WON[j.prize]) throw new Error('HTTP ' + r.status); return j.prize; }); })
+    .then(function (prize) {
+      // Land on one of the slices showing this prize (pointer is at the top).
+      var idx = [];
+      WHEEL_SLICES.forEach(function (p, i) { if (p === prize) idx.push(i); });
+      var k = idx[Math.floor(Math.random() * idx.length)], step = 360 / WHEEL_SLICES.length;
+      var jitter = (Math.random() - 0.5) * (step * 0.6);
+      wheelRotation = Math.ceil(wheelRotation / 360) * 360 + 360 * 6 + (360 - (k * step + step / 2)) + jitter;
+      document.getElementById('spin-wheel').style.transform = 'rotate(' + wheelRotation + 'deg)';
+      wheelSave(WHEEL_KEY, { prize: prize, email: email });
+      setTimeout(function () {
+        showWheelResult(prize);
+        applyWheelPrize(prize, email);
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'lv_wheel_spin', market: 'LV', wheel_prize: prize });
+      }, 5200);
+    })
+    .catch(function (err) {
+      console.error('[Fitosauna LV] spin failed', err);
+      btn.disabled = false; btn.textContent = 'Griezt ratu!';
+      showError('Neizdevās griezt ratu. Lūdzu, mēģiniet vēlreiz.');
+    });
+}
+
+// Show the prize above both lead forms and prefill their email field.
+function applyWheelPrize(prize, email) {
+  if (!WHEEL_WON[prize]) return;
+  document.querySelectorAll('form.lead-form').forEach(function (form) {
+    var note = form.querySelector('.wheel-prize-note');
+    if (!note) {
+      note = document.createElement('div');
+      note.className = 'wheel-prize-note';
+      form.insertBefore(note, form.querySelector('.error'));
+    }
+    note.textContent = '🎁 Jūsu laimests: ' + WHEEL_WON[prize][0].replace('!', '') + ' - tiks pievienota Jūsu piedāvājumam.';
+    form.classList.add('has-wheel-prize');
+    var emailInput = form.querySelector('[name=email]');
+    if (email && emailInput && !emailInput.value) emailInput.value = email;
+  });
+  document.getElementById('spin-teaser').classList.remove('show');
+}
+
+function claimWheelPrize() {
+  document.getElementById('spin-overlay').classList.remove('open');
+  var card = document.getElementById('lead-form');
+  if (card) {
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(function () { var n = document.getElementById('name-1'); if (n) n.focus({ preventScroll: true }); }, 700);
+  }
+}
+
+function maybeAutoOpenWheel() {
+  if (wheelAutoShown || wheelPrize() || wheelLoad(WHEEL_LEAD_KEY)) return;
+  var closed = wheelLoad(WHEEL_CLOSED_KEY);
+  if (closed && Date.now() - closed < WHEEL_SNOOZE_DAYS * 864e5) return;
+  wheelAutoShown = true;
+  // Don't interrupt someone who is already filling in the lead form.
+  var active = document.activeElement;
+  if (active && active.closest && active.closest('form.lead-form')) { document.getElementById('spin-teaser').classList.add('show'); return; }
+  openWheel();
+}
+
+function initWheel() {
+  if (!document.getElementById('spin-overlay')) return;
+  drawWheel();
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && document.getElementById('spin-overlay').classList.contains('open')) closeWheel();
+  });
+  document.getElementById('spin-overlay').addEventListener('click', function (e) { if (e.target === this) closeWheel(); });
+  var won = wheelLoad(WHEEL_KEY);
+  if (won && WHEEL_WON[won.prize]) { applyWheelPrize(won.prize, won.email); return; }
+  if (wheelLoad(WHEEL_LEAD_KEY)) return;
+  var closed = wheelLoad(WHEEL_CLOSED_KEY);
+  if (closed && Date.now() - closed < WHEEL_SNOOZE_DAYS * 864e5) { document.getElementById('spin-teaser').classList.add('show'); return; }
+  setTimeout(maybeAutoOpenWheel, WHEEL_DELAY_MS);
+  window.addEventListener('scroll', function onScroll() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h > 0 && window.scrollY / h >= WHEEL_SCROLL) { window.removeEventListener('scroll', onScroll); maybeAutoOpenWheel(); }
+  }, { passive: true });
+}
+// The wheel markup sits after this script, so start once the page is parsed.
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initWheel); else initWheel();
 </script>
+<!-- SPIN THE WHEEL (Latvian, this landing page only). Prize is drawn by spin.php. -->
+<div class="spin-overlay" id="spin-overlay" role="dialog" aria-modal="true" aria-labelledby="spin-title">
+  <div class="spin-modal" id="spin-modal">
+    <button type="button" class="spin-close" aria-label="Aizvērt" onclick="closeWheel()">&#10005;</button>
+    <div class="spin-wheel-wrap">
+      <div class="spin-pointer"></div>
+      <svg class="spin-wheel" id="spin-wheel" viewBox="-160 -160 320 320" aria-hidden="true"></svg>
+    </div>
+    <div class="spin-copy">
+      <div class="spin-form-step">
+        <h2 id="spin-title">Griez ratu un laimē papildu atlaidi līdz &euro;150</h2>
+        <p class="spin-sub">Katrs griediens laimē! Papildus 40% atlaidei.</p>
+        <form onsubmit="spinWheel(event, this)" novalidate>
+          <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <input type="email" name="email" placeholder="Jūsu e-pasts" autocomplete="email" aria-label="E-pasts" required>
+          <div class="spin-error"></div>
+          <button type="submit" class="spin-btn">Griezt ratu!</button>
+          <div class="spin-legal">Ievadot e-pastu, es piekrītu saņemt SIA Fitosauna piedāvājumus e-pastā. Varu atteikties jebkurā laikā.</div>
+          <button type="button" class="spin-no" onclick="closeWheel()">Nē, paldies</button>
+        </form>
+      </div>
+      <div class="spin-result">
+        <div class="eyebrow">Apsveicam!</div>
+        <div class="spin-won" id="spin-won"></div>
+        <p id="spin-won-text"></p>
+        <button type="button" class="spin-btn" onclick="claimWheelPrize()">Saņemt piedāvājumu</button>
+      </div>
+    </div>
+  </div>
+</div>
+<button type="button" class="spin-teaser" id="spin-teaser" onclick="openWheel()">&#127873; Griez ratu un laimē</button>
 </body>
 </html>
