@@ -10,8 +10,10 @@
 #   SG_SSH_PASSPHRASE  the key's password (needed for keys generated in SiteGround; leave out for keys without one)
 #   SG_PATH      folder of the site, e.g. www/piedavajums.fitosauna.com/public_html (relative to the SSH home folder)
 #
-# Only page files are copied. Nothing on the server is deleted (no --delete), so .htaccess and other
-# server-only files stay untouched. The CSV lead backup lives one folder above public_html and is never touched.
+# Only page files are copied. Nothing on the server is deleted (no --delete). The CSV lead backup lives
+# one folder above public_html and is never touched. The server's .htaccess is never replaced: the deploy
+# only appends one marked block (once) that stops SiteGround's Dynamic Cache from serving old copies of
+# the HTML page after a deploy (SiteGround respects "Cache-Control: no-cache"; images/CSS stay cached).
 
 name: Deploy to SiteGround
 
@@ -93,5 +95,42 @@ jobs:
             -e "ssh -p $SG_PORT" \
             ./ "$SG_USER@$SG_HOST:$SG_PATH/"
 
-      - name: Reminder
-        run: echo "Done. If the page looks unchanged, purge the SiteGround cache (Site Tools -> Speed -> Caching) and the Cloudflare cache."
+      - name: Stop SiteGround caching old copies of the page
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+        env:
+          SG_HOST: ${{ secrets.SG_HOST }}
+          SG_PORT: ${{ secrets.SG_PORT }}
+          SG_USER: ${{ secrets.SG_USER }}
+          SG_PATH: ${{ secrets.SG_PATH }}
+        run: |
+          ssh -p "$SG_PORT" "$SG_USER@$SG_HOST" "cd '$SG_PATH' && bash -s" <<'REMOTE'
+          set -e
+          touch .htaccess
+          if grep -q 'BEGIN fitosauna-no-html-cache' .htaccess; then
+            echo "Cache rule already in .htaccess"
+          else
+            cp .htaccess ".htaccess.bak-$(date +%Y%m%d%H%M%S)"
+            cat >> .htaccess <<'RULE'
+
+          # BEGIN fitosauna-no-html-cache (added by the GitHub deploy, keep the markers)
+          # SiteGround's Dynamic Cache otherwise keeps serving the old page after a deploy.
+          <IfModule mod_headers.c>
+            <FilesMatch "\.(html?|php)$">
+              Header set Cache-Control "no-cache"
+            </FilesMatch>
+          </IfModule>
+          # END fitosauna-no-html-cache
+          RULE
+            echo "Cache rule added to .htaccess (old file backed up as .htaccess.bak-...)"
+          fi
+          REMOTE
+
+      - name: Check what visitors get
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+        run: |
+          sleep 3
+          url="https://piedavajums.fitosauna.com/?utm_source=deploy_check"
+          headers=$(curl -s -D - -o page.html "$url" | tr -d '\r')
+          echo "$headers" | grep -iE '^(x-proxy-cache|cache-control|last-modified):' || true
+          if grep -q "GTM-P8QW4LPF" page.html; then echo "OK: live page has the current version (tracking snippet found)."
+          else echo "::warning::Visitors still get an old copy. Flush the cache once: SiteGround Site Tools -> Speed -> Caching -> Dynamic Cache -> Flush."; fi
