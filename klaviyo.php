@@ -14,13 +14,13 @@ const KLAVIYO_LIST_LV_LEADS = 'XvrbFv';  // "LV LP - piedavajums.fitosauna.com l
 const KLAVIYO_LIST_LV_WHEEL = 'RKXZxQ';  // "LV LP - spin wheel (piedavajums)" -> no flow, only stores the prize
 const KLAVIYO_REVISION = '2024-10-15';
 
-// Wheel prizes. Keys are what Klaviyo stores in the profile property "LV LP prize"
-// and what the LV Email 1 flow branches on. 'nospin' = lead never spun the wheel.
+// Wheel prizes - all are gifts with a sauna purchase. Keys are what Klaviyo stores in the profile
+// property "LV LP prize" and what the LV Email 1 flow branches on. 'nospin' = lead never spun.
 const LV_PRIZES = [
-    '150'  => '€150 papildu atlaide',
-    '100'  => '€100 papildu atlaide',
-    '50'   => '€50 papildu atlaide',
-    'gift' => 'Slepenā dāvana - bezmaksas tvaika ģeneratora kaste',
+    'tea'      => 'Bio spēka tēja (bioloģiskā deviņu zāļu spēka tēja)',
+    'lavender' => 'Lavandas ēteriskā eļļa',
+    'orange'   => 'Saldā apelsīna ēteriskā eļļa',
+    'delivery' => 'Slepenā dāvana - bezmaksas piegāde jebkur Latvijā',
 ];
 
 function lv_wheel_csv() { return dirname(__DIR__) . '/lv-wheel-spins.csv'; }
@@ -37,13 +37,25 @@ function lv_prize_for_email($email) {
     return $found;
 }
 
-/** Same odds as the Irish wheel: 33% each for €150 / €100 / €50, 1% secret gift. */
+/** Odds: 30% tea, 30% lavender oil, 30% sweet orange oil, 10% free delivery (secret gift). */
 function lv_draw_prize() {
     $n = random_int(1, 100);
-    if ($n <= 33) return '150';
-    if ($n <= 66) return '100';
-    if ($n <= 99) return '50';
-    return 'gift';
+    if ($n <= 30) return 'tea';
+    if ($n <= 60) return 'lavender';
+    if ($n <= 90) return 'orange';
+    return 'delivery';
+}
+
+/** True if this email already sent a lead (lv-leads.csv, email is column 4). */
+function lv_lead_exists($email) {
+    $email = strtolower(trim($email));
+    if ($email === '' || !($fh = @fopen(dirname(__DIR__) . '/lv-leads.csv', 'r'))) return false;
+    $found = false;
+    while (($row = fgetcsv($fh)) !== false) {
+        if (isset($row[3]) && strtolower($row[3]) === $email) { $found = true; break; }
+    }
+    fclose($fh);
+    return $found;
 }
 
 /**

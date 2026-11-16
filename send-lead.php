@@ -41,6 +41,8 @@ $leadId = preg_replace('/[^A-Za-z0-9-]/', '', clean($_POST['lead_id'] ?? '', 64)
 $postedPrize = clean($_POST['prize'] ?? '', 10);
 $prize = lv_prize_for_email($email) ?? (isset(LV_PRIZES[$postedPrize]) ? $postedPrize : 'nospin');
 $prizeLabel = LV_PRIZES[$prize] ?? 'Nav griezis ratu';
+// Same email already sent a lead before (e.g. claimed in the wheel pop-up, then filled the page form too).
+$repeat = lv_lead_exists($email);
 
 if ($name === '' || !preg_match('/^\+\d{8,15}$/', $phone) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     respond(false, 400);
@@ -65,13 +67,15 @@ if ($fh = @fopen($csv, 'a')) {
     fclose($fh);
 }
 
-$subject = 'Jauns pieteikums (LV piedāvājums): ' . $name;
+$subject = ($repeat ? 'Atkārtots pieteikums' : 'Jauns pieteikums') . ' (LV piedāvājums): ' . $name;
 $body = "Jauns pieteikums no Latvijas piedāvājuma lapas\n"
       . "==============================================\n\n"
       . "Vārds:    $name\n"
       . "Tālrunis: $phone\n"
       . "E-pasts:  $email\n"
-      . "Laimests: $prizeLabel\n\n"
+      . "Dāvana:   $prizeLabel\n"
+      . ($repeat ? "PIEZĪME:  šis e-pasts jau iepriekš atstāja pieteikumu.\n" : "")
+      . "\n"
       . "Laiks:    $when\n"
       . "Lapa:     $page\n"
       . "Lead ID:  $leadId\n\n"
@@ -96,7 +100,7 @@ echo json_encode(['ok' => true]);
 if (function_exists('fastcgi_finish_request')) fastcgi_finish_request();
 
 $parts = preg_split('/\s+/', $name, 2);
-klaviyo_subscribe(KLAVIYO_LIST_LV_LEADS, $email, [
+klaviyo_subscribe(KLAVIYO_LIST_LV_LEADS, strtolower($email), [
     'first_name'   => $parts[0] ?? '',
     'last_name'    => $parts[1] ?? '',
     'phone_number' => $phone,
