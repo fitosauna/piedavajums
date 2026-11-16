@@ -24,8 +24,10 @@ function clean($v, $max) {
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(false, 405);
 
-// Spam trap: real visitors never see or fill this field.
-if (!empty($_POST['company'])) respond(true);
+// Spam trap: a hidden field real visitors never see. It is NOT used to drop the lead silently any more
+// (browser autofill once filled the old "company" field and real leads were lost); a filled trap only
+// marks the email as possible spam. 'company' is still read for pages cached with the old field name.
+$suspect = trim((string) ($_POST['fs_hp_check'] ?? '')) !== '' || trim((string) ($_POST['company'] ?? '')) !== '';
 
 $name  = clean($_POST['name']  ?? '', 100);
 $phone = clean($_POST['phone'] ?? '', 20);
@@ -57,7 +59,7 @@ if ($fh = @fopen($csv, 'a')) {
     fclose($fh);
 }
 
-$subject = 'Jauns pieteikums (LV piedāvājums): ' . $name;
+$subject = ($suspect ? '[IESPĒJAMS SPAMS] ' : '') . 'Jauns pieteikums (LV piedāvājums): ' . $name;
 $body = "Jauns pieteikums no Latvijas piedāvājuma lapas\n"
       . "==============================================\n\n"
       . "Vārds:    $name\n"
