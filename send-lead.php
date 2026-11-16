@@ -31,6 +31,8 @@ $name  = clean($_POST['name']  ?? '', 100);
 $phone = clean($_POST['phone'] ?? '', 20);
 $email = clean($_POST['email'] ?? '', 150);
 $page  = clean($_POST['page']  ?? '', 300);
+// Lead id generated in the browser; the same id is sent to GTM/Meta, so leads can be matched to conversions later.
+$leadId = preg_replace('/[^A-Za-z0-9-]/', '', clean($_POST['lead_id'] ?? '', 64));
 
 if ($name === '' || !preg_match('/^\+\d{8,15}$/', $phone) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     respond(false, 400);
@@ -51,7 +53,7 @@ $when = (new DateTime('now', $tz))->format('d.m.Y H:i');
 $csv = dirname(__DIR__) . '/lv-leads.csv';
 $saved = false;
 if ($fh = @fopen($csv, 'a')) {
-    $saved = fputcsv($fh, [$when, $name, $phone, $email, $page, $ip]) !== false;
+    $saved = fputcsv($fh, [$when, $name, $phone, $email, $page, $ip, $leadId]) !== false;
     fclose($fh);
 }
 
@@ -62,7 +64,8 @@ $body = "Jauns pieteikums no Latvijas piedāvājuma lapas\n"
       . "Tālrunis: $phone\n"
       . "E-pasts:  $email\n\n"
       . "Laiks:    $when\n"
-      . "Lapa:     $page\n\n"
+      . "Lapa:     $page\n"
+      . "Lead ID:  $leadId\n\n"
       . "Atbildiet uz šo e-pastu, lai rakstītu klientam tieši.\n";
 $headers = [
     'From: =?UTF-8?B?' . base64_encode(FROM_NAME) . '?= <' . LEAD_FROM . '>',
