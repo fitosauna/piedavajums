@@ -728,7 +728,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="lead-form-body">
     <h2>Saņemiet piedāvājumu</h2>
 <p class="sub"><span class="desktop-copy">Iegādājoties saunu, iegūsti <strong>atlaidi no &euro;1040</strong>.</span><span class="mobile-copy">Aizpildi formu un iegūsti <strong>atlaidi no &euro;1040</strong>.</span></p>    <form class="lead-form" onsubmit="submitLead(event, this)">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="text" name="fs_hp_check" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div>
         <label for="name-1">Vārds</label>
         <input type="text" id="name-1" name="name" placeholder="Jūsu vārds">
@@ -921,7 +921,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h3>Saņemiet piedāvājumu</h3>
     <p class="sub">Iegādājoties saunu, iegūsti <strong>atlaidi no &euro;1040</strong>.</p>
     <form class="lead-form" onsubmit="submitLead(event, this)">
-      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="text" name="fs_hp_check" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div><label for="name-2">Vārds</label><input type="text" id="name-2" name="name" placeholder="Jūsu vārds"></div>
       <div><label for="phone-2">Tālruņa numurs</label><div class="phone-group">
         <div class="code-dd" id="dd-2">
@@ -1179,7 +1179,7 @@ function pushLeadEvent(leadId, fullName, email, phoneE164) {
 // Resolves only once the server confirmed; then fires the GTM lead event (never for spam-trap hits).
 function sendLead(name, email, e164, honeypot) {
   var leadId = newLeadId();
-  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, lead_id: leadId, company: honeypot, prize: wheelPrize() });
+  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, lead_id: leadId, fs_hp_check: honeypot, prize: wheelPrize() });
   return fetch(LEAD_ENDPOINT, { method: 'POST', body: data })
     .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || !j.ok) throw new Error('HTTP ' + r.status); }); })
     .then(function () {
@@ -1231,7 +1231,7 @@ function submitLead(e, form) {
   if (btn.disabled) return;
   var btnText = btn.textContent;
   btn.disabled = true; btn.textContent = 'Sūta...';
-  var honeypot = (form.querySelector('[name=company]') || {}).value || '';
+  var honeypot = (form.querySelector('[name=fs_hp_check]') || {}).value || '';
   sendLead(name, email, e164, honeypot)
     .then(function () { markLeadSent(email, phoneCode + ' ' + phone); })
     .catch(function (err) {
@@ -1647,8 +1647,8 @@ function spinWheel(e, form) {
   if (btn.disabled) return;
   errorEl.style.display = 'none';
   btn.disabled = true; btn.textContent = 'Griežam...';
-  var honeypot = (form.querySelector('[name=company]') || {}).value || '';
-  fetch(WHEEL_ENDPOINT, { method: 'POST', body: new URLSearchParams({ email: email, company: honeypot }) })
+  var honeypot = (form.querySelector('[name=fs_hp_check]') || {}).value || '';
+  fetch(WHEEL_ENDPOINT, { method: 'POST', body: new URLSearchParams({ email: email, fs_hp_check: honeypot }) })
     .then(function (r) { return r.json().then(function (j) { if (!r.ok || !j.ok || !WHEEL_WON[j.prize]) throw new Error('HTTP ' + r.status); return j.prize; }); })
     .then(function (prize) {
       // Land on one of the slices showing this prize (pointer is at the top).
@@ -1692,7 +1692,7 @@ function claimWheelPrize(e, form) {
   if (btn.disabled) return;
   errorEl.style.display = 'none';
   btn.disabled = true; btn.textContent = 'Sūta...';
-  var honeypot = (form.querySelector('[name=company]') || {}).value || '';
+  var honeypot = (form.querySelector('[name=fs_hp_check]') || {}).value || '';
   sendLead(name, w.email, e164, honeypot)
     .then(function () {
       markLeadSent(w.email, phoneCode + ' ' + phone);
@@ -1789,7 +1789,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
         <h2 id="spin-title">Griez ratu un laimē dāvanu savai saunai</h2>
         <p class="spin-sub">Katrs griediens laimē! Dāvanu saņemsiet, iegādājoties saunu.</p>
         <form onsubmit="spinWheel(event, this)" novalidate>
-          <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <input type="text" name="fs_hp_check" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
           <input type="email" name="email" placeholder="Jūsu e-pasts" autocomplete="email" aria-label="E-pasts" required>
           <div class="spin-error"></div>
           <button type="submit" class="spin-btn">Griezt ratu!</button>
@@ -1803,7 +1803,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
         <div class="spin-won" id="spin-won"></div>
         <p class="spin-won-text" id="spin-won-text"></p>
         <form onsubmit="claimWheelPrize(event, this)" novalidate>
-          <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <input type="text" name="fs_hp_check" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
           <p class="spin-claim-lead">Lai rezervētu dāvanu, atstājiet vārdu un tālruni - mēs sazināsimies ar personīgo piedāvājumu (40% atlaide + Jūsu dāvana).</p>
           <input type="text" name="name" placeholder="Jūsu vārds" autocomplete="name" aria-label="Vārds">
           <div class="spin-phone">

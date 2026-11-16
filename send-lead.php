@@ -27,8 +27,10 @@ function clean($v, $max) {
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(false, 405);
 
-// Spam trap: real visitors never see or fill this field.
-if (!empty($_POST['company'])) respond(true);
+// Spam trap: a hidden field real visitors never see. It is NOT used to drop the lead silently any more
+// (browser autofill once filled the old "company" field and real leads were lost); a filled trap only
+// marks the email as possible spam and keeps the lead out of Klaviyo. 'company' is still read for old cached pages.
+$suspect = trim((string) ($_POST['fs_hp_check'] ?? '')) !== '' || trim((string) ($_POST['company'] ?? '')) !== '';
 
 $name  = clean($_POST['name']  ?? '', 100);
 $phone = clean($_POST['phone'] ?? '', 20);
@@ -67,7 +69,7 @@ if ($fh = @fopen($csv, 'a')) {
     fclose($fh);
 }
 
-$subject = ($repeat ? 'Atkārtots pieteikums' : 'Jauns pieteikums') . ' (LV piedāvājums): ' . $name;
+$subject = ($suspect ? '[IESPĒJAMS SPAMS] ' : '') . ($repeat ? 'Atkārtots pieteikums' : 'Jauns pieteikums') . ' (LV piedāvājums): ' . $name;
 $body = "Jauns pieteikums no Latvijas piedāvājuma lapas\n"
       . "==============================================\n\n"
       . "Vārds:    $name\n"
@@ -99,6 +101,7 @@ http_response_code(200);
 echo json_encode(['ok' => true]);
 if (function_exists('fastcgi_finish_request')) fastcgi_finish_request();
 
+if ($suspect) exit;  // possible bot: emailed to info@ above, but not added to Klaviyo
 $parts = preg_split('/\s+/', $name, 2);
 klaviyo_subscribe(KLAVIYO_LIST_LV_LEADS, strtolower($email), [
     'first_name'   => $parts[0] ?? '',

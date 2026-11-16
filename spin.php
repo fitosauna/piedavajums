@@ -19,8 +19,8 @@ function out($data, $code = 200) {
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') out(['ok' => false], 405);
 
 $email = strtolower(trim(mb_substr((string) ($_POST['email'] ?? ''), 0, 150)));
-// Spam trap (hidden field): pretend it worked, store nothing.
-if (!empty($_POST['company'])) out(['ok' => true, 'prize' => 'tea']);
+// Spam trap (hidden field, named so browser autofill never fills it): pretend it worked, store nothing.
+if (!empty($_POST['fs_hp_check'])) out(['ok' => true, 'prize' => 'tea']);
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) out(['ok' => false], 400);
 
 // Same email = same prize, no second draw.
