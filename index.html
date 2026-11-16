@@ -1587,7 +1587,7 @@ var WHEEL_WON = {
   orange:   ['Saldā apelsīna ēteriskā eļļa', 'Saldā apelsīna ēteriskā eļļa - dāvanā, iegādājoties saunu.'],
   delivery: ['Bezmaksas piegāde', 'Slepenā dāvana: bezmaksas piegāde jebkur Latvijā, iegādājoties saunu.']
 };
-var wheelRotation = 0, wheelAutoShown = false;
+var wheelRotation = 0, wheelAutoShown = false, wheelExitShown = false, wheelPageStart = Date.now();
 
 function wheelLoad(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
 function wheelSave(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -1736,6 +1736,36 @@ function maybeAutoOpenWheel() {
   openWheel();
 }
 
+// Exit intent: desktop = mouse leaves through the top of the window; mobile = quick scroll back up
+// (the usual move towards the address bar / back). Fires at most once per visit, not in the first 3 s.
+// - Not seen the wheel yet (left before 15 s / half-page) -> open it (unless dismissed in the last 5 days).
+// - Already spun but no phone left -> reopen the "reserve your gift" step once.
+function onWheelExitIntent() {
+  if (wheelExitShown || Date.now() - wheelPageStart < 3000 || wheelLoad(WHEEL_LEAD_KEY)) return;
+  if (document.getElementById('spin-overlay').classList.contains('open')) return;
+  var active = document.activeElement;
+  if (active && active.closest && active.closest('form.lead-form')) return;
+  if (wheelPrize()) { wheelExitShown = true; openWheel(); return; }
+  if (wheelAutoShown) return;
+  var closed = wheelLoad(WHEEL_CLOSED_KEY);
+  if (closed && Date.now() - closed < WHEEL_SNOOZE_DAYS * 864e5) return;
+  wheelExitShown = true;
+  maybeAutoOpenWheel();
+}
+
+function initWheelExitIntent() {
+  document.addEventListener('mouseout', function (e) {
+    if (!e.relatedTarget && e.clientY <= 0) onWheelExitIntent();
+  });
+  var lastY = window.scrollY, lastT = Date.now();
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY, t = Date.now();
+    // Upward faster than ~1.5 px/ms after having read a bit of the page.
+    if (lastY > 600 && y < lastY && (lastY - y) / Math.max(t - lastT, 1) > 1.5 && window.matchMedia('(pointer: coarse)').matches) onWheelExitIntent();
+    lastY = y; lastT = t;
+  }, { passive: true });
+}
+
 function initWheel() {
   if (!document.getElementById('spin-overlay')) return;
   drawWheel();
@@ -1744,6 +1774,7 @@ function initWheel() {
   });
   document.getElementById('spin-overlay').addEventListener('click', function (e) { if (e.target === this) closeWheel(); });
   if (wheelLoad(WHEEL_LEAD_KEY)) return;
+  initWheelExitIntent();
   var won = wheelLoad(WHEEL_KEY);
   // Link from the Klaviyo reminder email: https://piedavajums.fitosauna.com/?dāvana=1
   var fromReminder = /[?&](d%C4%81vana|davana)=/i.test(window.location.search);
