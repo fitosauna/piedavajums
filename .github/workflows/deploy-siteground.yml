@@ -6,7 +6,8 @@
 #   SG_HOST      SSH hostname from SiteGround Site Tools -> Devs -> SSH Keys Manager (e.g. ssh.fitosauna.com or the server IP)
 #   SG_PORT      SSH port, SiteGround uses 18765
 #   SG_USER      SSH username shown in the same place
-#   SG_SSH_KEY   private key whose public key is added in SSH Keys Manager (key WITHOUT passphrase)
+#   SG_SSH_KEY   private key from SSH Keys Manager (generated there, or your own key imported there)
+#   SG_SSH_PASSPHRASE  the key's password (needed for keys generated in SiteGround; leave out for keys without one)
 #   SG_PATH      folder of the site, e.g. www/piedavajums.fitosauna.com/public_html (relative to the SSH home folder)
 #
 # Only page files are copied. Nothing on the server is deleted (no --delete), so .htaccess and other
@@ -31,6 +32,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Check out the selected branch
         uses: actions/checkout@v4
@@ -54,10 +56,27 @@ jobs:
           SG_HOST: ${{ secrets.SG_HOST }}
           SG_PORT: ${{ secrets.SG_PORT }}
           SG_SSH_KEY: ${{ secrets.SG_SSH_KEY }}
+          SG_SSH_PASSPHRASE: ${{ secrets.SG_SSH_PASSPHRASE }}
         run: |
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          printf '%s\n' "$SG_SSH_KEY" > ~/.ssh/siteground && chmod 600 ~/.ssh/siteground
+          printf '%s\n' "$SG_SSH_KEY" | tr -d '\r' > ~/.ssh/siteground && chmod 600 ~/.ssh/siteground
           ssh-keyscan -p "$SG_PORT" "$SG_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          # Load the key into ssh-agent; a key password (SiteGround-generated keys have one) is supplied non-interactively.
+          eval "$(ssh-agent -s)" > /dev/null
+          echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> "$GITHUB_ENV"
+          echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> "$GITHUB_ENV"
+          if [ -n "$SG_SSH_PASSPHRASE" ]; then
+            printf '#!/bin/sh\nprintf "%%s\\n" "$SG_SSH_PASSPHRASE"\n' > ~/.ssh/askpass && chmod 700 ~/.ssh/askpass
+            # A wrong password makes ssh-add ask again and again, so stop it after 20 seconds with a clear message.
+            if ! DISPLAY=none SSH_ASKPASS=~/.ssh/askpass SSH_ASKPASS_REQUIRE=force timeout 20 ssh-add ~/.ssh/siteground < /dev/null; then
+              rm -f ~/.ssh/askpass
+              echo "::error::Could not unlock the SSH key. Check that SG_SSH_PASSPHRASE is the key's password and SG_SSH_KEY is the full private key."
+              exit 1
+            fi
+            rm -f ~/.ssh/askpass
+          else
+            ssh-add ~/.ssh/siteground < /dev/null
+          fi
 
       - name: Upload files with rsync
         env:
@@ -71,7 +90,7 @@ jobs:
           [ "$DRY_RUN" = "true" ] && flags="$flags --dry-run"
           rsync $flags \
             --exclude '.git/' --exclude '.github/' --exclude '*.md' --exclude '.gitignore' \
-            -e "ssh -i ~/.ssh/siteground -p $SG_PORT" \
+            -e "ssh -p $SG_PORT" \
             ./ "$SG_USER@$SG_HOST:$SG_PATH/"
 
       - name: Reminder
