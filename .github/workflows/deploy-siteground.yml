@@ -1,0 +1,75 @@
+# Deploys the Latvian landing page (piedavajums.fitosauna.com) to SiteGround.
+# Runs ONLY when started by hand: GitHub -> Actions -> "Deploy to SiteGround" -> Run workflow.
+#
+# One-time setup (repo Settings -> Secrets and variables -> Actions -> New repository secret):
+#   SG_HOST      SSH hostname from SiteGround Site Tools -> Devs -> SSH Keys Manager (e.g. ssh.fitosauna.com or the server IP)
+#   SG_PORT      SSH port, SiteGround uses 18765
+#   SG_USER      SSH username shown in the same place
+#   SG_SSH_KEY   private key whose public key is added in SSH Keys Manager (key WITHOUT passphrase)
+#   SG_PATH      folder of the site, e.g. www/piedavajums.fitosauna.com/public_html (relative to the SSH home folder)
+#
+# Only page files are copied. Nothing on the server is deleted (no --delete), so .htaccess and other
+# server-only files stay untouched. The CSV lead backup lives one folder above public_html and is never touched.
+
+name: Deploy to SiteGround
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: only list what would be uploaded, upload nothing"
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploy-siteground
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the selected branch
+        uses: actions/checkout@v4
+
+      - name: Check that all secrets are set
+        env:
+          SG_HOST: ${{ secrets.SG_HOST }}
+          SG_PORT: ${{ secrets.SG_PORT }}
+          SG_USER: ${{ secrets.SG_USER }}
+          SG_SSH_KEY: ${{ secrets.SG_SSH_KEY }}
+          SG_PATH: ${{ secrets.SG_PATH }}
+        run: |
+          missing=""
+          for v in SG_HOST SG_PORT SG_USER SG_SSH_KEY SG_PATH; do
+            [ -z "${!v}" ] && missing="$missing $v"
+          done
+          if [ -n "$missing" ]; then echo "::error::Missing repository secrets:$missing"; exit 1; fi
+
+      - name: Set up SSH key
+        env:
+          SG_HOST: ${{ secrets.SG_HOST }}
+          SG_PORT: ${{ secrets.SG_PORT }}
+          SG_SSH_KEY: ${{ secrets.SG_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SG_SSH_KEY" > ~/.ssh/siteground && chmod 600 ~/.ssh/siteground
+          ssh-keyscan -p "$SG_PORT" "$SG_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Upload files with rsync
+        env:
+          SG_HOST: ${{ secrets.SG_HOST }}
+          SG_PORT: ${{ secrets.SG_PORT }}
+          SG_USER: ${{ secrets.SG_USER }}
+          SG_PATH: ${{ secrets.SG_PATH }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          flags="-rlvz --checksum"
+          [ "$DRY_RUN" = "true" ] && flags="$flags --dry-run"
+          rsync $flags \
+            --exclude '.git/' --exclude '.github/' --exclude '*.md' --exclude '.gitignore' \
+            -e "ssh -i ~/.ssh/siteground -p $SG_PORT" \
+            ./ "$SG_USER@$SG_HOST:$SG_PATH/"
+
+      - name: Reminder
+        run: echo "Done. If the page looks unchanged, purge the SiteGround cache (Site Tools -> Speed -> Caching) and the Cloudflare cache."
