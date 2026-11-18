@@ -908,14 +908,6 @@
             Pirmssezonas noliktavas izpārdošana - pēdējās <span class="stock-count">7</span> saunas ar <span style="color:var(--accent-dark);font-weight:800;text-transform:uppercase;">atlaidi no &euro;1040</span>.
     </div>
         <div class="products-grid" id="products-grid"></div>
-    <div class="delivery-box">
-      <div class="delivery-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg><span>Piegāde</span></div>
-      <div class="delivery-options">
-        <div class="delivery-opt"><div class="d-name">Saņemšana Rīgā</div><div class="d-note">Vietalvas ielā 1</div><div class="d-price">Bez maksas</div></div>
-        <div class="delivery-opt"><div class="d-name">DPD līdz durvīm Rīgā</div><div class="d-note">2-3 dienas</div><div class="d-price">&euro;40</div></div>
-        <div class="delivery-opt"><div class="d-name">DPD līdz durvīm citur Latvijā</div><div class="d-note">3-5 dienas</div><div class="d-price">&euro;65</div></div>
-      </div>
-    </div>
     <div class="products-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Saņem savu piedāvājumu jau tagad - bez jebkāda maksājuma!</span></div>
   </section>
 
@@ -1065,12 +1057,12 @@ var GENERATOR_PRICE = 150;
 
 var PRODUCTS = [
   { name: 'Apaļā', basePrice: 2600, discount: 1040,
-    images: [['assets/round-closed-sm.jpg?v=1', 'assets/round-open-sm.jpg?v=1']],
+    images: [['assets/round-essential-closed-sm.jpg?v=5', 'assets/round-essential-open-sm.jpg?v=5']],
     coverFit: [true],
     desc: 'Kompakts risinājums mazākām telpām un ikdienas lietošanai mājās.',
     specs: [ { k: 'Izmērs', v: '130×78×78 cm' }, { k: 'Piemērota', v: 'Augumam līdz 182 cm' }, { k: 'Koksne', v: 'Termoapse' }, { k: 'Detaļas', v: 'Nerūsējošais tērauds' } ] },
   { name: 'Ovālā', basePrice: 3100, discount: 1240,
-    images: [['assets/oval-closed-sm.jpg?v=1', 'assets/oval-open-sm.jpg?v=1']],
+    images: [['assets/oval-essential-closed-sm.jpg?v=5', 'assets/oval-essential-bundle-sm.jpg?v=5']],
     coverFit: [true],
     desc: 'Vairāk vietas iekšpusē un papildu komforts - muguras balsts iekļauts komplektā.',
     specs: [ { k: 'Izmērs', v: '130×100×78 cm' }, { k: 'Piemērota', v: 'Augumam līdz 215 cm' }, { k: 'Koksne', v: 'Termoapse' }, { k: 'Detaļas', v: 'Nerūsējošais tērauds' } ] }
@@ -1484,8 +1476,9 @@ PRODUCTS.forEach(function (p, pIndex) {
     renderPhoto(tierIndex, 0, dir);
     var price = p.basePrice + BUNDLE_TIERS[tierIndex].delta;
     priceEl.innerHTML = '<span class="old">€' + price + '</span>€' + (price - p.discount) + '<span class="save">Atlaide -€' + p.discount + '</span>';
-    var boxesHtml = '<div class="bundle-box additional"><div class="box-head">' + ICON_TAG + '<span>Papildus iegādājams</span></div>' +
-      '<div class="addon-row"><span class="txt">Tvaika ģenerators 4 L, 2 kW</span><span class="addon-price">€' + GENERATOR_PRICE + '</span></div></div>';
+    // Same box as before the bundles were removed: generator at a special price when buying a sauna
+    var boxesHtml = '<div class="bundle-box free"><div class="box-head">' + ICON_TAG + '<span>Tvaika ģenerators - īpaša cena</span></div>' +
+      '<div class="item-list"><div class="item-row"><span class="tick">&#10003;</span><span class="txt">Tvaika ģenerators 4 L, 2 kW - €120 (parasti €150)</span></div></div></div>';
     itemsEl.innerHTML = boxesHtml;
     currentTierIndexes[pIndex] = tierIndex;
   }
