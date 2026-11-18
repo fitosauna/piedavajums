@@ -18,9 +18,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="assets/countries.js"></script>
-<script src="https://fast.wistia.com/player.js" async></script>
-<script src="https://fast.wistia.com/embed/tkq2wsc8o0.js" async type="module"></script>
-<style>wistia-player[media-id='tkq2wsc8o0']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/tkq2wsc8o0/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
 <style>
   :root {
     --ink: #27221A;
@@ -230,6 +227,16 @@
   .video-overview p { font-size: 15.5px; line-height: 1.6; color: rgba(39,34,26,0.6); margin: 0 0 26px; }
   .video-frame { position: relative; aspect-ratio: 16/9; min-width: 100%; transform: scale(1.12); transform-origin: center; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 60px rgba(39,34,26,.18); }
   .video-frame iframe, .video-frame wistia-player { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+  /* vertical (9:16) expert video */
+  .video-frame.vertical { aspect-ratio: 9/16; width: 100%; max-width: 340px; min-width: 0; justify-self: center; transform: none; background: #111; }
+  .video-frame.vertical video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 76px; height: 76px; border-radius: 50%; border: none; background: rgba(5,64,58,0.88); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+  .video-play svg { width: 34px; height: 34px; margin-left: 4px; }
+  .video-play:hover { background: var(--accent-dark); }
+  .video-points { list-style: none; padding: 0; margin: -8px 0 26px; display: grid; gap: 10px; }
+  .video-points li { position: relative; padding-left: 28px; font-size: 15.5px; font-weight: 600; color: var(--ink); }
+  .video-points li::before { content: '✓'; position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; background: rgba(5,64,58,0.1); color: var(--accent-dark); font-size: 12px; display: flex; align-items: center; justify-content: center; }
+  @media (max-width: 599px) { .video-frame.vertical { max-width: 300px; } .video-points { margin: 14px 0 0; } }
 
   /* IN-USE VIDEOS */
   .usage-section { background: var(--card); border-top: 1px solid rgba(39,34,26,0.12); border-bottom: 1px solid rgba(39,34,26,0.12); }
@@ -828,11 +835,17 @@
   <section class="video-overview">
    <div class="copy">
   <h2>Ielūkojies savā nākotnes saunā</h2>
-  <p>2 minūšu video - apskati, kā strādā sauna un uzzini, kāpēc to ir izvēlējušies jau vairāk kā 1000 klientu.</p>
+  <p>40 sekunžu video - uzzini, kā fitosauna ar dabīgu augu tvaiku palīdz atgūt spēkus, noņemt muskuļu spriedzi un uzlabot pašsajūtu.</p>
+  <ul class="video-points">
+    <li>Dabīgs augu tvaiks visam ķermenim</li>
+    <li>Atslābina muskuļus un palīdz atjaunoties</li>
+    <li>Paredzēta lietošanai iekštelpās - mājās vai dzīvoklī</li>
+  </ul>
   <a href="#lead-form" class="btn desktop-only video-btn" onclick="scrollToLead(event)">Iegūt 40% atlaidi</a>
 </div>
-<div class="video-frame">
-  <wistia-player media-id="tkq2wsc8o0" aspect="1.7777777777777777" player-color="05403A"></wistia-player>
+<div class="video-frame vertical">
+  <video src="assets/expert-lv.mp4?v=1" poster="assets/expert-lv-poster.jpg?v=2" preload="none" playsinline controlslist="nodownload" aria-label="Video: Fitosauna eksperte stāsta par saunu"></video>
+  <button type="button" class="video-play" aria-label="Atskaņot video" onclick="var v=this.previousElementSibling; this.remove(); v.controls=true; v.play();"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
 </div>
 <a href="#lead-form" class="btn mobile-only video-btn" style="margin-top:0;text-align:center;justify-content:center" onclick="scrollToLead(event)">Iegūt 40% atlaidi</a>
   </section>
