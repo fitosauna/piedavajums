@@ -1040,6 +1040,16 @@
 // Where form submissions are sent, e.g. a GoHighLevel / Make / Zapier inbound webhook URL.
 // Leave empty and leads are NOT saved anywhere.
 var LEAD_ENDPOINT = 'send-lead.php';
+// Visitors from the Klaviyo wheel-reminder email (?izmeginajums=1) are interested in a trial
+// (two-week rent for €50 or a partner SPA). Remembered in this browser so a reload keeps it.
+var TRIAL_KEY = 'fs_lv_trial';
+var trialInterest = (function () {
+  var fromLink = /[?&]izmeginajums=1/i.test(window.location.search);
+  try {
+    if (fromLink) localStorage.setItem(TRIAL_KEY, '1');
+    return fromLink || localStorage.getItem(TRIAL_KEY) === '1';
+  } catch (e) { return fromLink; }
+})();
 // Optional: URL of the WhatsApp consent script on this site's server, e.g. '/api/whatsapp-consent.php'
 var WHATSAPP_CONSENT_URL = '';
 
@@ -1205,7 +1215,7 @@ function pushLeadEvent(leadId, fullName, email, phoneE164) {
 // source = where on the page the lead came from: 'top' (hero form), 'bottom' (final form) or 'wheel'.
 function sendLead(name, email, e164, honeypot, source) {
   var leadId = newLeadId();
-  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, lead_id: leadId, fs_hp_check: honeypot, prize: wheelPrize(), source: source || '' });
+  var data = new URLSearchParams({ name: name, phone: e164, email: email, page: window.location.href, lead_id: leadId, fs_hp_check: honeypot, prize: wheelPrize(), source: source || '', trial: trialInterest ? '1' : '' });
   return fetch(LEAD_ENDPOINT, { method: 'POST', body: data })
     .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || !j.ok) throw new Error('HTTP ' + r.status); }); })
     .then(function () {

@@ -47,6 +47,9 @@ $prizeLabel = LV_PRIZES[$prize] ?? 'Nav griezis ratu';
 $sourceLabels = ['top' => 'augšējā forma', 'bottom' => 'apakšējā forma', 'wheel' => 'laimes rats'];
 $source = clean($_POST['source'] ?? '', 10);
 $sourceLabel = $sourceLabels[$source] ?? 'nav zināms';
+// Came from the Klaviyo wheel-reminder email, which offers the gift and a trial
+// (two-week rent for €50 or a partner SPA). The page sends trial=1; the URL check covers old cached pages.
+$trial = (($_POST['trial'] ?? '') === '1') || preg_match('/[?&]izmeginajums=1/i', $page);
 // Same email already sent a lead before (e.g. claimed in the wheel pop-up, then filled the page form too).
 $repeat = lv_lead_exists($email);
 
@@ -69,11 +72,11 @@ $when = (new DateTime('now', $tz))->format('d.m.Y H:i');
 $csv = dirname(__DIR__) . '/lv-leads.csv';
 $saved = false;
 if ($fh = @fopen($csv, 'a')) {
-    $saved = fputcsv($fh, [$when, $name, $phone, $email, $page, $ip, $leadId, $prize, $source]) !== false;
+    $saved = fputcsv($fh, [$when, $name, $phone, $email, $page, $ip, $leadId, $prize, $source, $trial ? 'trial' : '']) !== false;
     fclose($fh);
 }
 
-$subject = ($suspect ? '[IESPĒJAMS SPAMS] ' : '') . ($repeat ? 'Atkārtots pieteikums' : 'Jauns pieteikums') . ' (LV piedāvājums, ' . $sourceLabel . '): ' . $name;
+$subject = ($suspect ? '[IESPĒJAMS SPAMS] ' : '') . ($repeat ? 'Atkārtots pieteikums' : 'Jauns pieteikums') . ' (LV piedāvājums, ' . $sourceLabel . ($trial ? ', no atgādinājuma e-pasta - dāvana/izmēģinājums' : '') . '): ' . $name;
 $body = "Jauns pieteikums no Latvijas piedāvājuma lapas\n"
       . "==============================================\n\n"
       . "Vārds:    $name\n"
@@ -81,6 +84,7 @@ $body = "Jauns pieteikums no Latvijas piedāvājuma lapas\n"
       . "E-pasts:  $email\n"
       . "Avots:    " . mb_strtoupper(mb_substr($sourceLabel, 0, 1)) . mb_substr($sourceLabel, 1) . "\n"
       . "Dāvana:   $prizeLabel\n"
+      . ($trial ? "Interese: izmēģinājums - noma uz 2 nedēļām (€50) vai SPA salons (atnāca no atgādinājuma e-pasta)\n" : "")
       . ($repeat ? "PIEZĪME:  šis e-pasts jau iepriekš atstāja pieteikumu.\n" : "")
       . "\n"
       . "Laiks:    $when\n"
@@ -117,5 +121,5 @@ klaviyo_subscribe(KLAVIYO_LIST_LV_LEADS, strtolower($email), [
     'LV LP lead id' => $leadId,
     'LV LP page'    => $page,
     'LV LP lead date' => $when,
-], 'LV LP - lead form');
+] + ($trial ? ['LV LP trial interest' => true] : []), 'LV LP - lead form');
 exit;
