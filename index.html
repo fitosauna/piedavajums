@@ -101,7 +101,8 @@
   .lead-form-card { background: var(--card); border: 1px solid rgba(39,34,26,0.12); border-radius: 22px; padding: clamp(26px,3vw,36px); box-shadow: 0 24px 60px rgba(39,34,26,0.08); scroll-margin-top: 78px; }
   .lead-form-card .eyebrow { margin-bottom: 6px; }
   .lead-form-card h2, .lead-form-card h3 { font-size: 26px; margin: 0 0 8px; }
-  .lead-form-card .sub { font-size: 14.5px; line-height: 1.5; color: rgba(39,34,26,0.85); margin: 0 0 22px; }
+  .lead-form-card .sub { font-size: 15px; line-height: 1.45; color: var(--text, #27221A); margin: 0 0 22px; padding: 12px 14px 12px 16px; background: #FBF1DF; border-left: 3px solid #D2942D; border-radius: 10px; font-weight: 500; }
+  .lead-form-card .sub strong { font-weight: 800; color: var(--accent); }
   form.lead-form { display: flex; flex-direction: column; gap: 14px; }
   form.lead-form label { display: block; font-size: 13px; font-weight: 600; color: rgba(39,34,26,0.6); margin-bottom: 6px; }
   form.lead-form input { width: 100%; padding: 14px 15px; border: 1.5px solid rgba(39,34,26,0.12); border-radius: 10px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #27221A; background: var(--card); outline: none; box-sizing: border-box; }
@@ -753,7 +754,7 @@
         <div class="lead-form-card" id="lead-form">
   <div class="lead-form-body">
     <h2>Saņemiet piedāvājumu</h2>
-<p class="sub">Nepalaid garām mūsu vienīgo gada akciju un iegūsti <strong>40% atlaidi</strong>!</p>    <form class="lead-form" onsubmit="submitLead(event, this)">
+<p class="sub">Nepalaid garām mūsu <strong>vienīgo gada akciju</strong> un iegūsti <strong>40% atlaidi</strong>!</p>    <form class="lead-form" onsubmit="submitLead(event, this)">
       <input type="text" name="fs_hp_check" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div>
         <label for="name-1">Vārds</label>
@@ -950,7 +951,7 @@
         <div class="lead-form-card" id="lead-form-2">
   <div class="lead-form-body">
         <h3>Saņemiet piedāvājumu</h3>
-    <p class="sub">Nepalaid garām mūsu vienīgo gada akciju un iegūsti <strong>40% atlaidi</strong>!</p>
+    <p class="sub">Nepalaid garām mūsu <strong>vienīgo gada akciju</strong> un iegūsti <strong>40% atlaidi</strong>!</p>
     <form class="lead-form" onsubmit="submitLead(event, this)">
       <input type="text" name="fs_hp_check" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div><label for="name-2">Vārds</label><input type="text" id="name-2" name="name" placeholder="Jūsu vārds"></div>
