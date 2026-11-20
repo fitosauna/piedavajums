@@ -319,7 +319,8 @@
   .product-card .photo .photo-arrow:hover { background: #fff; }
   .product-card .photo .photo-arrow.prev { left: 10px; }
   .product-card .photo .photo-arrow.next { right: 10px; }
-  .product-card .photo img { width: 100%; height: 100%; object-fit: contain; display: block; cursor: zoom-in; }
+  .product-card .photo .photo-track { display: flex; width: 100%; height: 100%; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+  .product-card .photo img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: contain; display: block; cursor: zoom-in; scroll-snap-align: center; scroll-snap-stop: always; -webkit-user-drag: none; user-select: none; }
   .product-card .photo img.cover-fit { object-fit: cover; }
   .product-card .photo .photo-dots { position: absolute; left: 0; right: 0; bottom: 12px; display: flex; justify-content: center; gap: 6px; }
   .product-card .photo .photo-dots button { width: 8px; height: 8px; padding: 0; border: 1px solid rgba(20,17,12,.3); border-radius: 50%; background: rgba(252,246,236,0.9); cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
@@ -1304,7 +1305,13 @@ function openLightbox(images, index, labels) {
   showLightboxImage();
   document.getElementById('lightbox').classList.add('open');
 }
-function openProductLightbox(pIndex) {
+// All photos of a product in slider order, with their fit (cover/contain) from the tier they belong to
+function productPhotos(p) {
+  var out = [];
+  p.images.forEach(function (tierImages, t) { tierImages.forEach(function (src) { out.push({ src: src, cover: !!p.coverFit[t] }); }); });
+  return out;
+}
+function openProductLightbox(pIndex, photoIndex) {
   var p = PRODUCTS[pIndex];
   var flatImages = [];
   var flatLabels = [];
@@ -1314,10 +1321,7 @@ function openProductLightbox(pIndex) {
       flatLabels.push('Fitosauna ' + p.name);
     });
   });
-  var startIndex = 0;
-  for (var i = 0; i < currentTierIndexes[pIndex]; i++) { startIndex += p.images[i].length; }
-  startIndex += currentSubIndexes[pIndex];
-  openLightbox(flatImages, startIndex, flatLabels);
+  openLightbox(flatImages, photoIndex !== undefined ? photoIndex : (currentSubIndexes[pIndex] || 0), flatLabels);
 }
 function lightboxNav(e, dir) {
   e.stopPropagation();
@@ -1439,9 +1443,12 @@ PRODUCTS.forEach(function (p, pIndex) {
   var card = document.createElement('div');
   card.className = 'product-card';
   card.innerHTML =
-    '<div class="photo"><img alt="Fitosauna ' + esc(p.name) + '" onclick="openProductLightbox(' + pIndex + ')">' +
-      '<button type="button" class="photo-arrow prev" aria-label="Iepriekšējā fotogrāfija" onclick="event.stopPropagation(); cycleTier(' + pIndex + ', -1)">&#8249;</button>' +
-      '<button type="button" class="photo-arrow next" aria-label="Nākamā fotogrāfija" onclick="event.stopPropagation(); cycleTier(' + pIndex + ', 1)">&#8250;</button>' +
+    '<div class="photo"><div class="photo-track no-scrollbar" id="ptrack-' + pIndex + '">' +
+      productPhotos(p).map(function (ph, i) {
+        return '<img src="' + ph.src + '"' + (ph.cover ? ' class="cover-fit"' : '') + ' alt="Fitosauna ' + esc(p.name) + '" draggable="false"' + (i ? ' loading="lazy"' : '') + ' onclick="openProductLightbox(' + pIndex + ', ' + i + ')">';
+      }).join('') + '</div>' +
+      '<button type="button" class="photo-arrow prev" aria-label="Iepriekšējā fotogrāfija" onclick="event.stopPropagation(); slideProduct(' + pIndex + ', -1)">&#8249;</button>' +
+      '<button type="button" class="photo-arrow next" aria-label="Nākamā fotogrāfija" onclick="event.stopPropagation(); slideProduct(' + pIndex + ', 1)">&#8250;</button>' +
       '<div class="photo-dots"></div>' +
     '</div>' +
     '<div class="body">' +
@@ -1453,50 +1460,24 @@ PRODUCTS.forEach(function (p, pIndex) {
     '</div>';
   productsGrid.appendChild(card);
 
-  var img = card.querySelector('.photo img');
+  var track = card.querySelector('.photo-track');
   var dotsEl = card.querySelector('.photo-dots');
   var priceEl = card.querySelector('.price');
   var itemsEl = card.querySelector('.bundle-items');
-  var photoEl = card.querySelector('.photo');
-  var touchStartX = 0;
-  photoEl.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
-  photoEl.addEventListener('touchend', function (e) {
-    var dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 40) { cycleTier(pIndex, dx < 0 ? 1 : -1); }
-  }, { passive: true });
-
-  function renderPhoto(tierIndex, subIndex, dir) {
-    var photos = p.images[tierIndex];
-    var newSrc = photos[subIndex];
-    var finish = function () {
-      currentSubIndexes[pIndex] = subIndex;
-      dotsEl.innerHTML = photos.length > 1 ? photos.map(function (_, i) {
-        return '<button type="button" class="' + (i === subIndex ? 'active' : '') + '" aria-label="Foto ' + (i + 1) + '" onclick="event.stopPropagation(); setProductPhoto(' + pIndex + ', ' + i + ')"></button>';
-      }).join('') : '';
-    };
-    if (dir) {
-      img.style.transition = 'transform 0.22s ease-in, opacity 0.22s ease-in';
-      img.style.transform = 'translateX(' + (dir > 0 ? '-25%' : '25%') + ')';
-      img.style.opacity = '0';
-      setTimeout(function () {
-        img.src = newSrc;
-        img.classList.toggle('cover-fit', !!p.coverFit[tierIndex]);
-        img.style.transition = 'none';
-        img.style.transform = 'translateX(' + (dir > 0 ? '25%' : '-25%') + ')';
-        void img.offsetWidth;
-        img.style.transition = 'transform 0.22s ease-out, opacity 0.22s ease-out';
-        img.style.transform = 'translateX(0)';
-        img.style.opacity = '1';
-        finish();
-      }, 220);
-    } else {
-      img.src = newSrc;
-      img.classList.toggle('cover-fit', !!p.coverFit[tierIndex]);
-      finish();
-    }
+  var count = productPhotos(p).length;
+  currentSubIndexes[pIndex] = 0;
+  function renderDots(active) {
+    dotsEl.innerHTML = count > 1 ? Array.apply(null, Array(count)).map(function (_, i) {
+      return '<button type="button" class="' + (i === active ? 'active' : '') + '" aria-label="Foto ' + (i + 1) + '" onclick="event.stopPropagation(); setProductPhoto(' + pIndex + ', ' + i + ')"></button>';
+    }).join('') : '';
   }
-  function render(tierIndex, dir) {
-    renderPhoto(tierIndex, 0, dir);
+  renderDots(0);
+  // The track scrolls natively (finger swipe on phones, trackpad on laptops); mouse drag is added below.
+  track.addEventListener('scroll', function () {
+    var i = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+    if (i !== currentSubIndexes[pIndex]) { currentSubIndexes[pIndex] = i; renderDots(i); }
+  }, { passive: true });
+  function render(tierIndex) {
     var price = p.basePrice + BUNDLE_TIERS[tierIndex].delta;
     priceEl.innerHTML = '<span class="old">€' + price + '</span>€' + (price - p.discount) + '<span class="save">Atlaide -€' + p.discount + '</span>';
     // Same box as before the bundles were removed: generator at a special price when buying a sauna
@@ -1506,28 +1487,18 @@ PRODUCTS.forEach(function (p, pIndex) {
     currentTierIndexes[pIndex] = tierIndex;
   }
   card.setAttribute('data-pindex', pIndex);
-  card._renderPhoto = renderPhoto;
   card.render = render;
   render(0);
-  p.images.forEach(function (photos) { photos.forEach(function (src) { var pre = new Image(); pre.src = src; }); });
+  makeDraggable('ptrack-' + pIndex);
 });
-function setProductPhoto(pIndex, subIndex) {
-  var card = productsGrid.children[pIndex];
-  card._renderPhoto(currentTierIndexes[pIndex], subIndex);
+function setProductPhoto(pIndex, i) {
+  var track = document.getElementById('ptrack-' + pIndex);
+  track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
 }
-function cycleTier(pIndex, dir) {
-  var n = BUNDLE_TIERS.length;
-  var p = PRODUCTS[pIndex];
-  var tierIndex = currentTierIndexes[pIndex];
-  var photos = p.images[tierIndex];
-  var subIndex = currentSubIndexes[pIndex];
-  var nextSub = subIndex + dir;
-   if (nextSub >= 0 && nextSub < photos.length) {
-    productsGrid.children[pIndex]._renderPhoto(tierIndex, nextSub, dir);
-    return;
-  }
-  var next = (tierIndex + dir + n) % n;
-  productsGrid.children[pIndex].render(next, dir);
+// Arrow buttons: next/previous photo, looping at the ends
+function slideProduct(pIndex, dir) {
+  var n = productPhotos(PRODUCTS[pIndex]).length;
+  setProductPhoto(pIndex, (currentSubIndexes[pIndex] + dir + n) % n);
 }
 
 // ---- Testimonials ----
