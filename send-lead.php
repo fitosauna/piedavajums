@@ -76,10 +76,14 @@ if ($fh = @fopen($csv, 'a')) {
     fclose($fh);
 }
 
-$subject = ($suspect ? '[IESPĒJAMS SPAMS] ' : '') . ($repeat ? 'Atkārtots pieteikums' : 'Jauns pieteikums') . ' (LV piedāvājums, ' . $sourceLabel . ($trial ? ', no atgādinājuma e-pasta - dāvana/izmēģinājums' : '') . '): ' . $name;
-$body = "Jauns pieteikums no Latvijas piedāvājuma lapas\n"
-      . "==============================================\n\n"
-      . "Vārds:    $name\n"
+// Subject = Trello card name, e.g. "LV LP: Olegs | augšējā forma" (+ gift / trial / repeat when there is one)
+$subjectParts = ['LV LP: ' . $name, $sourceLabel];
+$prizeShort = ['tea' => 'Bio spēka tēja', 'lavender' => 'Lavandas eļļa', 'orange' => 'Apelsīna eļļa', 'delivery' => 'Bezmaksas piegāde'];
+if ($prize !== 'nospin') $subjectParts[] = $prizeShort[$prize] ?? $prizeLabel;
+if ($trial) $subjectParts[] = 'izmēģinājums';
+if ($repeat) $subjectParts[] = 'atkārtots';
+$subject = implode(' | ', $subjectParts);
+$details = "Vārds:    $name\n"
       . "Tālrunis: $phone\n"
       . "E-pasts:  $email\n"
       . "Avots:    " . mb_strtoupper(mb_substr($sourceLabel, 0, 1)) . mb_substr($sourceLabel, 1) . "\n"
@@ -89,7 +93,10 @@ $body = "Jauns pieteikums no Latvijas piedāvājuma lapas\n"
       . "\n"
       . "Laiks:    $when\n"
       . "Lapa:     $page\n"
-      . "Lead ID:  $leadId\n\n"
+      . "Lead ID:  $leadId\n";
+$body = "Jauns pieteikums no Latvijas piedāvājuma lapas\n"
+      . "==============================================\n\n"
+      . $details . "\n"
       . "Atbildiet uz šo e-pastu, lai rakstītu klientam tieši.\n";
 $headers = [
     'From: =?UTF-8?B?' . base64_encode(FROM_NAME) . '?= <' . LEAD_FROM . '>',
@@ -98,9 +105,7 @@ $headers = [
     'Content-Type: text/plain; charset=UTF-8',
     'Content-Transfer-Encoding: 8bit',
 ];
-$subjectPrize = $prize === 'nospin' ? '' : ' [' . $prizeLabel . ']';
-$subject .= $subjectPrize;
-$sent = @mail(LEAD_TO, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, implode("\r\n", $headers), '-f' . LEAD_FROM);
+$sent = @mail(LEAD_TO, '=?UTF-8?B?' . base64_encode(($suspect ? '[IESPĒJAMS SPAMS] ' : '') . $subject) . '?=', $body, implode("\r\n", $headers), '-f' . LEAD_FROM);
 
 if (!$sent && !$saved) respond(false, 500);
 
@@ -109,6 +114,22 @@ if (!$sent && !$saved) respond(false, 500);
 http_response_code(200);
 echo json_encode(['ok' => true]);
 if (function_exists('fastcgi_finish_request')) fastcgi_finish_request();
+
+// Same lead as a card on the Trello board "Klienti FITOSAUNA" (email-to-board: subject = card name,
+// body = description). The board address is secret, so it is not in this public repo: the deploy writes it
+// from the GitHub secret TRELLO_BOARD_EMAIL into a file one folder above public_html. Possible spam is not sent.
+$trelloTo = trim((string) @file_get_contents(dirname(__DIR__) . '/lv-trello-email.txt'));
+if (!$suspect && filter_var($trelloTo, FILTER_VALIDATE_EMAIL)) {
+    $trelloHeaders = [
+        'From: =?UTF-8?B?' . base64_encode(FROM_NAME) . '?= <' . LEAD_FROM . '>',
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Transfer-Encoding: 8bit',
+    ];
+    if (!@mail($trelloTo, '=?UTF-8?B?' . base64_encode($subject) . '?=', $details, implode("\r\n", $trelloHeaders), '-f' . LEAD_FROM)) {
+        error_log('LV lead: Trello email failed for lead ' . $leadId);
+    }
+}
 
 if ($suspect) exit;  // possible bot: emailed to info@ above, but not added to Klaviyo
 $parts = preg_split('/\s+/', $name, 2);

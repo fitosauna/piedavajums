@@ -9,6 +9,7 @@
 #   SG_SSH_KEY   private key from SSH Keys Manager (generated there, or your own key imported there)
 #   SG_SSH_PASSPHRASE  the key's password (needed for keys generated in SiteGround; leave out for keys without one)
 #   SG_PATH      folder of the site, e.g. www/piedavajums.fitosauna.com/public_html (relative to the SSH home folder)
+#   TRELLO_BOARD_EMAIL  (optional) the Trello board's email-to-board address; every lead is also sent there as a card
 #
 # Only page files are copied. Nothing on the server is deleted (no --delete). The CSV lead backup lives
 # one folder above public_html and is never touched. The server's .htaccess is never replaced: the deploy
@@ -94,6 +95,26 @@ jobs:
             --exclude '.git/' --exclude '.github/' --exclude '*.md' --exclude '.gitignore' \
             -e "ssh -p $SG_PORT" \
             ./ "$SG_USER@$SG_HOST:$SG_PATH/"
+
+      # The Trello board's email-to-board address is secret (anyone who knows it can add cards), so it is not
+      # in this public repo. It is kept in the repository secret TRELLO_BOARD_EMAIL and written here into
+      # lv-trello-email.txt one folder above public_html (next to the CSV backup, not reachable from the web).
+      # send-lead.php sends every lead there as a card. Without the secret, leads simply don't go to Trello.
+      - name: Write the Trello board address for send-lead.php
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+        env:
+          SG_HOST: ${{ secrets.SG_HOST }}
+          SG_PORT: ${{ secrets.SG_PORT }}
+          SG_USER: ${{ secrets.SG_USER }}
+          SG_PATH: ${{ secrets.SG_PATH }}
+          TRELLO_BOARD_EMAIL: ${{ secrets.TRELLO_BOARD_EMAIL }}
+        run: |
+          if [ -z "$TRELLO_BOARD_EMAIL" ]; then
+            echo "::warning::Secret TRELLO_BOARD_EMAIL is not set, so leads are not sent to Trello. Add it under Settings -> Secrets and variables -> Actions, then run this workflow again."
+            exit 0
+          fi
+          printf '%s\n' "$TRELLO_BOARD_EMAIL" | ssh -p "$SG_PORT" "$SG_USER@$SG_HOST" "cd '$SG_PATH/..' && umask 077 && cat > lv-trello-email.txt"
+          echo "Trello board address written."
 
       - name: Stop SiteGround caching old copies of the page
         if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
